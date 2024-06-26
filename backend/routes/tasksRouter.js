@@ -5,7 +5,7 @@ import { checkTaskAndUserAuth } from "../middlewares/taskMiddleware.js";
 
 const router = Router()
 
-router.get("/my-tasks", auth, getMyTasks)
+router.get("/", auth, getMyTasks)
 router.post("/", auth, createTask)
 router.patch("/:taskId", auth, checkTaskAndUserAuth, updateTask)
 router.delete("/:taskId", auth, checkTaskAndUserAuth, deleteTask)
