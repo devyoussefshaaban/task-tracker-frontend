@@ -15,8 +15,12 @@ export const auth = async(req, res, next) => {
         if (user){
             req.user = user;
             next()
-        }else throw new Error("Not authorized.")
+        }else {
+            res.status(401)
+            throw new Error("Not authorized.")
+        }
     }else{
+        res.status(403)
         throw new Error("Not authorized, not token.")
     }
 }

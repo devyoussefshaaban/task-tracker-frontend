@@ -35,20 +35,8 @@ export const createTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const {
-      user,
-      params: { taskId },
-      body: { name, description, status },
-    } = req;
+    const {task, body:{name, description, status}} = req;
     // TODO: VALIDATE INPUTS
-    const task = await Task.findById(taskId);
-    if (!task) throw new Error("Task not found.");
-
-    if (task._id.toString() !== user._id.toString()) {
-      res.status(403);
-      throw new Error("You're not permitted to controll on this task.");
-    }
-
     if (name && name !== task.name) await task.$set("name", name);
     if (description && description !== task.description)
       await task.$set("description", description);
@@ -68,15 +56,8 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    const { user, params: {taskId} } = req;
+    const { task, params: {taskId} } = req;
 
-    const task = await Task.findById(taskId);
-    if (!task) throw new Error("Task not found.");
-
-    if (task._id.toString() !== user._id.toString()) {
-      res.status(403);
-      throw new Error("You're not permitted to controll on this task.");
-    }
     await Task.deleteOne({_id: taskId})
 
     res.status(201).json({success: true, message: "Successfully deleted."})
