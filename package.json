@@ -1,0 +1,13 @@
+{
+  "name": "task-tracker-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/devyoussefshaaban/task-tracker-app.git",
+  "license": "MIT",
+  "scripts": {
+    "start:server": "cd backend && yarn dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
