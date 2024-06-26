@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose'
-import { TASK_STATUS } from '../utils/constants'
+import { TASK_STATUS } from '../utils/constants.js'
 
 const taskSchema = new Schema({
     name:{
@@ -18,6 +18,10 @@ const taskSchema = new Schema({
     status:{
         type: String,
         default: TASK_STATUS.NOT_STARTED
+    },
+    userId:{
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
 }, {
     timestamps: true
