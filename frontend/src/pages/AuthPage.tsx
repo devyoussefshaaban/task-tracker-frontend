@@ -1,9 +1,13 @@
-import { SignUpForm } from '../components'
+import { useState } from 'react'
+import { SignInForm, SignUpForm } from '../components'
 
 const AuthPage = () => {
-  return (
-    <SignUpForm />
-  )
+  const [isLoginForm, setIsLoginForm] = useState<boolean>(false)
+
+  const switchForm = () => setIsLoginForm(ps => !ps)
+
+  if(isLoginForm) return <SignInForm switchForm={switchForm} />
+  return <SignUpForm switchForm={switchForm} />
 }
 
 export default AuthPage

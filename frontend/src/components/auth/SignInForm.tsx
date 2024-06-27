@@ -7,7 +7,7 @@ interface IProps {
   switchForm: () => void;
 }
 
-const SignUpForm: FC<IProps> = ({ switchForm }) => {
+const SignInForm: FC<IProps> = ({ switchForm }) => {
   return (
     <Stack
       component="form"
@@ -21,17 +21,10 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
     >
       <Box>
         <Typography variant="h6" textAlign="center">
-          Sign Up
+          Sign In
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
-      <TextField
-        label="Username"
-        hiddenLabel
-        id="username"
-        variant="outlined"
-        size="small"
-      />
       <TextField
         label="Email"
         id="email"
@@ -49,17 +42,17 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
         Submit
       </Button>
       <Box display="flex" justifyContent="center" alignItems="center">
-        <Typography variant="body2">Already have an account?</Typography>
+        <Typography variant="body2">Do not have an account?</Typography>
         <Button
           variant="text"
           sx={{ textTransform: "capitalize" }}
           onClick={switchForm}
         >
-          Login
+          Sign Up
         </Button>
       </Box>
     </Stack>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
