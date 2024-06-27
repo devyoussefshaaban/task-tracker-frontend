@@ -1,9 +1,17 @@
-import HomePage from "./pages/HomePage"
+import { Route, Routes } from "react-router-dom"
+import routes, {IRoute} from './utils/routes'
 
 const App = () => {
   return (
     <>
-      <HomePage />
+      <Routes>
+        {
+          routes.map((route: IRoute) => {
+            const {path, Page} = route
+            return <Route key={path} path={path} element={<Page />} />
+          })
+        }
+      </Routes>
     </>
   )
 }
