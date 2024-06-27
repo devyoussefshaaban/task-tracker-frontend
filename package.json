@@ -5,7 +5,9 @@
   "repository": "https://github.com/devyoussefshaaban/task-tracker-app.git",
   "license": "MIT",
   "scripts": {
-    "start:server": "cd backend && yarn dev"
+    "start:server": "cd backend && yarn dev",
+    "start:client": "cd frontend && yarn dev",
+    "start:dev": "concurrently \"yarn start:server\" \"yarn start:client\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
