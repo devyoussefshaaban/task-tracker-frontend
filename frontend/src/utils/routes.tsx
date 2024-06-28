@@ -4,9 +4,10 @@ import ProtectedRoute from "./ProtectedRoute"
 import Cookies from 'js-cookie'
 import HomePage from "../pages/HomePage"
 import NotFoundPage from "../pages/404"
+import { ACCESS_TOKEN } from "./constants"
 
 const getAccessToken = () => {
-    return Cookies.get('accessToken');
+    return Cookies.get(ACCESS_TOKEN);
   }
   
 const isAuthenticated = () => {
