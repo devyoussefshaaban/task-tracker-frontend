@@ -3,9 +3,9 @@ import axios from "axios";
 const baseUrl = "http://localhost:8888/api";
 
 export type SignUpRequestBody = {
-  username: string;
-  email: string;
-  password: string;
+  username: string | null;
+  email: string | null;
+  password: string | null;
 };
 
 export type SignUpResponse = {
@@ -18,8 +18,8 @@ export type SignUpResponse = {
 };
 
 export type SignInRequestBody = {
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 };
 
 export type SignInResponse = {

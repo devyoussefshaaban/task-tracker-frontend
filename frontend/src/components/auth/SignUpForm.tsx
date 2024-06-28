@@ -1,55 +1,103 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { FC } from "react";
+import { useForm } from "react-hook-form";
+import { AppDispatch } from "../../context";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../context/actions/authActions";
+import { SignUpRequestBody } from "../../utils/api";
+import { SignUpFormValues, signUpFormResolver } from "../../validations/authValidation";
 
 interface IProps {
   switchForm: () => void;
 }
 
 const SignUpForm: FC<IProps> = ({ switchForm }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormValues>({resolver: signUpFormResolver});
+
+  const dispatch: AppDispatch = useDispatch()
+
+  const submitHandler = handleSubmit((data: SignUpRequestBody) => dispatch(signUp(data)));
+
   return (
-    <Stack
-      component="form"
-      sx={{
-        width: "30ch",
-      }}
-      spacing={2}
-      noValidate
-      autoComplete="off"
-      margin="2rem auto 2rem"
-    >
-      <Box>
+    <Stack margin="2rem auto 2rem" width="30ch">
+      <Box mb={2}>
         <Typography variant="h6" textAlign="center">
           Sign Up
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
-      <TextField
-        label="Username"
-        hiddenLabel
-        id="username"
-        variant="outlined"
-        size="small"
-      />
-      <TextField
-        label="Email"
-        id="email"
-        placeholder="Enter your email"
-        variant="outlined"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        variant="outlined"
-      />
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Typography variant="body2">Already have an account?</Typography>
+      <form onSubmit={submitHandler}>
+        <FormControl sx={{ mb: 2 }}>
+          <TextField
+            sx={{mb: 1}}
+            label="Username"
+            hiddenLabel
+            id="username"
+            variant="outlined"
+            size="small"
+            {...register("username")}
+          />
+          {errors?.username && (
+            <Typography variant="body2" color="red">
+              {errors.username.message as string}
+            </Typography>
+          )}
+        </FormControl>
+
+        <FormControl sx={{ mb: 2 }}>
+          <TextField
+            sx={{mb: 1}}
+            label="Email"
+            id="email"
+            placeholder="Enter your email"
+            variant="outlined"
+            {...register("email")}
+          />
+          {errors?.email && (
+            <Typography variant="caption" color="red">
+              {errors.email.message as string}
+            </Typography>
+          )}
+        </FormControl>
+
+        <FormControl sx={{ mb: 2 }}>
+          <TextField
+            sx={{mb: 1}}
+            label="Password"
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            variant="outlined"
+            {...register("password")}
+          />
+          {errors?.password && (
+            <Typography variant="caption" color="red">
+              {errors.password.message as string}
+            </Typography>
+          )}
+        </FormControl>
+
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            textTransform: "capitalize",
+            display: "block",
+            width: "fit-content",
+            margin: "auto",
+          }}
+        >
+          Submit
+        </Button>
+      </form>
+      <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
+        <Typography variant="caption">Already have an account?</Typography>
         <Button
           variant="text"
           sx={{ textTransform: "capitalize" }}
