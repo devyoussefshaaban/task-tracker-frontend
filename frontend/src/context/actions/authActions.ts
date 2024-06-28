@@ -9,8 +9,13 @@ export const signUp = (body: SignUpRequestBody) => async(dispatch: any) => {
             type: actionTypes.SIGN_UP,
             payload: data
         })
-    } catch (error) {
-        console.log(`SIGN UP ERROR: ${error}`)
+    } catch (error: any) {
+        dispatch({
+            type: actionTypes.AUTH_FAILED,
+            payload:{
+                message: error.response.data.message
+            }
+        })
     }
 }
 
@@ -22,7 +27,12 @@ export const signIn = (body: SignInRequestBody) => async(dispatch: any) => {
             type: actionTypes.SIGN_IN,
             payload: data
         })
-    } catch (error) {
-        console.log(`SIGN IN ERROR: ${error}`)
+    } catch (error: any) {
+        dispatch({
+            type: actionTypes.AUTH_FAILED,
+            payload:{
+                message: error.response.data.message
+            }
+        })
     }
 }
