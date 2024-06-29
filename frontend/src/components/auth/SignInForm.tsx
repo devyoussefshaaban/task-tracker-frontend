@@ -11,7 +11,7 @@ import { SignInRequestBody } from "../../utils/api";
 import { AppDispatch } from "../../context";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../context/actions/authActions";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   switchForm: () => void;
@@ -27,7 +27,6 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const submitHandler = handleSubmit((data: SignInRequestBody) => {
     dispatch(signIn(data));
