@@ -1,4 +1,6 @@
+import Cookie from "js-cookie";
 import axios from "axios";
+import { ACCESS_TOKEN } from "./constants";
 
 const baseUrl = "http://localhost:8888/api";
 
@@ -38,3 +40,12 @@ export const authApi = {
   signIn: (body: SignInRequestBody): Promise<SignInResponse> =>
     axios.post(`${baseUrl}/auth/sign-in`, body),
 };
+
+
+export const tasksApi ={
+  getMyTasks: () => axios.get(`${baseUrl}/tasks`, {
+    headers:{
+      Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`
+    }
+  })
+}
