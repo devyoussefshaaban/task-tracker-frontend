@@ -32,7 +32,6 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
     dispatch(signIn(data));
 
     if (true) {
-      console.log("SIGN INN")
       navigate("/tasks");
     }
   });

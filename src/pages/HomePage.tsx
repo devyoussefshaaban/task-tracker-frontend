@@ -1,26 +1,26 @@
-import { Box, Typography } from "@mui/material";
-import { Task } from "../components";
+import { Box, Container, Divider, Typography } from "@mui/material";
+import { TaskList } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyTasks } from "../context/actions/tasksActions";
 const HomePage = () => {
-  const {isAuthenticated} = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    isAuthenticated &&  dispatch(getMyTasks())
-  }, [isAuthenticated])
-  
+    isAuthenticated && dispatch(getMyTasks());
+  }, [isAuthenticated]);
+
   return (
-    <>
-      <Typography variant="h3">Welcome ...</Typography>
-      <Box>
-        <Task />
-        <Task />
+    <Container sx={{py: 3}}>
+      <Box sx={{textAlign: "center"}}>
+      <Typography variant="h5">Your Tasks</Typography>
+      <Divider sx={{width: "10rem", margin:".5rem auto 1rem"}} />
       </Box>
-    </>
+      <TaskList />
+    </Container>
   );
 };
 
