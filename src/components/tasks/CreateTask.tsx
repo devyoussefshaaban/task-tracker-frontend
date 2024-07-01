@@ -17,7 +17,11 @@ import {
 import { CreateTaskRequestBody } from "../../utils/api";
 import { AppDispatch } from "../../context";
 import { useDispatch } from "react-redux";
-import { createTask, getMyTasks, updateTask } from "../../context/actions/tasksActions";
+import {
+  createTask,
+  getMyTasks,
+  updateTask,
+} from "../../context/actions/tasksActions";
 import { CREATE_TASK_FORM_TYPE } from "../../utils/constants";
 import { Close } from "@mui/icons-material";
 import { Task } from "../../models/Task";
@@ -25,10 +29,16 @@ import { Task } from "../../models/Task";
 interface IProps {
   formType: string;
   selectedTask: Task | null;
+  onUpdateTask: () => void;
   onClose: () => void;
 }
 
-const CreateTaskForm: FC<IProps> = ({ formType, selectedTask, onClose }) => {
+const CreateTaskForm: FC<IProps> = ({
+  formType,
+  selectedTask,
+  onUpdateTask,
+  onClose,
+}) => {
   const {
     register,
     handleSubmit,
@@ -38,10 +48,17 @@ const CreateTaskForm: FC<IProps> = ({ formType, selectedTask, onClose }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const submitHandler = handleSubmit((data: CreateTaskRequestBody) => {
-    formType === CREATE_TASK_FORM_TYPE.CREATE_TASK ?
-     dispatch(createTask(data)) : selectedTask && dispatch(updateTask(selectedTask._id, data))
-    dispatch(getMyTasks())
-    onClose()
+    formType === CREATE_TASK_FORM_TYPE.CREATE_TASK
+      ? dispatch(createTask(data))
+      : selectedTask && dispatch(updateTask(selectedTask._id, data));
+
+    onUpdateTask();
+
+    setTimeout(() => {
+      dispatch(getMyTasks());
+    }, 500);
+
+    onClose();
   });
 
   return (
@@ -53,7 +70,7 @@ const CreateTaskForm: FC<IProps> = ({ formType, selectedTask, onClose }) => {
             textAlign="center"
             textTransform="capitalize"
           >
-            {formType}
+            {formType.toLocaleLowerCase()}
           </Typography>
           <IconButton onClick={onClose}>
             <Close />

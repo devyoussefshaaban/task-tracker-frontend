@@ -13,21 +13,23 @@ import { deleteTask, getMyTasks } from "../../context/actions/tasksActions";
 interface IProps {
   task: Task;
   onOpenForm: () => void;
-  onSelect: (task: Task) => void
+  onSelect: (task: Task) => void;
 }
 
 const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
 
   const deleteTaskHandler = () => {
-    dispatch(deleteTask(task._id))
-    dispatch(getMyTasks())
-  }
+    dispatch(deleteTask(task._id));
+    setTimeout(() => {
+      dispatch(getMyTasks());
+    }, 500)
+  };
 
   const onClickEditIcon = () => {
-    onSelect(task)
-    onOpenForm()
-  }
+    onSelect(task);
+    onOpenForm();
+  };
 
   return (
     <Box sx={{ minWidth: 275, width: "100%", mb: 1 }}>
@@ -41,12 +43,14 @@ const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
             <Typography variant="h5" component="div">
               {task.name}
             </Typography>
-           <IconButton onClick={deleteTaskHandler}>
-           <Delete />
-           </IconButton>
-           <IconButton onClick={onClickEditIcon}>
-           <Edit />
-           </IconButton>
+            <Box>
+              <IconButton onClick={deleteTaskHandler}>
+                <Delete />
+              </IconButton>
+              <IconButton onClick={onClickEditIcon}>
+                <Edit />
+              </IconButton>
+            </Box>
           </Box>
           <Typography variant="body2">{task.description}</Typography>
         </CardContent>

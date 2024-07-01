@@ -34,7 +34,7 @@ export const createTask = (body: CreateTaskRequestBody) => async(dispatch: any) 
 export const updateTask = (taskId: string, body: UpdateTaskRequestBody) => async(dispatch: any) => {
     try {
         const response = await tasksApi.updateTask(taskId, body)
-        dispatch({
+        await dispatch({
             type: actionTypes.UPDATE_TASK,
             payload: response.data
         })
