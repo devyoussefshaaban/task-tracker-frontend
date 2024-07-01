@@ -1,6 +1,7 @@
 import Cookie from "js-cookie";
 import axios from "axios";
 import { ACCESS_TOKEN } from "./constants";
+import { Task } from "../models/Task";
 
 const baseUrl = "http://localhost:8888/api";
 
@@ -34,6 +35,28 @@ export type SignInResponse = {
   };
 };
 
+export type GetMyTasksResponse = {
+  success: boolean;
+  data: Task[];
+};
+
+export type CreateTaskRequestBody = {
+  name: string;
+  description: string;
+  status?: string;
+};
+
+export type CreateTaskResponse = {
+  success: boolean;
+  message: string;
+  data: Task;
+};
+
+export type DeleteTaskResponse = {
+  success: boolean;
+  message: string
+}
+
 export const authApi = {
   signUp: (body: SignUpRequestBody): Promise<SignUpResponse> =>
     axios.post(`${baseUrl}/auth/sign-up`, body),
@@ -41,11 +64,16 @@ export const authApi = {
     axios.post(`${baseUrl}/auth/sign-in`, body),
 };
 
+const headers = {
+  headers: {
+    Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
+  },
+};
 
-export const tasksApi ={
-  getMyTasks: () => axios.get(`${baseUrl}/tasks`, {
-    headers:{
-      Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`
-    }
-  })
-}
+export const tasksApi = {
+  getMyTasks: (): Promise<GetMyTasksResponse> =>
+    axios.get(`${baseUrl}/tasks`, headers),
+  createTask: (body: CreateTaskRequestBody): Promise<CreateTaskResponse> =>
+    axios.post(`${baseUrl}/tasks`, body, headers),
+  deleteTask: (taskId: string) => axios.delete(`${baseUrl}/tasks/${taskId}`, headers),
+};

@@ -15,10 +15,6 @@ const HomePage = () => {
 
   return (
     <Container sx={{py: 3}}>
-      <Box sx={{textAlign: "center"}}>
-      <Typography variant="h5">Your Tasks</Typography>
-      <Divider sx={{width: "10rem", margin:".5rem auto 1rem"}} />
-      </Box>
       <TaskList />
     </Container>
   );
