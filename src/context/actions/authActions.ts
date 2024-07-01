@@ -36,3 +36,9 @@ export const signIn = (body: SignInRequestBody) => async(dispatch: any) => {
         })
     }
 }
+
+export const logout = () => {
+    return {
+        type: actionTypes.LOGOUT,
+    }
+}

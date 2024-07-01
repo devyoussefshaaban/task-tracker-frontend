@@ -1,12 +1,22 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../context";
+import { logout } from "../../context/actions/authActions";
 
 const MainHeader = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    window.location.pathname = "/";
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,11 +33,13 @@ const MainHeader = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Task Tracker
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={logoutHandler}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};
 
-export default MainHeader
+export default MainHeader;

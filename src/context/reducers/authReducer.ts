@@ -29,6 +29,14 @@ const authReducer = (state = initialState, action: {type: string, payload?: any}
         case actionTypes.AUTH_FAILED:
             toast.error(action.payload.message)
             return {...state}
+        case actionTypes.LOGOUT:
+            Cookies.remove(ACCESS_TOKEN)
+            toast.info("You are logged out.")
+            return {
+                ...state,
+                user: null,
+                isAuthenticated: false
+            }
         default:
             return {...state}
     }
