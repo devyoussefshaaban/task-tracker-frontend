@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Task } from "../../models/Task";
 import { FC } from "react";
-import { Delete } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { AppDispatch } from "../../context";
 import { useDispatch } from "react-redux";
@@ -12,14 +12,21 @@ import { deleteTask, getMyTasks } from "../../context/actions/tasksActions";
 
 interface IProps {
   task: Task;
+  onOpenForm: () => void;
+  onSelect: (task: Task) => void
 }
 
-const TaskItem: FC<IProps> = ({ task }) => {
+const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
   const dispatch: AppDispatch = useDispatch()
 
   const deleteTaskHandler = () => {
     dispatch(deleteTask(task._id))
     dispatch(getMyTasks())
+  }
+
+  const onClickEditIcon = () => {
+    onSelect(task)
+    onOpenForm()
   }
 
   return (
@@ -36,6 +43,9 @@ const TaskItem: FC<IProps> = ({ task }) => {
             </Typography>
            <IconButton onClick={deleteTaskHandler}>
            <Delete />
+           </IconButton>
+           <IconButton onClick={onClickEditIcon}>
+           <Edit />
            </IconButton>
           </Box>
           <Typography variant="body2">{task.description}</Typography>

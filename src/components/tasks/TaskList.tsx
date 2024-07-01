@@ -17,6 +17,9 @@ import { Add } from "@mui/icons-material";
 
 const TaskList = () => {
   const tasks = useSelector((state: RootState) => state.tasks?.tasks);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+  const onSelectTask = (task: Task) => setSelectedTask(task);
 
   const [openForm, setOpenForm] = useState<boolean>(false);
 
@@ -42,12 +45,22 @@ const TaskList = () => {
       </Box>
       <Dialog open={openForm}>
         <CreateTask
-          formType={CREATE_TASK_FORM_TYPE.CREATE_TASK}
+          formType={
+            selectedTask
+              ? CREATE_TASK_FORM_TYPE.UPDATE_TASK
+              : CREATE_TASK_FORM_TYPE.CREATE_TASK
+          }
+          selectedTask={selectedTask ? selectedTask : null}
           onClose={onCloseForm}
         />
       </Dialog>
       {tasks.map((task: Task) => (
-        <TaskItem key={task._id} task={task} />
+        <TaskItem
+          key={task._id}
+          task={task}
+          onSelect={onSelectTask}
+          onOpenForm={onOpenForm}
+        />
       ))}
     </Stack>
   );

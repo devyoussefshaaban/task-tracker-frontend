@@ -1,9 +1,10 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { TaskList } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyTasks } from "../context/actions/tasksActions";
+
 const HomePage = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 

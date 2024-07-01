@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import {CreateTaskRequestBody, tasksApi} from '../../utils/api'
+import {CreateTaskRequestBody, UpdateTaskRequestBody, tasksApi} from '../../utils/api'
 
 export const getMyTasks = () => async(dispatch: any) => {
     try {
@@ -21,6 +21,21 @@ export const createTask = (body: CreateTaskRequestBody) => async(dispatch: any) 
         const response = await tasksApi.createTask(body)
         dispatch({
             type: actionTypes.CREATE_TASK,
+            payload: response.data
+        })
+    } catch (error: any) {
+        dispatch({
+            type: actionTypes.TASKS_ERROR,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const updateTask = (taskId: string, body: UpdateTaskRequestBody) => async(dispatch: any) => {
+    try {
+        const response = await tasksApi.updateTask(taskId, body)
+        dispatch({
+            type: actionTypes.UPDATE_TASK,
             payload: response.data
         })
     } catch (error: any) {

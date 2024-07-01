@@ -46,6 +46,12 @@ export type CreateTaskRequestBody = {
   status?: string;
 };
 
+export type UpdateTaskRequestBody = {
+  name?: string;
+  description?: string;
+  status?: string;
+};
+
 export type CreateTaskResponse = {
   success: boolean;
   message: string;
@@ -75,5 +81,7 @@ export const tasksApi = {
     axios.get(`${baseUrl}/tasks`, headers),
   createTask: (body: CreateTaskRequestBody): Promise<CreateTaskResponse> =>
     axios.post(`${baseUrl}/tasks`, body, headers),
+  updateTask: (taskId: string, body: UpdateTaskRequestBody): Promise<CreateTaskResponse> =>
+    axios.patch(`${baseUrl}/tasks/${taskId}`, body, headers),
   deleteTask: (taskId: string) => axios.delete(`${baseUrl}/tasks/${taskId}`, headers),
 };

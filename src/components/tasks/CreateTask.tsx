@@ -17,16 +17,18 @@ import {
 import { CreateTaskRequestBody } from "../../utils/api";
 import { AppDispatch } from "../../context";
 import { useDispatch } from "react-redux";
-import { createTask, getMyTasks } from "../../context/actions/tasksActions";
+import { createTask, getMyTasks, updateTask } from "../../context/actions/tasksActions";
 import { CREATE_TASK_FORM_TYPE } from "../../utils/constants";
 import { Close } from "@mui/icons-material";
+import { Task } from "../../models/Task";
 
 interface IProps {
   formType: string;
+  selectedTask: Task | null;
   onClose: () => void;
 }
 
-const CreateTaskForm: FC<IProps> = ({ formType, onClose }) => {
+const CreateTaskForm: FC<IProps> = ({ formType, selectedTask, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -36,7 +38,8 @@ const CreateTaskForm: FC<IProps> = ({ formType, onClose }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const submitHandler = handleSubmit((data: CreateTaskRequestBody) => {
-    dispatch(createTask(data));
+    formType === CREATE_TASK_FORM_TYPE.CREATE_TASK ?
+     dispatch(createTask(data)) : selectedTask && dispatch(updateTask(selectedTask._id, data))
     dispatch(getMyTasks())
     onClose()
   });
@@ -63,6 +66,7 @@ const CreateTaskForm: FC<IProps> = ({ formType, onClose }) => {
           <TextField
             label="Task name"
             id="name"
+            defaultValue={selectedTask ? selectedTask.name : ""}
             placeholder="Enter the task name"
             variant="outlined"
             {...register("name")}
@@ -79,6 +83,7 @@ const CreateTaskForm: FC<IProps> = ({ formType, onClose }) => {
             label="Description"
             type="description"
             id="description"
+            defaultValue={selectedTask ? selectedTask.description : ""}
             placeholder="Enter the task description"
             variant="outlined"
             {...register("description")}
