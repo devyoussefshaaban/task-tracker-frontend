@@ -63,17 +63,19 @@ export type DeleteTaskResponse = {
   message: string
 }
 
+const headers = {
+  headers: {
+    Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
+  },
+};
+
 export const authApi = {
   signUp: (body: SignUpRequestBody): Promise<SignUpResponse> =>
     axios.post(`${baseUrl}/auth/sign-up`, body),
   signIn: (body: SignInRequestBody): Promise<SignInResponse> =>
     axios.post(`${baseUrl}/auth/sign-in`, body),
-};
-
-const headers = {
-  headers: {
-    Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
-  },
+  getMe: (): Promise<SignUpResponse> =>
+    axios.get(`${baseUrl}/auth/me`, headers),
 };
 
 export const tasksApi = {

@@ -5,16 +5,18 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../context";
+import { AppDispatch, RootState } from "../../context";
 import { logout } from "../../context/actions/authActions";
-import { Avatar, Button, Popover } from "@mui/material";
+import { Avatar, Button, Divider, Popover } from "@mui/material";
 import { MouseEvent, useState } from "react";
-import { ExitToApp } from "@mui/icons-material";
+import { ExitToApp, Settings } from "@mui/icons-material";
 import { ConfirmModal } from "../../components";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
 
 const MainHeader = () => {
+  const user = useSelector((state: RootState) => state.auth.user)
+
   const dispatch: AppDispatch = useDispatch();
 
   const isAuth = Cookies.get(ACCESS_TOKEN) ? true : false;
@@ -77,14 +79,22 @@ const MainHeader = () => {
                 horizontal: "left",
               }}
             >
-              <Button
-                sx={{
-                  p: 2,
-                  color: "inherit",
-                }}
+              <Box display="flex" flexDirection="column">
+                <Box py={1} px={2}>
+                  <Typography>{user.username}</Typography>
+                  <Typography variant="caption">{user.email}</Typography>
+                </Box>
+                <Divider sx={{mt: 1, mb: 3}} />
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+                pl={1}
+                mb={3}
+                sx={{cursor: "pointer"}}
                 onClick={onOpenConfirmModal}
               >
-                <ExitToApp />
+                <ExitToApp fontSize="small" />
                 <Typography
                   variant="body1"
                   sx={{
@@ -94,7 +104,27 @@ const MainHeader = () => {
                 >
                   Logout
                 </Typography>
-              </Button>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+                pl={1}
+                mb={3}
+                sx={{cursor: "pointer"}}
+              >
+                <Settings fontSize="small" />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    ml: 1,
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Profile
+                </Typography>
+              </Box>
+              </Box>
             </Popover>
             <ConfirmModal
               open={openConfirmModal}
