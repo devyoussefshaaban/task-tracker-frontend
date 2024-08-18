@@ -3,32 +3,51 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { AppDispatch } from "../../context";
-import { useDispatch } from "react-redux";
-import { signUp } from "../../context/actions/authActions";
+import { AppDispatch, RootState } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp, updateMyProfile } from "../../context/actions/authActions";
 import { SignUpRequestBody } from "../../utils/api";
 import { SignUpFormValues, signUpFormResolver } from "../../validations/authValidation";
 
+
+export enum SIGN_UP_FORM_TYPE {
+  REGISTER_USER, UPDATE_PROFILE
+}
+
 interface IProps {
+  formType: SIGN_UP_FORM_TYPE.UPDATE_PROFILE | SIGN_UP_FORM_TYPE.REGISTER_USER;
   switchForm: () => void;
 }
 
-const SignUpForm: FC<IProps> = ({ switchForm }) => {
+const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
+
+  // TODO: SET DEFAULT VALUES OF THE USER PROFILE IN CASE THE FORM TYPE IS NOT REGISTER_FORM
+
+  const user = useSelector((state: RootState) => state.auth.user)
+  const isRegisterForm = formType === SIGN_UP_FORM_TYPE.REGISTER_USER
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpFormValues>({resolver: signUpFormResolver});
+  } = useForm<SignUpFormValues>({
+    defaultValues:{
+      username: isRegisterForm ? "" : user?.username,
+    },
+    resolver: signUpFormResolver});
+
 
   const dispatch: AppDispatch = useDispatch()
 
-  const submitHandler = handleSubmit((data: SignUpRequestBody) => dispatch(signUp(data)));
+  const submitHandler = handleSubmit((data: SignUpRequestBody) => {
+    isRegisterForm ? dispatch(signUp(data)) : dispatch(updateMyProfile(data))
+  })
 
   return (
     <Stack margin="2rem auto 2rem" width="30ch">
       <Box mb={2}>
         <Typography variant="h6" textAlign="center">
-          Sign Up
+          {isRegisterForm ? "Sign Up" : "Update Profile"}
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
@@ -57,6 +76,7 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
             id="email"
             placeholder="Enter your email"
             variant="outlined"
+            defaultValue={isRegisterForm ? user?.email : ""}
             {...register("email")}
           />
           {errors?.email && (
@@ -74,6 +94,7 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
             id="password"
             placeholder="Enter your password"
             variant="outlined"
+            defaultValue={isRegisterForm ? user?.password : ""}
             {...register("password")}
           />
           {errors?.password && (
@@ -93,10 +114,12 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
             margin: "auto",
           }}
         >
-          Submit
+          {isRegisterForm ? "Submit" : "Save"}
         </Button>
       </form>
-      <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
+      {
+        isRegisterForm ? (
+          <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
         <Typography variant="caption">Already have an account?</Typography>
         <Button
           variant="text"
@@ -106,6 +129,8 @@ const SignUpForm: FC<IProps> = ({ switchForm }) => {
           Login
         </Button>
       </Box>
+        ): null
+      }
     </Stack>
   );
 };

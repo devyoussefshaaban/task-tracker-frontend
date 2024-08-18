@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import HomePage from "../pages/HomePage"
 import NotFoundPage from "../pages/404"
 import { ACCESS_TOKEN } from "./constants"
+import ProfilePage from "../pages/ProfilePage"
 
 const getAccessToken = () => {
     return Cookies.get(ACCESS_TOKEN);
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
                 path: "/tasks",
                 element: <HomePage />
             },
+            {
+                path: "/profile",
+                element: <ProfilePage />
+            }
         ]
     },
     {

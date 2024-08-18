@@ -13,6 +13,7 @@ import { ExitToApp, Settings } from "@mui/icons-material";
 import { ConfirmModal } from "../../components";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const MainHeader = () => {
   const user = useSelector((state: RootState) => state.auth.user)
@@ -45,7 +46,7 @@ const MainHeader = () => {
     handleClose();
     setOpenConfirmModal(true);
   };
-  const onCloseConfirmModal = () => setOpenConfirmModal(false);
+  const onCloseConfirmModal = () => setOpenConfirmModal(false)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -81,8 +82,8 @@ const MainHeader = () => {
             >
               <Box display="flex" flexDirection="column">
                 <Box py={1} px={2}>
-                  <Typography>{user.username}</Typography>
-                  <Typography variant="caption">{user.email}</Typography>
+                  <Typography>{user?.username}</Typography>
+                  <Typography variant="caption">{user?.email}</Typography>
                 </Box>
                 <Divider sx={{mt: 1, mb: 3}} />
               <Box
@@ -112,6 +113,7 @@ const MainHeader = () => {
                 pl={1}
                 mb={3}
                 sx={{cursor: "pointer"}}
+                onClick={() => window.location.pathname = "/profile"}
               >
                 <Settings fontSize="small" />
                 <Typography

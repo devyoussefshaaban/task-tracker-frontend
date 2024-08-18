@@ -4,11 +4,18 @@ import { ACCESS_TOKEN } from "./constants";
 import { Task } from "../models/Task";
 
 const baseUrl = "http://localhost:8888/api";
+const baseUrlV1 = "http://localhost:8888/api/v1";
 
 export type SignUpRequestBody = {
   username: string | null;
   email: string | null;
   password: string | null;
+};
+
+export type UpdateProfileRequestBody = {
+  username?: string | null;
+  email?: string | null;
+  password?: string | null;
 };
 
 export type SignUpResponse = {
@@ -71,19 +78,21 @@ const headers = {
 
 export const authApi = {
   signUp: (body: SignUpRequestBody): Promise<SignUpResponse> =>
-    axios.post(`${baseUrl}/auth/sign-up`, body),
+    axios.post(`${baseUrlV1}/auth/sign-up`, body),
   signIn: (body: SignInRequestBody): Promise<SignInResponse> =>
-    axios.post(`${baseUrl}/auth/sign-in`, body),
+    axios.post(`${baseUrlV1}/auth/sign-in`, body),
   getMe: (): Promise<SignUpResponse> =>
-    axios.get(`${baseUrl}/auth/me`, headers),
+    axios.get(`${baseUrlV1}/auth/me`, headers),
+  updateMyProfile: (body: UpdateProfileRequestBody): Promise<SignUpResponse> =>
+    axios.patch(`${baseUrlV1}/auth/me/update-profile`, body, headers),
 };
 
 export const tasksApi = {
   getMyTasks: (): Promise<GetMyTasksResponse> =>
-    axios.get(`${baseUrl}/tasks`, headers),
+    axios.get(`${baseUrlV1}/tasks`, headers),
   createTask: (body: CreateTaskRequestBody): Promise<CreateTaskResponse> =>
-    axios.post(`${baseUrl}/tasks`, body, headers),
+    axios.post(`${baseUrlV1}/tasks`, body, headers),
   updateTask: (taskId: string, body: UpdateTaskRequestBody): Promise<CreateTaskResponse> =>
-    axios.patch(`${baseUrl}/tasks/${taskId}`, body, headers),
-  deleteTask: (taskId: string) => axios.delete(`${baseUrl}/tasks/${taskId}`, headers),
+    axios.patch(`${baseUrlV1}/tasks/${taskId}`, body, headers),
+  deleteTask: (taskId: string) => axios.delete(`${baseUrlV1}/tasks/${taskId}`, headers),
 };
