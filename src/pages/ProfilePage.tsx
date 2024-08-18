@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../context'
 import { useEffect } from 'react'
@@ -14,6 +14,12 @@ const ProfilePage = () => {
     useEffect(() => {
         dispatch(getMe())
     }, [])
+
+    if(!user) return (
+      <Box width="fit-content" margin="2rem auto">
+        <img src="/loading-spinner.gif" alt="Loading..." />
+      </Box>
+    )  
 
   return (
     <Container sx={{py: 3}}>

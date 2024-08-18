@@ -43,6 +43,7 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
     isRegisterForm ? dispatch(signUp(data)) : dispatch(updateMyProfile(data))
   })
 
+
   return (
     <Stack margin="2rem auto 2rem" width="30ch">
       <Box mb={2}>
@@ -61,6 +62,7 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
             variant="outlined"
             size="small"
             {...register("username")}
+            defaultValue={isRegisterForm ? "" : user?.username}
           />
           {errors?.username && (
             <Typography variant="body2" color="red">
@@ -76,8 +78,8 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
             id="email"
             placeholder="Enter your email"
             variant="outlined"
-            defaultValue={isRegisterForm ? user?.email : ""}
             {...register("email")}
+            defaultValue={isRegisterForm ? "" : user?.email}
           />
           {errors?.email && (
             <Typography variant="caption" color="red">
@@ -94,8 +96,8 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
             id="password"
             placeholder="Enter your password"
             variant="outlined"
-            defaultValue={isRegisterForm ? user?.password : ""}
             {...register("password")}
+            defaultValue={isRegisterForm ? "" : "123123"}
           />
           {errors?.password && (
             <Typography variant="caption" color="red">
