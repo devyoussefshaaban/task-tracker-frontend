@@ -12,6 +12,7 @@ export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const TASKS_ERROR = "TASKS_ERROR";
 
+export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const ADMIN_ERROR = "ADMIN_ERROR";
 

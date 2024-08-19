@@ -13,6 +13,7 @@ const AdminSidebar = () => {
     position: "fixed",
     top: 0,
     bottom: 0,
+    zIndex: 1,
     left: isExtendedSidebar ? 0 : "-100%",
     minWidth: "100px",
     width: "15vw",

@@ -2,6 +2,7 @@ import Cookie from "js-cookie";
 import axios from "axios";
 import { ACCESS_TOKEN } from "./constants";
 import { Task } from "../models/Task";
+import { User } from "../models/User";
 
 const baseUrl = "http://localhost:8888/api";
 const baseUrlV1 = "http://localhost:8888/api/v1";
@@ -67,15 +68,22 @@ export type CreateTaskResponse = {
 
 export type DeleteTaskResponse = {
   success: boolean;
-  message: string
-}
+  message: string;
+};
 
 export type DeleteUserResponse = {
-  data:{
+  data: {
     success: boolean;
-    message: string
-  }
-}
+    message: string;
+  };
+};
+
+export type GetAllUsersResponse = {
+  data: {
+    success: boolean;
+    data: User[];
+  };
+};
 
 const headers = {
   headers: {
@@ -99,12 +107,18 @@ export const tasksApi = {
     axios.get(`${baseUrlV1}/tasks`, headers),
   createTask: (body: CreateTaskRequestBody): Promise<CreateTaskResponse> =>
     axios.post(`${baseUrlV1}/tasks`, body, headers),
-  updateTask: (taskId: string, body: UpdateTaskRequestBody): Promise<CreateTaskResponse> =>
+  updateTask: (
+    taskId: string,
+    body: UpdateTaskRequestBody
+  ): Promise<CreateTaskResponse> =>
     axios.patch(`${baseUrlV1}/tasks/${taskId}`, body, headers),
-  deleteTask: (taskId: string) => axios.delete(`${baseUrlV1}/tasks/${taskId}`, headers),
+  deleteTask: (taskId: string) =>
+    axios.delete(`${baseUrlV1}/tasks/${taskId}`, headers),
 };
 
 export const adminApi = {
   deleteUser: (userId: string): Promise<DeleteUserResponse> =>
-    axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers)
-}
+    axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers),
+  getAllUsers: (): Promise<GetAllUsersResponse> =>
+    axios.get(`${baseUrlV1}/manage/users`, headers),
+};
