@@ -19,7 +19,7 @@ const routes = createBrowserRouter([
     {
         path: "/",
         element: <AuthPage />,
-        index: true
+        index: true,
     },
     {
         element: <ProtectedRoute isAuthenticated={isAuthenticated()}/>,

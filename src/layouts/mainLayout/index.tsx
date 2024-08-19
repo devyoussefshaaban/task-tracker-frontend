@@ -1,15 +1,21 @@
-import { ReactNode } from 'react'
-import MainHeader from './mainHeader'
+import { ReactNode } from "react";
+import MainHeader from "./mainHeader";
+import AdminSidebar from "./AdminSidebar";
+import { User } from "../../models/User";
+import { useSelector } from "react-redux";
+import { RootState } from "../../context";
+import { USER_ROLE } from "../../utils/constants";
 
-const MainLayout = (props: {children: ReactNode}) => {
+const MainLayout = (props: { children: ReactNode }) => {
+  const user: User = useSelector((state: RootState) => state.auth.user);
+
   return (
-        <>
-            <MainHeader />
-            <main>
-                {props.children}
-            </main>
-        </>
-  )
-}
+    <>
+      {user?.role === USER_ROLE.ADMIN ? <AdminSidebar /> : null}
+      <MainHeader />
+      <main>{props.children}</main>
+    </>
+  );
+};
 
-export default MainLayout
+export default MainLayout;

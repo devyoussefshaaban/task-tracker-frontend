@@ -7,18 +7,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../context";
 import { logout } from "../../context/actions/authActions";
-import { Avatar, Button, Divider, Popover } from "@mui/material";
+import { Avatar, Divider, Popover, useTheme } from "@mui/material";
 import { MouseEvent, useState } from "react";
-import { ExitToApp, Settings } from "@mui/icons-material";
+import { Close, ExitToApp, Settings } from "@mui/icons-material";
 import { ConfirmModal } from "../../components";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
-import { useNavigate } from "react-router-dom";
+import { toggleSidebar } from "../../context/actions/generalActions";
 
 const MainHeader = () => {
-  const user = useSelector((state: RootState) => state.auth.user)
+  const user = useSelector((state: RootState) => state.auth.user);
+  const isExtendedSidebar: boolean = useSelector(
+    (state: RootState) => state.general.isExtendedSidebar
+  );
 
   const dispatch: AppDispatch = useDispatch();
+
+  const toggleSidebarHandler = () => dispatch(toggleSidebar());
 
   const isAuth = Cookies.get(ACCESS_TOKEN) ? true : false;
 
@@ -46,11 +51,20 @@ const MainHeader = () => {
     handleClose();
     setOpenConfirmModal(true);
   };
-  const onCloseConfirmModal = () => setOpenConfirmModal(false)
+  const onCloseConfirmModal = () => setOpenConfirmModal(false);
+
+  const theme = useTheme();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          borderBottom: `2px solid ${theme.palette.grey}`,
+          position: "relative",
+          zIndex: 2,
+        }}
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -58,8 +72,9 @@ const MainHeader = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={toggleSidebarHandler}
           >
-            <MenuIcon />
+            {isExtendedSidebar ? <Close /> : <MenuIcon />}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Task Tracker
@@ -85,47 +100,47 @@ const MainHeader = () => {
                   <Typography>{user?.username}</Typography>
                   <Typography variant="caption">{user?.email}</Typography>
                 </Box>
-                <Divider sx={{mt: 1, mb: 3}} />
-              <Box
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                pl={1}
-                mb={3}
-                sx={{cursor: "pointer"}}
-                onClick={onOpenConfirmModal}
-              >
-                <ExitToApp fontSize="small" />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    ml: 1,
-                    textTransform: "capitalize",
-                  }}
+                <Divider sx={{ mt: 1, mb: 3 }} />
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  pl={1}
+                  mb={3}
+                  sx={{ cursor: "pointer" }}
+                  onClick={onOpenConfirmModal}
                 >
-                  Logout
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                pl={1}
-                mb={3}
-                sx={{cursor: "pointer"}}
-                onClick={() => window.location.pathname = "/profile"}
-              >
-                <Settings fontSize="small" />
-                <Typography
-                  variant="body1"
-                  sx={{
-                    ml: 1,
-                    textTransform: "capitalize",
-                  }}
+                  <ExitToApp fontSize="small" />
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      ml: 1,
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Logout
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  pl={1}
+                  mb={3}
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => (window.location.pathname = "/profile")}
                 >
-                  Profile
-                </Typography>
-              </Box>
+                  <Settings fontSize="small" />
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      ml: 1,
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Profile
+                  </Typography>
+                </Box>
               </Box>
             </Popover>
             <ConfirmModal

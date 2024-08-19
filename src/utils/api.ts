@@ -70,6 +70,13 @@ export type DeleteTaskResponse = {
   message: string
 }
 
+export type DeleteUserResponse = {
+  data:{
+    success: boolean;
+    message: string
+  }
+}
+
 const headers = {
   headers: {
     Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
@@ -96,3 +103,8 @@ export const tasksApi = {
     axios.patch(`${baseUrlV1}/tasks/${taskId}`, body, headers),
   deleteTask: (taskId: string) => axios.delete(`${baseUrlV1}/tasks/${taskId}`, headers),
 };
+
+export const adminApi = {
+  deleteUser: (userId: string): Promise<DeleteUserResponse> =>
+    axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers)
+}

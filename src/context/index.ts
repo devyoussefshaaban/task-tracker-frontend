@@ -8,10 +8,14 @@ import authReducer from "./reducers/authReducer";
 import { thunk } from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import tasksReducer from "./reducers/tasksReducer";
+import { adminReducer } from "./reducers/adminReducer";
+import { generalReducer } from "./reducers/generalReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
+  admin: adminReducer,
+  general: generalReducer,
 });
 
 export const store = createStore(
