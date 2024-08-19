@@ -18,7 +18,7 @@ const AdminSidebar = () => {
     width: "15vw",
     background: theme.palette.primary.main,
     borderRight: `2px solid ${theme.palette.grey}`,
-    transition: "all .8s ease",
+    transition: "all .6s ease",
   };
 
   const NavItem = ({ name }: { name: string }) => {
