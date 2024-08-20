@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getMe } from "../context/actions/authActions";
 import { SignUpForm } from "../components";
 import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 
 const ProfilePage = () => {
@@ -24,12 +24,17 @@ const ProfilePage = () => {
       </Box>
     );
 
-  // const navigate = useNavigate();
-
   return (
     <Container sx={{ py: 3 }}>
-      <Box>
-        <Button startIcon={<ArrowBack />}>Back To Home</Button>
+      <Box mb={3}>
+        <Link to={"/tasks"}>
+          <Button
+            startIcon={<ArrowBack />}
+            sx={{ textTransform: "capitalize" }}
+          >
+            Back To Home
+          </Button>
+        </Link>
       </Box>
       <Typography variant="h5">Hi, {user?.username}</Typography>
       <Typography variant="body1">

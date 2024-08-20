@@ -14,6 +14,7 @@ import { ConfirmModal } from "../../components";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
 import { toggleSidebar } from "../../context/actions/generalActions";
+import { Link } from "react-router-dom";
 
 const MainHeader = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -121,26 +122,31 @@ const MainHeader = () => {
                     Logout
                   </Typography>
                 </Box>
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  pl={1}
-                  mb={3}
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => (window.location.pathname = "/profile")}
+                <Link
+                  to="/profile"
+                  onClick={handleClose}
+                  style={{ color: "inherit", textDecoration: "none" }}
                 >
-                  <Settings fontSize="small" />
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      ml: 1,
-                      textTransform: "capitalize",
-                    }}
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    pl={1}
+                    mb={3}
+                    sx={{ cursor: "pointer" }}
                   >
-                    Profile
-                  </Typography>
-                </Box>
+                    <Settings fontSize="small" />
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        ml: 1,
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      Profile
+                    </Typography>
+                  </Box>
+                </Link>
               </Box>
             </Popover>
             <ConfirmModal
