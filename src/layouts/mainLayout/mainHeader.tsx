@@ -80,7 +80,7 @@ const MainHeader = () => {
             Task Tracker
           </Typography>
           <Box>
-            {isAuth ? (
+            {isAuth && user ? (
               <IconButton onClick={handleClick}>
                 <Avatar />
               </IconButton>
