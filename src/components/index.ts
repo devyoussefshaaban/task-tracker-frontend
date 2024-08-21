@@ -9,3 +9,5 @@ export { default as UserCard } from "./users/UserCard";
 export { default as EmailVerification } from "./auth/EmailVerification";
 export { default as Loading } from "./shared/Loading";
 export { default as BackToHomeBtn } from "./shared/BackToHomeBtn";
+export { default as FlexColumn } from "./shared/FlexColumn";
+export { default as FlexBetween } from "./shared/FlexBetween";

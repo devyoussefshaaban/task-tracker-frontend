@@ -1,27 +1,21 @@
-import { Container } from "@mui/material";
-import { TaskList } from "../components";
-import { useEffect } from "react";
-import { AppDispatch, RootState } from "../context";
-import { useDispatch, useSelector } from "react-redux";
-import { getMyTasks } from "../context/actions/tasksActions";
-import { getMe } from "../context/actions/authActions";
-import { redirect } from "react-router-dom";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { FlexColumn } from "../components";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    isAuthenticated && dispatch(getMyTasks());
-    isAuthenticated && dispatch(getMe());
-  }, [isAuthenticated]);
-
-  if (!isAuthenticated) redirect("/");
-
   return (
-    <Container sx={{ py: 3 }}>
-      <TaskList />
+    <Container>
+      <FlexColumn>
+        <Typography variant="h6">Welcome</Typography>
+        <Link to="/tasks">
+          <Button
+            variant="contained"
+            sx={{ textTransform: "capitalize", mt: 4 }}
+          >
+            Get Started
+          </Button>
+        </Link>
+      </FlexColumn>
     </Container>
   );
 };

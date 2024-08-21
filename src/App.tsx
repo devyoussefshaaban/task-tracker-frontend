@@ -8,17 +8,25 @@ import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import UsersPage from "./pages/UsersPage";
+import TasksPage from "./pages/TasksPage";
+import ProfilePage from "./pages/ProfilePage";
+import { ACCESS_TOKEN } from "./utils/constants";
+import Cookies from "js-cookie";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const user: User = useSelector((state: RootState) => state.auth.user);
 
+  const isAccessTokenSet = Cookies.get(ACCESS_TOKEN) ? true : false;
+
   useEffect(() => {
     if (
       !user &&
+      window.location.pathname !== "/" &&
       window.location.pathname !== "/login" &&
-      !window.location.pathname.includes("/verify")
+      !window.location.pathname.includes("/verify") &&
+      isAccessTokenSet
     )
       dispatch(getMe());
   }, []);
@@ -26,15 +34,24 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<AuthPage />} />
         <Route
           path="/tasks"
           element={
             <ProtectedRoute>
-              <HomePage />
+              <TasksPage />
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<AuthPage />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/manage/users"
           element={

@@ -10,11 +10,11 @@ import { logout } from "../../context/actions/authActions";
 import { Avatar, Divider, Popover, useTheme } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import { Close, ExitToApp, Settings } from "@mui/icons-material";
-import { ConfirmModal } from "../../components";
+import { ConfirmModal, FlexBetween } from "../../components";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN, USER_ROLE } from "../../utils/constants";
 import { toggleSidebar } from "../../context/actions/generalActions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MainHeader = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -28,10 +28,7 @@ const MainHeader = () => {
 
   const isAuth = Cookies.get(ACCESS_TOKEN) ? true : false;
 
-  const logoutHandler = () => {
-    dispatch(logout());
-    window.location.pathname = "/";
-  };
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -41,6 +38,12 @@ const MainHeader = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/login");
+    onCloseConfirmModal();
   };
 
   const open = Boolean(anchorEl);
@@ -79,56 +82,42 @@ const MainHeader = () => {
               {isExtendedSidebar ? <Close /> : <MenuIcon />}
             </IconButton>
           ) : null}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Task Tracker
-          </Typography>
-          <Box>
-            {isAuth && user ? (
-              <IconButton onClick={handleClick}>
-                <Avatar />
-              </IconButton>
-            ) : null}
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-            >
-              <Box display="flex" flexDirection="column">
-                <Box py={1} px={2}>
-                  <Typography>{user?.username}</Typography>
-                  <Typography variant="caption">{user?.email}</Typography>
-                </Box>
-                <Divider sx={{ mt: 1, mb: 3 }} />
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  pl={1}
-                  mb={3}
-                  sx={{ cursor: "pointer" }}
-                  onClick={onOpenConfirmModal}
-                >
-                  <ExitToApp fontSize="small" />
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      ml: 1,
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    Logout
-                  </Typography>
-                </Box>
-                <Link
-                  to="/profile"
-                  onClick={handleClose}
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
+          <FlexBetween>
+            <Box>
+              <Link
+                to="/"
+                style={{
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                  Task Tracker
+                </Typography>
+              </Link>
+            </Box>
+            <Box>
+              {isAuth && user ? (
+                <IconButton onClick={handleClick}>
+                  <Avatar />
+                </IconButton>
+              ) : null}
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+              >
+                <Box display="flex" flexDirection="column">
+                  <Box py={1} px={2}>
+                    <Typography>{user?.username}</Typography>
+                    <Typography variant="caption">{user?.email}</Typography>
+                  </Box>
+                  <Divider sx={{ mt: 1, mb: 3 }} />
                   <Box
                     display="flex"
                     justifyContent="flex-start"
@@ -136,8 +125,9 @@ const MainHeader = () => {
                     pl={1}
                     mb={3}
                     sx={{ cursor: "pointer" }}
+                    onClick={onOpenConfirmModal}
                   >
-                    <Settings fontSize="small" />
+                    <ExitToApp fontSize="small" />
                     <Typography
                       variant="body1"
                       sx={{
@@ -145,21 +135,46 @@ const MainHeader = () => {
                         textTransform: "capitalize",
                       }}
                     >
-                      Profile
+                      Logout
                     </Typography>
                   </Box>
-                </Link>
-              </Box>
-            </Popover>
-            <ConfirmModal
-              open={openConfirmModal}
-              title="Logout"
-              message="Are you sure you want to logout ?"
-              onOk={logoutHandler}
-              onCancel={onCloseConfirmModal}
-              onClose={onCloseConfirmModal}
-            />
-          </Box>
+                  <Link
+                    to="/profile"
+                    onClick={handleClose}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    <Box
+                      display="flex"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      pl={1}
+                      mb={3}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <Settings fontSize="small" />
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          ml: 1,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        Profile
+                      </Typography>
+                    </Box>
+                  </Link>
+                </Box>
+              </Popover>
+              <ConfirmModal
+                open={openConfirmModal}
+                title="Logout"
+                message="Are you sure you want to logout ?"
+                onOk={logoutHandler}
+                onCancel={onCloseConfirmModal}
+                onClose={onCloseConfirmModal}
+              />
+            </Box>
+          </FlexBetween>
         </Toolbar>
       </AppBar>
     </Box>

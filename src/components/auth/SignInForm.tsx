@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../../context/actions/authActions";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   switchForm: () => void;
@@ -27,12 +28,14 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const submitHandler = handleSubmit((data: SignInRequestBody) => {
     dispatch(signIn(data));
 
     setTimeout(() => {
       if (Cookies.get(ACCESS_TOKEN) && Cookies.get(ACCESS_TOKEN) !== "")
-        window.location.pathname = "/tasks";
+        navigate("/tasks");
     }, 1000);
   });
 
