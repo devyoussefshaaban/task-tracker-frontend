@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import MainLayout from "./layouts/mainLayout/index.tsx";
@@ -10,7 +9,7 @@ import CommingSoon from "./pages/CommingSoon.tsx";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <>
     {process.env.NODE_ENV === "production" ? (
       <CommingSoon />
     ) : (
@@ -23,12 +22,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </Provider>
           <ToastContainer
             position="top-right"
-            autoClose={2000}
+            autoClose={1500}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
             rtl={false}
-            pauseOnFocusLoss
+            pauseOnFocusLoss={false}
             draggable={false}
             pauseOnHover
             theme="light"
@@ -36,5 +35,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </BrowserRouter>
       </>
     )}
-  </React.StrictMode>
+  </>
 );

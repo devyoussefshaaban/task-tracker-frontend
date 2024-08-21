@@ -1,10 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const EmailVerification = () => {
-  const [isValidUrl, setIsValidUrl] = useState<boolean>(false);
+  const [isValidUrl, setIsValidUrl] = useState<boolean>(true);
 
   const params = useParams();
 
@@ -19,6 +19,7 @@ const EmailVerification = () => {
         setIsValidUrl(true);
       } catch (error) {
         console.log(`EMAIL VERIFICATION ERROR: ${error}`);
+        setIsValidUrl(false);
       }
     };
 
@@ -27,7 +28,7 @@ const EmailVerification = () => {
 
   return (
     <>
-      {!isValidUrl ? (
+      {isValidUrl ? (
         <Box
           sx={{
             display: "flex",
@@ -40,13 +41,15 @@ const EmailVerification = () => {
           <Typography variant="h3" my={5}>
             Your email is verified successfully!
           </Typography>
-          <Button
-            variant="contained"
-            onClick={() => (window.location.pathname = "/")}
-            sx={{ textTransform: "capitalize" }}
-          >
-            Login
-          </Button>
+          <Link to="/login">
+            <Button
+              variant="contained"
+              onClick={() => (window.location.pathname = "/login")}
+              sx={{ textTransform: "capitalize" }}
+            >
+              Login
+            </Button>
+          </Link>
         </Box>
       ) : (
         <Typography variant="h3">Not found..</Typography>

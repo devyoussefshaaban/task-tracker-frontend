@@ -12,6 +12,7 @@ import TasksPage from "./pages/TasksPage";
 import ProfilePage from "./pages/ProfilePage";
 import { ACCESS_TOKEN } from "./utils/constants";
 import Cookies from "js-cookie";
+import EmailVerificationPage from "./pages/EmailVerificationPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -36,6 +37,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<AuthPage />} />
+        <Route
+          path="/auth/users/:userId/verify/:token"
+          element={<EmailVerificationPage />}
+        />
         <Route
           path="/tasks"
           element={
