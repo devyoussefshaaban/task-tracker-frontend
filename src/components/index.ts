@@ -6,3 +6,6 @@ export { default as SignInForm } from "./auth/SignInForm";
 export { default as ConfirmModal } from "./shared/ConfirmModal";
 export { default as BasicButton } from "./shared/BasicButton";
 export { default as UserCard } from "./users/UserCard";
+export { default as EmailVerification } from "./auth/EmailVerification";
+export { default as Loading } from "./shared/Loading";
+export { default as BackToHomeBtn } from "./shared/BackToHomeBtn";

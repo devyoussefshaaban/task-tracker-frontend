@@ -1,13 +1,25 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import { RootState } from "../context";
+import { User } from "../models/User";
+import { USER_ROLE } from "./constants";
+import NotFoundPage from "../pages/404";
 
-const ProtectedRoute = ({ isAuthenticated }: {isAuthenticated: boolean}) => {
-  const location = useLocation()
+const ProtectedRoute = ({ children }: { children: any }) => {
+  const { isAuthenticated, user }: { isAuthenticated: boolean; user: User } =
+    useSelector((state: RootState) => state.auth);
+  const location = useLocation();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace state={{from: location}} />;
-  }
+  if (!isAuthenticated)
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  else if (
+    isAuthenticated &&
+    user?.role !== USER_ROLE.ADMIN &&
+    location.pathname.includes("manage")
+  )
+    return <NotFoundPage />;
 
-  return <Outlet />;
+  return children;
 };
 
 export default ProtectedRoute;

@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyTasks } from "../context/actions/tasksActions";
 import { getMe } from "../context/actions/authActions";
+import { redirect } from "react-router-dom";
 
 const HomePage = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -16,8 +17,10 @@ const HomePage = () => {
     isAuthenticated && dispatch(getMe());
   }, [isAuthenticated]);
 
+  if (!isAuthenticated) redirect("/");
+
   return (
-    <Container sx={{py: 3}}>
+    <Container sx={{ py: 3 }}>
       <TaskList />
     </Container>
   );

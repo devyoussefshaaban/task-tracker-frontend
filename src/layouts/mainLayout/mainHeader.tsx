@@ -12,7 +12,7 @@ import { MouseEvent, useState } from "react";
 import { Close, ExitToApp, Settings } from "@mui/icons-material";
 import { ConfirmModal } from "../../components";
 import Cookies from "js-cookie";
-import { ACCESS_TOKEN } from "../../utils/constants";
+import { ACCESS_TOKEN, USER_ROLE } from "../../utils/constants";
 import { toggleSidebar } from "../../context/actions/generalActions";
 import { Link } from "react-router-dom";
 
@@ -67,16 +67,18 @@ const MainHeader = () => {
         }}
       >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleSidebarHandler}
-          >
-            {isExtendedSidebar ? <Close /> : <MenuIcon />}
-          </IconButton>
+          {user?.role === USER_ROLE.ADMIN ? (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={toggleSidebarHandler}
+            >
+              {isExtendedSidebar ? <Close /> : <MenuIcon />}
+            </IconButton>
+          ) : null}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Task Tracker
           </Typography>

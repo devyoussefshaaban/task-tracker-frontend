@@ -1,12 +1,10 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";
 import { useEffect } from "react";
 import { getMe } from "../context/actions/authActions";
-import { SignUpForm } from "../components";
+import { BackToHomeBtn, Loading, SignUpForm } from "../components";
 import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowBack } from "@mui/icons-material";
 
 const ProfilePage = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -17,25 +15,11 @@ const ProfilePage = () => {
     dispatch(getMe());
   }, []);
 
-  if (!user)
-    return (
-      <Box width="fit-content" margin="2rem auto">
-        <img src="/loading-spinner.gif" alt="Loading..." />
-      </Box>
-    );
+  if (!user) return <Loading />;
 
   return (
     <Container sx={{ py: 3 }}>
-      <Box mb={3}>
-        <Link to={"/tasks"}>
-          <Button
-            startIcon={<ArrowBack />}
-            sx={{ textTransform: "capitalize" }}
-          >
-            Back To Home
-          </Button>
-        </Link>
-      </Box>
+      <BackToHomeBtn />
       <Typography variant="h5">Hi, {user?.username}</Typography>
       <Typography variant="body1">
         Here you can easily update and manage your profile.

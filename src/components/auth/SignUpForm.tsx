@@ -1,17 +1,27 @@
-import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AppDispatch, RootState } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp, updateMyProfile } from "../../context/actions/authActions";
 import { SignUpRequestBody } from "../../utils/api";
-import { SignUpFormValues, signUpFormResolver } from "../../validations/authValidation";
-
+import {
+  SignUpFormValues,
+  signUpFormResolver,
+} from "../../validations/authValidation";
 
 export enum SIGN_UP_FORM_TYPE {
-  REGISTER_USER, UPDATE_PROFILE
+  REGISTER_USER,
+  UPDATE_PROFILE,
 }
 
 interface IProps {
@@ -19,30 +29,31 @@ interface IProps {
   switchForm: () => void;
 }
 
-const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
+const SignUpForm: FC<IProps> = ({ formType, switchForm }) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const isRegisterForm = formType === SIGN_UP_FORM_TYPE.REGISTER_USER;
 
-  // TODO: SET DEFAULT VALUES OF THE USER PROFILE IN CASE THE FORM TYPE IS NOT REGISTER_FORM
-
-  const user = useSelector((state: RootState) => state.auth.user)
-  const isRegisterForm = formType === SIGN_UP_FORM_TYPE.REGISTER_USER
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpFormValues>({
-    defaultValues:{
+    defaultValues: {
       username: isRegisterForm ? "" : user?.username,
     },
-    resolver: signUpFormResolver});
+    resolver: signUpFormResolver,
+  });
 
+  const dispatch: AppDispatch = useDispatch();
 
-  const dispatch: AppDispatch = useDispatch()
+  const signUpHandler = (data: SignUpRequestBody) => {
+    dispatch(signUp(data));
+    switchForm();
+  };
 
   const submitHandler = handleSubmit((data: SignUpRequestBody) => {
-    isRegisterForm ? dispatch(signUp(data)) : dispatch(updateMyProfile(data))
-  })
-
+    isRegisterForm ? signUpHandler(data) : dispatch(updateMyProfile(data));
+  });
 
   return (
     <Stack margin="2rem auto 2rem" width="30ch">
@@ -52,10 +63,10 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} style={{ margin: "auto" }}>
         <FormControl sx={{ mb: 2 }}>
           <TextField
-            sx={{mb: 1}}
+            sx={{ mb: 1 }}
             label="Username"
             hiddenLabel
             id="username"
@@ -73,7 +84,7 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
 
         <FormControl sx={{ mb: 2 }}>
           <TextField
-            sx={{mb: 1}}
+            sx={{ mb: 1 }}
             label="Email"
             id="email"
             placeholder="Enter your email"
@@ -90,7 +101,7 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
 
         <FormControl sx={{ mb: 2 }}>
           <TextField
-            sx={{mb: 1}}
+            sx={{ mb: 1 }}
             label="Password"
             type="password"
             id="password"
@@ -119,20 +130,18 @@ const SignUpForm: FC<IProps> = ({formType, switchForm }) => {
           {isRegisterForm ? "Submit" : "Save"}
         </Button>
       </form>
-      {
-        isRegisterForm ? (
-          <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
-        <Typography variant="caption">Already have an account?</Typography>
-        <Button
-          variant="text"
-          sx={{ textTransform: "capitalize" }}
-          onClick={switchForm}
-        >
-          Login
-        </Button>
-      </Box>
-        ): null
-      }
+      {isRegisterForm ? (
+        <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
+          <Typography variant="caption">Already have an account?</Typography>
+          <Button
+            variant="text"
+            sx={{ textTransform: "capitalize" }}
+            onClick={switchForm}
+          >
+            Login
+          </Button>
+        </Box>
+      ) : null}
     </Stack>
   );
 };

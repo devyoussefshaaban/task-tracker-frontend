@@ -12,7 +12,7 @@ const MainLayout = (props: { children: ReactNode }) => {
   return (
     <>
       {user?.role === USER_ROLE.ADMIN ? <AdminSidebar /> : null}
-      <MainHeader />
+      {!window.location.pathname.includes("/verify") ? <MainHeader /> : null}
       <main>{props.children}</main>
     </>
   );
