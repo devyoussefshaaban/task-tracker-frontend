@@ -10,11 +10,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import tasksReducer from "./reducers/tasksReducer";
 import { adminReducer } from "./reducers/adminReducer";
 import { generalReducer } from "./reducers/generalReducer";
+import ownerReducer from "./reducers/ownerReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   tasks: tasksReducer,
   admin: adminReducer,
+  owner: ownerReducer,
   general: generalReducer,
 });
 

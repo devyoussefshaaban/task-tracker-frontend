@@ -1,6 +1,9 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../context";
+import { USER_ROLE } from "../../utils/constants";
+import { Link } from "react-router-dom";
+import { toggleSidebar } from "../../context/actions/generalActions";
 
 const AdminSidebar = () => {
   const isExtendedSidebar: boolean = useSelector(
@@ -22,6 +25,14 @@ const AdminSidebar = () => {
     transition: "all .6s ease",
   };
 
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const toggleSidebarHandler = () => {
+    dispatch(toggleSidebar());
+  };
+
   const NavItem = ({ name }: { name: string }) => {
     return (
       <Box mb={4}>
@@ -41,8 +52,22 @@ const AdminSidebar = () => {
   return (
     <Box sx={SidebarStyle}>
       <Box sx={{ padding: "8rem 3rem" }}>
-        <NavItem name="Users" />
-        <NavItem name="Tasks" />
+        {user?.role === USER_ROLE.OWNER ? (
+          <Link
+            to="/manage/general"
+            style={{ textDecoration: "none" }}
+            onClick={toggleSidebarHandler}
+          >
+            <NavItem name="General" />
+          </Link>
+        ) : null}
+        <Link
+          to="/manage/users"
+          style={{ textDecoration: "none" }}
+          onClick={toggleSidebarHandler}
+        >
+          <NavItem name="Users" />
+        </Link>
       </Box>
     </Box>
   );

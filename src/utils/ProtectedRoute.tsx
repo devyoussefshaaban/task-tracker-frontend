@@ -15,6 +15,7 @@ const ProtectedRoute = ({ children }: { children: any }) => {
   else if (
     isAuthenticated &&
     user?.role !== USER_ROLE.ADMIN &&
+    user?.role !== USER_ROLE.OWNER &&
     location.pathname.includes("manage")
   )
     return <NotFoundPage />;

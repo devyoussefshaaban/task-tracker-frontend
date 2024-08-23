@@ -70,7 +70,7 @@ const MainHeader = () => {
         }}
       >
         <Toolbar>
-          {user?.role === USER_ROLE.ADMIN ? (
+          {user?.role === USER_ROLE.ADMIN || user?.role === USER_ROLE.OWNER ? (
             <IconButton
               size="large"
               edge="start"

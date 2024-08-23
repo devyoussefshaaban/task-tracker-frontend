@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { TaskList } from "../components";
+import { Loading, TaskList } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,10 @@ import { redirect } from "react-router-dom";
 const TasksPage = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
+  const isLoading: boolean = useSelector(
+    (state: RootState) => state.general.isLoading
+  );
+
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +22,8 @@ const TasksPage = () => {
   }, [isAuthenticated]);
 
   if (!isAuthenticated) redirect("/");
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container sx={{ py: 3 }}>

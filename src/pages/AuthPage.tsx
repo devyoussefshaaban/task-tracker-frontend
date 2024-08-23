@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { SignInForm, SignUpForm } from "../components";
+import { Loading, SignInForm, SignUpForm } from "../components";
 import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../context";
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
 
+  const isLoading: boolean = useSelector(
+    (state: RootState) => state.general.isLoading
+  );
+
   const switchForm = () => setIsLoginForm((ps) => !ps);
+
+  if (isLoading) return <Loading />;
 
   if (isLoginForm) return <SignInForm switchForm={switchForm} />;
 

@@ -16,4 +16,8 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const ADMIN_ERROR = "ADMIN_ERROR";
 
+export const CLEAR_DB = "CLEAR_DB";
+export const OWNER_ERROR = "OWNER_ERROR";
+
 export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
+export const SET_IS_LOADING = "SET_IS_LOADING";

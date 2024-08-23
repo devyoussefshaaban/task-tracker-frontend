@@ -44,8 +44,7 @@ export type SignInResponse = {
 };
 
 export type GetMyTasksResponse = {
-  success: boolean;
-  data: Task[];
+  data: { success: boolean; data: Task[] };
 };
 
 export type CreateTaskRequestBody = {
@@ -61,14 +60,15 @@ export type UpdateTaskRequestBody = {
 };
 
 export type CreateTaskResponse = {
-  success: boolean;
-  message: string;
-  data: Task;
+  data: {
+    success: boolean;
+    message: string;
+    data: Task;
+  };
 };
 
 export type DeleteTaskResponse = {
-  success: boolean;
-  message: string;
+  data: { success: boolean; message: string };
 };
 
 export type DeleteUserResponse = {
@@ -121,4 +121,8 @@ export const adminApi = {
     axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers),
   getAllUsers: (): Promise<GetAllUsersResponse> =>
     axios.get(`${baseUrlV1}/manage/users`, headers),
+};
+
+export const ownerApi = {
+  clearDB: () => axios.delete(`${baseUrlV1}/manage/general/clear-db`, headers),
 };

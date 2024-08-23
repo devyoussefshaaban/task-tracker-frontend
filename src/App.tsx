@@ -13,6 +13,8 @@ import ProfilePage from "./pages/ProfilePage";
 import { ACCESS_TOKEN } from "./utils/constants";
 import Cookies from "js-cookie";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
+import { Loading } from "./components";
+import GeneralSettingsPage from "./pages/GeneralSettingsPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -62,6 +64,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <UsersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage/general"
+          element={
+            <ProtectedRoute>
+              <GeneralSettingsPage />
             </ProtectedRoute>
           }
         />
