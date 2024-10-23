@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../context";
 import { logout } from "../../context/actions/authActions";
 import { Avatar, Divider, Popover, useTheme } from "@mui/material";
-import { MouseEvent, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import { Close, ExitToApp, Settings } from "@mui/icons-material";
 import { ConfirmModal, FlexBetween } from "../../components";
 import Cookies from "js-cookie";
@@ -59,6 +59,21 @@ const MainHeader = () => {
 
   const theme = useTheme();
 
+  const LinkItem: FC<{ href: string; text: string }> = ({ href, text }) => {
+    return (
+      <Link
+        to={href}
+        style={{
+          color: "inherit",
+          textDecoration: "none",
+          margin: "0 1rem",
+        }}
+      >
+        <Typography variant="body1">{text}</Typography>
+      </Link>
+    );
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -96,6 +111,12 @@ const MainHeader = () => {
                 </Typography>
               </Link>
             </Box>
+
+            <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
+              <LinkItem href="/tasks" text="My Personal Tasks" />
+              <LinkItem href="/groups" text="My Groups" />
+            </Box>
+
             <Box>
               {isAuth && user ? (
                 <IconButton onClick={handleClick}>

@@ -41,11 +41,11 @@ const authReducer = (
       toast.error(action.payload.message);
       return { ...state };
     case actionTypes.UPDATE_MY_PROFILE:
-      toast.success(action.payload.message)
+      toast.success(action.payload.message);
       return {
         ...state,
-        user: action.payload.data
-      }
+        user: action.payload.data,
+      };
     case actionTypes.LOGOUT:
       Cookies.remove(ACCESS_TOKEN);
       toast.info("You are logged out.");

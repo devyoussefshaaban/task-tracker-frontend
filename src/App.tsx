@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import { Loading } from "./components";
 import GeneralSettingsPage from "./pages/GeneralSettingsPage";
+import GroupsPage from "./pages/GroupsPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -48,6 +49,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <TasksPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/groups"
+          element={
+            <ProtectedRoute>
+              <GroupsPage />
             </ProtectedRoute>
           }
         />

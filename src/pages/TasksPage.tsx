@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyTasks } from "../context/actions/tasksActions";
 import { getMe } from "../context/actions/authActions";
 import { redirect } from "react-router-dom";
+import Cookies from "js-cookie";
+import { ACCESS_TOKEN } from "../utils/constants";
 
 const TasksPage = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -16,10 +18,15 @@ const TasksPage = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  const isAuthenticatedUser =
+    isAuthenticated &&
+    Cookies.get(ACCESS_TOKEN) &&
+    Cookies.get(ACCESS_TOKEN) !== "";
+
   useEffect(() => {
-    isAuthenticated && dispatch(getMyTasks());
-    isAuthenticated && dispatch(getMe());
-  }, [isAuthenticated]);
+    isAuthenticatedUser && dispatch(getMyTasks());
+    isAuthenticatedUser && dispatch(getMe());
+  }, [isAuthenticatedUser]);
 
   if (!isAuthenticated) redirect("/");
 

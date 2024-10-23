@@ -9,7 +9,6 @@ export const clearDB = () => async (dispatch: any) => {
       payload: response.data,
     });
   } catch (error: any) {
-    console.log({ error });
     dispatch({
       type: actionTypes.OWNER_ERROR,
       payload: error.response.data.message,

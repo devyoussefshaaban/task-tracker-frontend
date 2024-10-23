@@ -34,12 +34,14 @@ export type SignInRequestBody = {
 };
 
 export type SignInResponse = {
-  success: boolean;
-  message: string;
-  data?: {
-    username: string;
-    email: string;
-    token: string;
+  data: {
+    success: boolean;
+    message: string;
+    data?: {
+      username: string;
+      email: string;
+      token: string;
+    };
   };
 };
 
