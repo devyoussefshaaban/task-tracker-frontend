@@ -12,6 +12,10 @@ export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const TASKS_ERROR = "TASKS_ERROR";
 
+export const GET_MY_GROUPS = "GET_MY_GROUPS";
+export const CREATE_GROUP = "CREATE_GROUP";
+export const GROUPING_ERROR = "GROUPING_ERROR";
+
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const ADMIN_ERROR = "ADMIN_ERROR";

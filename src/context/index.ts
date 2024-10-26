@@ -11,10 +11,12 @@ import tasksReducer from "./reducers/tasksReducer";
 import { adminReducer } from "./reducers/adminReducer";
 import { generalReducer } from "./reducers/generalReducer";
 import ownerReducer from "./reducers/ownerReducer";
+import { groupsReducer } from "./reducers/groupsReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   tasks: tasksReducer,
+  groups: groupsReducer,
   admin: adminReducer,
   owner: ownerReducer,
   general: generalReducer,

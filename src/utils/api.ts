@@ -87,6 +87,23 @@ export type GetAllUsersResponse = {
   };
 };
 
+export type CreateGroupRequestBody = {
+  groupName: string;
+  description: string;
+};
+
+export type CreateGroupResponse = {
+  data: {
+    success: boolean;
+    message: string;
+    data?: {
+      creatorId: string;
+      groupName: string;
+      description: string;
+    };
+  };
+};
+
 const headers = {
   headers: {
     Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
@@ -116,6 +133,12 @@ export const tasksApi = {
     axios.patch(`${baseUrlV1}/tasks/${taskId}`, body, headers),
   deleteTask: (taskId: string) =>
     axios.delete(`${baseUrlV1}/tasks/${taskId}`, headers),
+};
+
+export const groupingApi = {
+  createGroup: (body: CreateGroupRequestBody): Promise<CreateGroupResponse> =>
+    axios.post(`${baseUrlV1}/groups`, body, headers),
+  getMyGroups: () => axios.get(`${baseUrlV1}/groups`, headers),
 };
 
 export const adminApi = {
