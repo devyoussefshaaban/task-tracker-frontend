@@ -139,6 +139,8 @@ export const groupingApi = {
   createGroup: (body: CreateGroupRequestBody): Promise<CreateGroupResponse> =>
     axios.post(`${baseUrlV1}/groups`, body, headers),
   getMyGroups: () => axios.get(`${baseUrlV1}/groups`, headers),
+  getGroupInfo: (groupId: string) =>
+    axios.get(`${baseUrlV1}/groups/${groupId}`, headers),
 };
 
 export const adminApi = {

@@ -16,6 +16,7 @@ import EmailVerificationPage from "./pages/EmailVerificationPage";
 import { Loading } from "./components";
 import GeneralSettingsPage from "./pages/GeneralSettingsPage";
 import GroupsPage from "./pages/GroupsPage";
+import GroupInfoPage from "./pages/GroupInfoPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -57,6 +58,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <GroupsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/groups/:groupId"
+          element={
+            <ProtectedRoute>
+              <GroupInfoPage />
             </ProtectedRoute>
           }
         />

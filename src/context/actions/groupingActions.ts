@@ -26,12 +26,28 @@ export const createGroup =
         type: actionTypes.CREATE_GROUP,
         payload: {
           data: response.data,
+          message: response.data.message,
         },
       });
     } catch (error: any) {
       dispatch({
         type: actionTypes.GROUPING_ERROR,
-        message: error.response.data.message,
+        payload: error.response.data.message,
       });
     }
   };
+
+export const getGroupInfo = (groupId: string) => async (dispatch: any) => {
+  try {
+    const response = await groupingApi.getGroupInfo(groupId);
+    dispatch({
+      type: actionTypes.GET_GROUP_INFO,
+      payload: response.data,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: actionTypes.GROUPING_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+};

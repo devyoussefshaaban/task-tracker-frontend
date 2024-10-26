@@ -14,6 +14,7 @@ export const TASKS_ERROR = "TASKS_ERROR";
 
 export const GET_MY_GROUPS = "GET_MY_GROUPS";
 export const CREATE_GROUP = "CREATE_GROUP";
+export const GET_GROUP_INFO = "GET_GROUP_INFO";
 export const GROUPING_ERROR = "GROUPING_ERROR";
 
 export const GET_ALL_USERS = "GET_ALL_USERS";
