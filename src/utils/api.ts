@@ -53,6 +53,7 @@ export type CreateTaskRequestBody = {
   name: string;
   description: string;
   status?: string;
+  priority: "URGENT" | "NORMAL" | "LOW";
 };
 
 export type UpdateTaskRequestBody = {

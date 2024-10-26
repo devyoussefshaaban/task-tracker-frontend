@@ -5,10 +5,14 @@ import {
   FormControl,
   IconButton,
   Typography,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  InputLabel,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   CreateTaskFormValues,
@@ -22,7 +26,7 @@ import {
   getMyTasks,
   updateTask,
 } from "../../context/actions/tasksActions";
-import { CREATE_TASK_FORM_TYPE } from "../../utils/constants";
+import { CREATE_TASK_FORM_TYPE, TASK_PRIORITY } from "../../utils/constants";
 import { Close } from "@mui/icons-material";
 import { Task } from "../../models/Task";
 
@@ -45,11 +49,17 @@ const CreateTaskForm: FC<IProps> = ({
     formState: { errors },
   } = useForm<CreateTaskFormValues>({ resolver: CreateTaskFormResolver });
 
+  const [priority, setPriority] = useState<any>(TASK_PRIORITY.NORMAL);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setPriority(event.target.value as string);
+  };
+
   const dispatch: AppDispatch = useDispatch();
 
   const submitHandler = handleSubmit((data: CreateTaskRequestBody) => {
     formType === CREATE_TASK_FORM_TYPE.CREATE_TASK
-      ? dispatch(createTask(data))
+      ? dispatch(createTask({ ...data, priority }))
       : selectedTask && dispatch(updateTask(selectedTask._id, data));
 
     onUpdateTask();
@@ -79,7 +89,7 @@ const CreateTaskForm: FC<IProps> = ({
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
       <form onSubmit={submitHandler}>
-        <FormControl sx={{ mb: 2 }}>
+        <FormControl sx={{ mb: 2 }} fullWidth>
           <TextField
             label="Task name"
             id="name"
@@ -95,7 +105,7 @@ const CreateTaskForm: FC<IProps> = ({
           )}
         </FormControl>
 
-        <FormControl sx={{ mb: 2 }}>
+        <FormControl sx={{ mb: 2 }} fullWidth>
           <TextField
             label="Description"
             type="description"
@@ -112,6 +122,25 @@ const CreateTaskForm: FC<IProps> = ({
           )}
         </FormControl>
 
+        <FormControl sx={{ mb: 2 }} fullWidth>
+          <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={priority}
+            label="Priority"
+            defaultValue={TASK_PRIORITY.NORMAL}
+            onChange={handleChange}
+          >
+            <MenuItem value={TASK_PRIORITY.URGENT}>
+              {TASK_PRIORITY.URGENT}
+            </MenuItem>
+            <MenuItem value={TASK_PRIORITY.NORMAL}>
+              {TASK_PRIORITY.NORMAL}
+            </MenuItem>
+            <MenuItem value={TASK_PRIORITY.LOW}>{TASK_PRIORITY.LOW}</MenuItem>
+          </Select>
+        </FormControl>
         <Button
           type="submit"
           variant="contained"
