@@ -17,6 +17,7 @@ import { Loading } from "./components";
 import GeneralSettingsPage from "./pages/GeneralSettingsPage";
 import GroupsPage from "./pages/GroupsPage";
 import GroupInfoPage from "./pages/GroupInfoPage";
+import InvitationsPage from "./pages/InvitationsPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -66,6 +67,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <GroupInfoPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/invitations"
+          element={
+            <ProtectedRoute>
+              <InvitationsPage />
             </ProtectedRoute>
           }
         />

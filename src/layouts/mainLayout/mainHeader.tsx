@@ -115,6 +115,7 @@ const MainHeader = () => {
             <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
               <LinkItem href="/tasks" text="My Personal Tasks" />
               <LinkItem href="/groups" text="My Groups" />
+              <LinkItem href="/invitations" text="My Invitations" />
             </Box>
 
             <Box>

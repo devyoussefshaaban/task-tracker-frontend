@@ -144,6 +144,9 @@ export const groupingApi = {
     axios.get(`${baseUrlV1}/groups/${groupId}`, headers),
 };
 
+export const invitationsApi = {
+  getMyInvitations: () => axios.get(`${baseUrlV1}/my-invitations`, headers),
+};
 export const adminApi = {
   deleteUser: (userId: string): Promise<DeleteUserResponse> =>
     axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers),

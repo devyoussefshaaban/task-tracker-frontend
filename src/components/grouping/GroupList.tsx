@@ -10,8 +10,6 @@ const GroupList = () => {
     (state: RootState) => state.groups?.groupList
   );
 
-  console.log({ groups });
-
   return (
     <Grid container>
       {groups?.map((group: Group) => (
