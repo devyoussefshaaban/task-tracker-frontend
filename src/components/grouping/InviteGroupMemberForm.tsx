@@ -63,8 +63,24 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
 
         <FormControl sx={{ mb: 2 }}>
           <TextField
+            label="Title"
+            type="text"
+            id="title"
+            placeholder="Enter the invitation title"
+            variant="outlined"
+            {...register("title")}
+          />
+          {errors?.title && (
+            <Typography variant="caption" color="red">
+              {errors.title.message as string}
+            </Typography>
+          )}
+        </FormControl>
+
+        <FormControl sx={{ mb: 2 }}>
+          <TextField
             label="Message"
-            type="message"
+            type="text"
             id="message"
             placeholder="Enter your message"
             variant="outlined"

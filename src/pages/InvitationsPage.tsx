@@ -1,9 +1,10 @@
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Invitation } from "../models/Invitation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";
 import { useEffect } from "react";
 import { getMyInvitations } from "../context/actions/invitationsActions";
+import { InvitationList } from "../components";
 
 const InvitationsPage = () => {
   const invitations: {
@@ -23,9 +24,11 @@ const InvitationsPage = () => {
 
   return (
     <Container sx={{ py: 3 }}>
-      <Typography variant="h2">
-        You've {totalInvitations} invitations..
+      <Typography variant="h6" mb={5}>
+        You've {totalInvitations}{" "}
+        {totalInvitations > 1 ? "invitations" : "invitation"}..
       </Typography>
+      <InvitationList />
     </Container>
   );
 };

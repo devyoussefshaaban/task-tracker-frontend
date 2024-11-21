@@ -39,13 +39,14 @@ export const CreateGroupFormResolver: Resolver<CreateGroupFormValues> = async (
 
 export type InviteGroupMemberFormValues = {
   recieverEmail: string;
+  title: string;
   message: string;
 };
 
 export const inviteGroupMemberFormResolver: Resolver<
   InviteGroupMemberFormValues
 > = async (values) => {
-  const { recieverEmail, message } = values;
+  const { recieverEmail, title, message } = values;
 
   return {
     values:
@@ -62,6 +63,20 @@ export const inviteGroupMemberFormResolver: Resolver<
             recieverEmail: {
               type: "required",
               message: "Email is required and must be valid.",
+            },
+          }
+        : !title
+        ? {
+            title: {
+              type: "required",
+              message: "Title is required.",
+            },
+          }
+        : title.length < 10 || title.length > 300
+        ? {
+            title: {
+              type: "validate",
+              message: "Title must be in range from 6 to 30 characters.",
             },
           }
         : !message

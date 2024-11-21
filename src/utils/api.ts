@@ -47,6 +47,7 @@ export type SignInResponse = {
 
 export type InviteGroupMemberRequestBody = {
   recieverEmail: string;
+  title: string;
   message: string;
 };
 
@@ -151,10 +152,17 @@ export const groupingApi = {
 
 export const invitationsApi = {
   getMyInvitations: () => axios.get(`${baseUrlV1}/invitations`, headers),
+  getInvitationInfo: (invitationId: string) =>
+    axios.get(`${baseUrlV1}/invitations/${invitationId}`, headers),
   sendGroupInvitation: (groupId: string, body: InviteGroupMemberRequestBody) =>
     axios.post(
       `${baseUrlV1}/invitations/groups/${groupId}/invite`,
       body,
+      headers
+    ),
+  acceptInvitation: (groupId: string, invitationId: string) =>
+    axios.post(
+      `${baseUrlV1}/invitations/groups/${groupId}/invitations/${invitationId}/accept`,
       headers
     ),
 };

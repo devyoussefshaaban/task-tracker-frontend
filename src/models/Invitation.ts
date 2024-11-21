@@ -1,7 +1,15 @@
 export interface Invitation {
   _id: string;
-  senderId: string;
-  recieverId: string;
+  sender: {
+    name: string;
+    email: string;
+  };
+  reciever: {
+    name: string;
+    email: string;
+  };
+  groupId: string;
+  title: string;
   message: string;
-  statue: "PENDING" | "ACCEPTED" | "REJECTED";
+  status: "PENDING" | "ACCEPTED" | "REJECTED";
 }
