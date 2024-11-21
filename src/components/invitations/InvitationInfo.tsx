@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { acceptInvitation } from "../../context/actions/invitationsActions";
+import {
+  acceptInvitation,
+  getInvitationInfo,
+  getMyInvitations,
+} from "../../context/actions/invitationsActions";
 import { AppDispatch, RootState } from "../../context";
 import {
   Box,
@@ -34,6 +38,8 @@ const InvitationInfo = (props: { invitation: Invitation }) => {
 
   const acceptThisInvitation = () => {
     dispatch(acceptInvitation(invitation?.groupId, invitation?._id));
+    dispatch(getMyInvitations());
+    closeViewDetails();
   };
 
   return (
