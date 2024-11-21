@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import { Invitation } from "../models/Invitation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";

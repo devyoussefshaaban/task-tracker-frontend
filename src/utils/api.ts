@@ -45,6 +45,11 @@ export type SignInResponse = {
   };
 };
 
+export type InviteGroupMemberRequestBody = {
+  recieverEmail: string;
+  message: string;
+};
+
 export type GetMyTasksResponse = {
   data: { success: boolean; data: Task[] };
 };
@@ -145,8 +150,15 @@ export const groupingApi = {
 };
 
 export const invitationsApi = {
-  getMyInvitations: () => axios.get(`${baseUrlV1}/my-invitations`, headers),
+  getMyInvitations: () => axios.get(`${baseUrlV1}/invitations`, headers),
+  sendGroupInvitation: (groupId: string, body: InviteGroupMemberRequestBody) =>
+    axios.post(
+      `${baseUrlV1}/invitations/groups/${groupId}/invite`,
+      body,
+      headers
+    ),
 };
+
 export const adminApi = {
   deleteUser: (userId: string): Promise<DeleteUserResponse> =>
     axios.delete(`${baseUrlV1}/manage/users/${userId}`, headers),
