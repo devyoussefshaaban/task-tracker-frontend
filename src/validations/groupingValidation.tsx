@@ -53,7 +53,7 @@ export const inviteGroupMemberFormResolver: Resolver<
       recieverEmail &&
       recieverEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g) &&
       message &&
-      message.length >= 10
+      message.length >= 30
         ? values
         : {},
     errors:
@@ -72,11 +72,11 @@ export const inviteGroupMemberFormResolver: Resolver<
               message: "Title is required.",
             },
           }
-        : title.length < 10 || title.length > 300
+        : title.length < 10 || title.length > 30
         ? {
             title: {
               type: "validate",
-              message: "Title must be in range from 6 to 30 characters.",
+              message: "Title must be in range from 10 to 30 characters.",
             },
           }
         : !message
@@ -90,7 +90,7 @@ export const inviteGroupMemberFormResolver: Resolver<
         ? {
             message: {
               type: "validate",
-              message: "Message must be in range from 6 to 30 characters.",
+              message: "Message must be in range from 6 to 300 characters.",
             },
           }
         : {},

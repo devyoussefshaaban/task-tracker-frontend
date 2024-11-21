@@ -163,6 +163,7 @@ export const invitationsApi = {
   acceptInvitation: (groupId: string, invitationId: string) =>
     axios.post(
       `${baseUrlV1}/invitations/groups/${groupId}/invitations/${invitationId}/accept`,
+      {},
       headers
     ),
 };
