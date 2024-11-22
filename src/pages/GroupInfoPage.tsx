@@ -1,4 +1,4 @@
-import { Box, Container, Dialog, Grid, Typography } from "@mui/material";
+import { Box, Card, Container, Dialog, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";
 import { useEffect, useState } from "react";
@@ -71,6 +71,20 @@ const GroupInfoPage = () => {
           </Grid>
         ) : null}
       </FlexBetween>
+
+      <Grid container spacing={1} mt={2}>
+        {groupInfo?.projects.map((project) => (
+          <Grid key={project._id} item xs={12} md={4}>
+            <Card sx={{ py: 1, px: 2, background: "whitesmoke" }}>
+              <Typography variant="h6" mb={2}>
+                {project.projectName}
+              </Typography>
+              <Typography variant="body1">{project.description}</Typography>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
       <Dialog open={isOpenInvitationForm} onClose={closeInvitationForm}>
         <InviteGroupMemberForm closeForm={closeInvitationForm} />
       </Dialog>
