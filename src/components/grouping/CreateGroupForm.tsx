@@ -46,36 +46,44 @@ const CreateGroupForm: FC<IProps> = ({ closeForm }) => {
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
       <form onSubmit={submitHandler}>
-        <FormControl sx={{ mb: 2 }}>
-          <TextField
-            label="Group Name"
-            id="groupName"
-            placeholder="Enter your groupName"
-            variant="outlined"
-            {...register("groupName")}
-          />
-          {errors?.groupName && (
-            <Typography variant="caption" color="red">
-              {errors.groupName.message as string}
-            </Typography>
-          )}
-        </FormControl>
+        <Box
+          margin="auto"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <FormControl sx={{ mb: 2 }}>
+            <TextField
+              label="Group Name"
+              id="groupName"
+              placeholder="Enter your groupName"
+              variant="outlined"
+              {...register("groupName")}
+            />
+            {errors?.groupName && (
+              <Typography variant="caption" color="red">
+                {errors.groupName.message as string}
+              </Typography>
+            )}
+          </FormControl>
 
-        <FormControl sx={{ mb: 2 }}>
-          <TextField
-            label="Group Description"
-            type="description"
-            id="description"
-            placeholder="Enter your description"
-            variant="outlined"
-            {...register("description")}
-          />
-          {errors?.description && (
-            <Typography variant="caption" color="red">
-              {errors.description.message as string}
-            </Typography>
-          )}
-        </FormControl>
+          <FormControl sx={{ mb: 2 }}>
+            <TextField
+              label="Group Description"
+              type="description"
+              id="description"
+              placeholder="Enter your description"
+              variant="outlined"
+              {...register("description")}
+            />
+            {errors?.description && (
+              <Typography variant="caption" color="red">
+                {errors.description.message as string}
+              </Typography>
+            )}
+          </FormControl>
+        </Box>
 
         <Button
           type="submit"

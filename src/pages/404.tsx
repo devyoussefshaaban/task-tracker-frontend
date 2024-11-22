@@ -14,7 +14,7 @@ const NotFoundPage = () => {
           later.
         </Typography>
       </Box>
-      <BackToHomeBtn variant="contained" />
+      <BackToHomeBtn path="/" text="Back To Home" />
     </FlexColumn>
   );
 };

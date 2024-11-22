@@ -2,16 +2,19 @@ import { ArrowBack } from "@mui/icons-material";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const BackToHomeBtn = (props: any) => {
+const BackToHomeBtn = (
+  { path, text }: { path: string; text: string },
+  rest: any
+) => {
   return (
     <Box mb={3}>
-      <Link to={"/tasks"}>
+      <Link to={path}>
         <Button
-          {...props}
+          {...rest}
           startIcon={<ArrowBack />}
           sx={{ textTransform: "capitalize" }}
         >
-          Back To Home
+          {text}
         </Button>
       </Link>
     </Box>

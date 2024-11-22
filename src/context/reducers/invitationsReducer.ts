@@ -18,6 +18,9 @@ const initialState: {
 
 export const invitationsReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case actionTypes.SEND_GROUP_INVITATION:
+      toast.success(action.payload.message);
+      return { ...state };
     case actionTypes.GET_MY_INVITATIONS:
       return { ...state, invitationList: action.payload.data };
     case actionTypes.GET_INVITATION_INFO:

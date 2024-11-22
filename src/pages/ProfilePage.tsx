@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
   return (
     <Container sx={{ py: 3 }}>
-      <BackToHomeBtn />
+      <BackToHomeBtn path="/" text="Back To Home" />
       <Typography variant="h5">Hi, {user?.username}</Typography>
       <Typography variant="body1">
         Here you can easily update and manage your profile.

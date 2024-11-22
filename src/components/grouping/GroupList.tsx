@@ -11,10 +11,10 @@ const GroupList = () => {
   );
 
   return (
-    <Grid container>
+    <Grid container spacing={1}>
       {groups?.map((group: Group) => (
         <Grid key={group._id} item xs={12} md={4}>
-          <Card sx={{ py: 1, px: 2 }}>
+          <Card sx={{ py: 1, px: 2, background: "whitesmoke" }}>
             <Typography>{group.groupData.groupName}</Typography>
             <BasicButton>
               <Link to={`/groups/${group.groupData.groupId}`}>View</Link>

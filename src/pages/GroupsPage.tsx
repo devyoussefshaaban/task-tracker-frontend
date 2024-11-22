@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AppDispatch } from "../context";
 import { useDispatch } from "react-redux";
 import { getMyGroups } from "../context/actions/groupingActions";
+import { Add } from "@mui/icons-material";
 
 const GroupsPage = () => {
   const [openCreateGroupForm, setOpenCreateGroupForm] =
@@ -20,11 +21,17 @@ const GroupsPage = () => {
 
   return (
     <Container sx={{ py: 3 }}>
-      <GroupList />
       <Box textAlign="center">
-        <BasicButton variant="contained" onClick={openForm}>
-          Create Group
-        </BasicButton>
+        <Box mb={4}>
+          <BasicButton
+            variant="contained"
+            onClick={openForm}
+            startIcon={<Add />}
+          >
+            Create Group
+          </BasicButton>
+        </Box>
+        <GroupList />
         <Dialog open={openCreateGroupForm} onClose={closeForm}>
           <CreateGroupForm closeForm={closeForm} />
         </Dialog>

@@ -57,6 +57,25 @@ export const acceptInvitation =
     }
   };
 
+export const rejectInvitation =
+  (groupId: string, invitationId: string) => async (dispatch: any) => {
+    try {
+      const resposne = await invitationsApi.rejectInvitation(
+        groupId,
+        invitationId
+      );
+      dispatch({
+        type: actionTypes.ACCEPT_INVITATION,
+        payload: resposne.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.GROUPING_ERROR,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 export const sendGroupInvitation =
   (groupId: string, body: InviteGroupMemberRequestBody) =>
   async (dispatch: any) => {

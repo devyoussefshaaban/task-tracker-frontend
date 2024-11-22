@@ -1,14 +1,17 @@
-import { Container, Dialog, Typography } from "@mui/material";
+import { Box, Container, Dialog, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";
 import { useEffect, useState } from "react";
 import { getGroupInfo } from "../context/actions/groupingActions";
 import { useParams } from "react-router-dom";
-import { BasicButton } from "../components";
+import { BackToHomeBtn, BasicButton } from "../components";
 import InviteGroupMemberForm from "../components/grouping/InviteGroupMemberForm";
+import { User } from "../models/User";
 
 const GroupInfoPage = () => {
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+
+  const user: User = useSelector((state: RootState) => state.auth.user);
 
   const openForm = () => setIsOpenForm(true);
   const closeForm = () => setIsOpenForm(false);
@@ -27,10 +30,20 @@ const GroupInfoPage = () => {
 
   return (
     <Container sx={{ py: 3 }}>
-      <Typography>{groupInfo?.groupName}</Typography>
-      <BasicButton variant="contained" onClick={openForm}>
-        Invite User
-      </BasicButton>
+      <BackToHomeBtn path="/groups" text="View My Groups" />
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography mb={3}>{groupInfo?.groupName}</Typography>
+        {user?._id === groupInfo?.creatorId ? (
+          <BasicButton variant="contained" onClick={openForm}>
+            Invite User
+          </BasicButton>
+        ) : null}
+      </Box>
       <Dialog open={isOpenForm} onClose={closeForm}>
         <InviteGroupMemberForm closeForm={closeForm} />
       </Dialog>

@@ -12,6 +12,7 @@ import {
 import { sendGroupInvitation } from "../../context/actions/invitationsActions";
 import { Group } from "../../models/Group";
 import { FC } from "react";
+import FlexBetween from "../shared/FlexBetween";
 
 interface IProps {
   closeForm: () => void;
@@ -46,53 +47,59 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
       <form onSubmit={submitHandler}>
-        <FormControl sx={{ mb: 2 }}>
-          <TextField
-            label="Email"
-            id="Email"
-            placeholder="Enter the reciever email"
-            variant="outlined"
-            {...register("recieverEmail")}
-          />
-          {errors?.recieverEmail && (
-            <Typography variant="caption" color="red">
-              {errors.recieverEmail.message as string}
-            </Typography>
-          )}
-        </FormControl>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <FormControl sx={{ mb: 2 }}>
+            <TextField
+              label="Email"
+              id="Email"
+              placeholder="Enter the reciever email"
+              variant="outlined"
+              {...register("recieverEmail")}
+            />
+            {errors?.recieverEmail && (
+              <Typography variant="caption" color="red">
+                {errors.recieverEmail.message as string}
+              </Typography>
+            )}
+          </FormControl>
 
-        <FormControl sx={{ mb: 2 }}>
-          <TextField
-            label="Title"
-            type="text"
-            id="title"
-            placeholder="Enter the invitation title"
-            variant="outlined"
-            {...register("title")}
-          />
-          {errors?.title && (
-            <Typography variant="caption" color="red">
-              {errors.title.message as string}
-            </Typography>
-          )}
-        </FormControl>
+          <FormControl sx={{ mb: 2 }}>
+            <TextField
+              label="Title"
+              type="text"
+              id="title"
+              placeholder="Enter the invitation title"
+              variant="outlined"
+              {...register("title")}
+            />
+            {errors?.title && (
+              <Typography variant="caption" color="red">
+                {errors.title.message as string}
+              </Typography>
+            )}
+          </FormControl>
 
-        <FormControl sx={{ mb: 2 }}>
-          <TextField
-            label="Message"
-            type="text"
-            id="message"
-            placeholder="Enter your message"
-            variant="outlined"
-            {...register("message")}
-          />
-          {errors?.message && (
-            <Typography variant="caption" color="red">
-              {errors.message.message as string}
-            </Typography>
-          )}
-        </FormControl>
-
+          <FormControl sx={{ mb: 2 }}>
+            <TextField
+              label="Message"
+              type="text"
+              id="message"
+              placeholder="Enter your message"
+              variant="outlined"
+              {...register("message")}
+            />
+            {errors?.message && (
+              <Typography variant="caption" color="red">
+                {errors.message.message as string}
+              </Typography>
+            )}
+          </FormControl>
+        </Box>
         <Button
           type="submit"
           variant="contained"
