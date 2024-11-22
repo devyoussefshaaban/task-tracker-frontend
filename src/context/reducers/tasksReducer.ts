@@ -24,6 +24,11 @@ const tasksReducer = (state = initialState, action: any) => {
     case actionTypes.TASKS_ERROR:
       toast.error(action.payload);
       break;
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        tasks: [],
+      };
     default:
       return {
         ...state,

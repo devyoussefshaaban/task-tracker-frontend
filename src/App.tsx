@@ -13,7 +13,6 @@ import ProfilePage from "./pages/ProfilePage";
 import { ACCESS_TOKEN } from "./utils/constants";
 import Cookies from "js-cookie";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
-import { Loading } from "./components";
 import GeneralSettingsPage from "./pages/GeneralSettingsPage";
 import GroupsPage from "./pages/GroupsPage";
 import GroupInfoPage from "./pages/GroupInfoPage";

@@ -25,6 +25,7 @@ const authReducer = (
       };
     case actionTypes.SIGN_IN:
       Cookies.set(ACCESS_TOKEN, action.payload.data.token);
+      window.location.pathname = "/tasks";
       toast.success(action.payload.message);
       return {
         ...state,
@@ -48,6 +49,7 @@ const authReducer = (
       };
     case actionTypes.LOGOUT:
       Cookies.remove(ACCESS_TOKEN);
+      window.location.pathname = "/login";
       toast.info("You are logged out.");
       return {
         ...state,

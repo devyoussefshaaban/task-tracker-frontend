@@ -25,9 +25,17 @@ export const invitationsReducer = (state = initialState, action: any) => {
     case actionTypes.RESET_CURRENT_INVITATION:
       return { ...state, currentInvitation: null };
     case actionTypes.ACCEPT_INVITATION:
-      console.log(action.payload);
       toast.success(action.payload.message);
       return { ...state };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        invitationList: {
+          sentInvitations: [],
+          recievedInvitations: [],
+        },
+        currentInvitation: null,
+      };
     default:
       return { ...state };
   }

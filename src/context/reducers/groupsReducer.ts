@@ -23,6 +23,12 @@ export const groupsReducer = (state = initialState, action: any) => {
     case actionTypes.GROUPING_ERROR:
       toast.error(action.payload);
       return state;
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        groupList: [],
+        currentGroup: null,
+      };
     default:
       return { ...state };
   }
