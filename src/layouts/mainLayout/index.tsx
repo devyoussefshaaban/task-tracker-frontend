@@ -15,7 +15,7 @@ const MainLayout = (props: { children: ReactNode }) => {
         <AdminSidebar />
       ) : null}
       {!window.location.pathname.includes("/verify") ? <MainHeader /> : null}
-      <main>{props.children}</main>
+      <main style={{ marginTop: "4rem" }}>{props.children}</main>
     </>
   );
 };

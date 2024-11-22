@@ -111,6 +111,15 @@ export type CreateGroupResponse = {
   };
 };
 
+export type CreateNewProjectRequestBody = {
+  projectName: string;
+  description: string;
+  team?: {
+    leaderId?: string;
+    members?: [memberId: string];
+  };
+};
+
 const headers = {
   headers: {
     Authorization: `Bearer ${Cookie.get(ACCESS_TOKEN)}`,
@@ -172,6 +181,11 @@ export const invitationsApi = {
       {},
       headers
     ),
+};
+
+export const projectsApi = {
+  createNewProject: (groupId: string, body: CreateNewProjectRequestBody) =>
+    axios.post(`${baseUrlV1}/manage/groups/${groupId}/projects`, body, headers),
 };
 
 export const adminApi = {

@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
 import { Group } from "../../models/Group";
 import * as actionTypes from "../actions/actionTypes";
+import { Project } from "../../models/Project";
 
 const initialState: {
   groupList: Group[];
-  currentGroup: Group | null;
+  currentGroup: { group: Group; projects: Project[] } | null;
 } = {
   groupList: [],
   currentGroup: null,

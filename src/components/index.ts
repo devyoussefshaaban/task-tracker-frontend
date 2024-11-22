@@ -8,6 +8,7 @@ export { default as BasicButton } from "./shared/BasicButton";
 export { default as UserCard } from "./users/UserCard";
 export { default as EmailVerification } from "./auth/EmailVerification";
 export { default as CreateGroupForm } from "./grouping/CreateGroupForm";
+export { default as CreateProjectForm } from "./projects/CreateProjectForm";
 export { default as GroupList } from "./grouping/GroupList";
 export { default as InvitationList } from "./invitations/InvitationList";
 export { default as Loading } from "./shared/Loading";

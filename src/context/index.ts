@@ -13,12 +13,14 @@ import { generalReducer } from "./reducers/generalReducer";
 import ownerReducer from "./reducers/ownerReducer";
 import { groupsReducer } from "./reducers/groupsReducer";
 import { invitationsReducer } from "./reducers/invitationsReducer";
+import { projectsReducer } from "./reducers/projectsReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   tasks: tasksReducer,
   groups: groupsReducer,
   invitations: invitationsReducer,
+  projects: projectsReducer,
   admin: adminReducer,
   owner: ownerReducer,
   general: generalReducer,

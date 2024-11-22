@@ -1,22 +1,35 @@
-import { Box, Container, Dialog, Typography } from "@mui/material";
+import { Box, Container, Dialog, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context";
 import { useEffect, useState } from "react";
 import { getGroupInfo } from "../context/actions/groupingActions";
 import { useParams } from "react-router-dom";
-import { BackToHomeBtn, BasicButton } from "../components";
+import {
+  BackToHomeBtn,
+  BasicButton,
+  CreateProjectForm,
+  FlexBetween,
+} from "../components";
 import InviteGroupMemberForm from "../components/grouping/InviteGroupMemberForm";
 import { User } from "../models/User";
+import { Group } from "../models/Group";
+import { Project } from "../models/Project";
 
 const GroupInfoPage = () => {
-  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+  const [isOpenInvitationForm, setIsOpenInvitationForm] =
+    useState<boolean>(false);
+  const [isOpenCreateProjectForm, setIsOpenCreateProjectForm] =
+    useState<boolean>(false);
 
   const user: User = useSelector((state: RootState) => state.auth.user);
 
-  const openForm = () => setIsOpenForm(true);
-  const closeForm = () => setIsOpenForm(false);
+  const openInvitationForm = () => setIsOpenInvitationForm(true);
+  const closeInvitationForm = () => setIsOpenInvitationForm(false);
 
-  const groupInfo = useSelector(
+  const openCreateProjectForm = () => setIsOpenCreateProjectForm(true);
+  const closeCreateProjectForm = () => setIsOpenCreateProjectForm(false);
+
+  const groupInfo: { group: Group; projects: Project[] } = useSelector(
     (state: RootState) => state.groups?.currentGroup
   );
 
@@ -31,21 +44,38 @@ const GroupInfoPage = () => {
   return (
     <Container sx={{ py: 3 }}>
       <BackToHomeBtn path="/groups" text="View My Groups" />
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Typography mb={3}>{groupInfo?.groupName}</Typography>
-        {user?._id === groupInfo?.creatorId ? (
-          <BasicButton variant="contained" onClick={openForm}>
-            Invite User
-          </BasicButton>
+      <FlexBetween>
+        <Typography variant="h6" fontWeight={600} mb={3}>
+          {groupInfo?.group?.groupName}
+        </Typography>
+        {user?._id === groupInfo?.group?.creatorId ? (
+          <Grid container spacing={1} width="30%">
+            <Grid item xs={12} md={6}>
+              <BasicButton
+                fullWidth
+                variant="contained"
+                onClick={openInvitationForm}
+              >
+                Invite User
+              </BasicButton>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <BasicButton
+                fullWidth
+                variant="contained"
+                onClick={openCreateProjectForm}
+              >
+                Create Project
+              </BasicButton>
+            </Grid>
+          </Grid>
         ) : null}
-      </Box>
-      <Dialog open={isOpenForm} onClose={closeForm}>
-        <InviteGroupMemberForm closeForm={closeForm} />
+      </FlexBetween>
+      <Dialog open={isOpenInvitationForm} onClose={closeInvitationForm}>
+        <InviteGroupMemberForm closeForm={closeInvitationForm} />
+      </Dialog>
+      <Dialog open={isOpenCreateProjectForm} onClose={closeCreateProjectForm}>
+        <CreateProjectForm closeForm={closeCreateProjectForm} />
       </Dialog>
     </Container>
   );

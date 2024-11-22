@@ -2,28 +2,28 @@ import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
-import { InviteGroupMemberRequestBody } from "../../utils/api";
+import { CreateNewProjectRequestBody } from "../../utils/api";
 import { AppDispatch, RootState } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  inviteGroupMemberFormResolver,
-  InviteGroupMemberFormValues,
-} from "../../validations/groupingValidation";
-import { sendGroupInvitation } from "../../context/actions/invitationsActions";
 import { Group } from "../../models/Group";
 import { FC } from "react";
+import {
+  createProjectFormResolver,
+  CreateProjectFormValues,
+} from "../../validations/createProjectValidation";
+import { createNewProject } from "../../context/actions/projectsActions";
 
 interface IProps {
   closeForm: () => void;
 }
 
-const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
+const CreateProjectForm: FC<IProps> = ({ closeForm }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<InviteGroupMemberFormValues>({
-    resolver: inviteGroupMemberFormResolver,
+  } = useForm<CreateProjectFormValues>({
+    resolver: createProjectFormResolver,
   });
 
   const dispatch: AppDispatch = useDispatch();
@@ -32,8 +32,8 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
     (state: RootState) => state.groups?.currentGroup
   );
 
-  const submitHandler = handleSubmit((data: InviteGroupMemberRequestBody) => {
-    dispatch(sendGroupInvitation(groupInfo?._id, data));
+  const submitHandler = handleSubmit((data: CreateNewProjectRequestBody) => {
+    dispatch(createNewProject(groupInfo?._id, data));
     closeForm();
   });
 
@@ -41,7 +41,7 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
     <Stack spacing={2} width="30ch" margin="2rem auto 2rem">
       <Box>
         <Typography variant="h6" textAlign="center">
-          Invite Group Member
+          Create New Project
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
@@ -54,47 +54,32 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
         >
           <FormControl sx={{ mb: 2 }}>
             <TextField
-              label="Email"
-              id="Email"
-              placeholder="Enter the reciever email"
+              label="Project Name"
+              type="text"
+              id="projectName"
+              placeholder="Enter your projectName"
               variant="outlined"
-              {...register("recieverEmail")}
+              {...register("projectName")}
             />
-            {errors?.recieverEmail && (
+            {errors?.projectName && (
               <Typography variant="caption" color="red">
-                {errors.recieverEmail.message as string}
+                {errors.projectName.message as string}
               </Typography>
             )}
           </FormControl>
 
           <FormControl sx={{ mb: 2 }}>
             <TextField
-              label="Title"
+              label="Description"
               type="text"
-              id="title"
-              placeholder="Enter the invitation title"
+              id="description"
+              placeholder="Enter the invitation description"
               variant="outlined"
-              {...register("title")}
+              {...register("description")}
             />
-            {errors?.title && (
+            {errors?.description && (
               <Typography variant="caption" color="red">
-                {errors.title.message as string}
-              </Typography>
-            )}
-          </FormControl>
-
-          <FormControl sx={{ mb: 2 }}>
-            <TextField
-              label="Message"
-              type="text"
-              id="message"
-              placeholder="Enter your message"
-              variant="outlined"
-              {...register("message")}
-            />
-            {errors?.message && (
-              <Typography variant="caption" color="red">
-                {errors.message.message as string}
+                {errors.description.message as string}
               </Typography>
             )}
           </FormControl>
@@ -109,11 +94,11 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
             margin: "auto",
           }}
         >
-          Send Invitation
+          Submit
         </Button>
       </form>
     </Stack>
   );
 };
 
-export default InviteGroupMemberForm;
+export default CreateProjectForm;
