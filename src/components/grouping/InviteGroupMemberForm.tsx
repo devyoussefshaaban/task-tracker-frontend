@@ -5,13 +5,14 @@ import { useForm } from "react-hook-form";
 import { InviteGroupMemberRequestBody } from "../../utils/api";
 import { AppDispatch, RootState } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
+import { Group } from "../../models/Group";
+import { FC } from "react";
+import { Project } from "../../models/Project";
 import {
   inviteGroupMemberFormResolver,
   InviteGroupMemberFormValues,
 } from "../../validations/groupingValidation";
 import { sendGroupInvitation } from "../../context/actions/invitationsActions";
-import { Group } from "../../models/Group";
-import { FC } from "react";
 
 interface IProps {
   closeForm: () => void;
@@ -28,12 +29,13 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const groupInfo: Group = useSelector(
+  const groupInfo: { group: Group; projects: Project[] } = useSelector(
     (state: RootState) => state.groups?.currentGroup
   );
 
+  // TODO: FIX ISSUE OF THE FORM BODY, SOMETIMES IT'S EMPTY!!!!
   const submitHandler = handleSubmit((data: InviteGroupMemberRequestBody) => {
-    dispatch(sendGroupInvitation(groupInfo?._id, data));
+    dispatch(sendGroupInvitation(groupInfo?.group._id, data));
     closeForm();
   });
 
@@ -41,7 +43,7 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
     <Stack spacing={2} width="30ch" margin="2rem auto 2rem">
       <Box>
         <Typography variant="h6" textAlign="center">
-          Invite Group Member
+          Send Join Invitation
         </Typography>
         <Divider sx={{ mb: 1, mt: 1 }} />
       </Box>
@@ -54,9 +56,10 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
         >
           <FormControl sx={{ mb: 2 }}>
             <TextField
-              label="Email"
-              id="Email"
-              placeholder="Enter the reciever email"
+              label="Reciever Email"
+              type="text"
+              id="recieverEmail"
+              placeholder="Enter the user email"
               variant="outlined"
               {...register("recieverEmail")}
             />
@@ -88,7 +91,7 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
               label="Message"
               type="text"
               id="message"
-              placeholder="Enter your message"
+              placeholder="Enter the invitation message"
               variant="outlined"
               {...register("message")}
             />
@@ -109,7 +112,7 @@ const InviteGroupMemberForm: FC<IProps> = ({ closeForm }) => {
             margin: "auto",
           }}
         >
-          Send Invitation
+          Send
         </Button>
       </form>
     </Stack>

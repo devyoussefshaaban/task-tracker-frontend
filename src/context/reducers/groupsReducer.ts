@@ -2,13 +2,18 @@ import { toast } from "react-toastify";
 import { Group } from "../../models/Group";
 import * as actionTypes from "../actions/actionTypes";
 import { Project } from "../../models/Project";
+import { Group_Member } from "../../models/Group_Member";
 
 const initialState: {
   groupList: Group[];
-  currentGroup: { group: Group; projects: Project[] } | null;
+  currentGroupInfo: {
+    group: Group;
+    projects: Project[];
+    members: Group_Member[];
+  } | null;
 } = {
   groupList: [],
-  currentGroup: null,
+  currentGroupInfo: null,
 };
 
 export const groupsReducer = (state = initialState, action: any) => {
@@ -19,7 +24,7 @@ export const groupsReducer = (state = initialState, action: any) => {
       toast.success(action.payload.message);
       break;
     case actionTypes.GET_GROUP_INFO:
-      return { ...state, currentGroup: action.payload.data };
+      return { ...state, currentGroupInfo: action.payload.data };
       break;
     case actionTypes.GROUPING_ERROR:
       toast.error(action.payload);
@@ -28,7 +33,7 @@ export const groupsReducer = (state = initialState, action: any) => {
       return {
         ...state,
         groupList: [],
-        currentGroup: null,
+        currentGroupInfo: null,
       };
     default:
       return { ...state };

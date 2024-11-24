@@ -9,13 +9,14 @@ import { USER_ROLE } from "../../utils/constants";
 const MainLayout = (props: { children: ReactNode }) => {
   const user: User = useSelector((state: RootState) => state.auth.user);
 
+  const isAdminUser =
+    user?.role === USER_ROLE.ADMIN || user?.role === USER_ROLE.OWNER;
+
   return (
     <>
-      {user?.role === USER_ROLE.ADMIN || user?.role === USER_ROLE.OWNER ? (
-        <AdminSidebar />
-      ) : null}
+      {isAdminUser ? <AdminSidebar /> : null}
       {!window.location.pathname.includes("/verify") ? <MainHeader /> : null}
-      <main style={{ marginTop: "4rem" }}>{props.children}</main>
+      <main style={{ marginTop: "5rem" }}>{props.children}</main>
     </>
   );
 };

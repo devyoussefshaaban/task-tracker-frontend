@@ -9,11 +9,14 @@ import {
   BasicButton,
   CreateProjectForm,
   FlexBetween,
+  MemberList,
+  ProjectList,
 } from "../components";
 import InviteGroupMemberForm from "../components/grouping/InviteGroupMemberForm";
 import { User } from "../models/User";
 import { Group } from "../models/Group";
 import { Project } from "../models/Project";
+import { Group_Member } from "../models/Group_Member";
 
 const GroupInfoPage = () => {
   const [isOpenInvitationForm, setIsOpenInvitationForm] =
@@ -29,9 +32,11 @@ const GroupInfoPage = () => {
   const openCreateProjectForm = () => setIsOpenCreateProjectForm(true);
   const closeCreateProjectForm = () => setIsOpenCreateProjectForm(false);
 
-  const groupInfo: { group: Group; projects: Project[] } = useSelector(
-    (state: RootState) => state.groups?.currentGroup
-  );
+  const groupInfo: {
+    group: Group;
+    projects: Project[];
+    members: Group_Member[];
+  } = useSelector((state: RootState) => state.groups?.currentGroupInfo);
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -72,18 +77,8 @@ const GroupInfoPage = () => {
         ) : null}
       </FlexBetween>
 
-      <Grid container spacing={1} mt={2}>
-        {groupInfo?.projects.map((project) => (
-          <Grid key={project._id} item xs={12} md={4}>
-            <Card sx={{ py: 1, px: 2, background: "whitesmoke" }}>
-              <Typography variant="h6" mb={2}>
-                {project.projectName}
-              </Typography>
-              <Typography variant="body1">{project.description}</Typography>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <ProjectList groupInfo={groupInfo} />
+      <MemberList groupInfo={groupInfo} />
 
       <Dialog open={isOpenInvitationForm} onClose={closeInvitationForm}>
         <InviteGroupMemberForm closeForm={closeInvitationForm} />

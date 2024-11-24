@@ -12,6 +12,8 @@ import {
   CreateProjectFormValues,
 } from "../../validations/createProjectValidation";
 import { createNewProject } from "../../context/actions/projectsActions";
+import { Project } from "../../models/Project";
+import { getGroupInfo } from "../../context/actions/groupingActions";
 
 interface IProps {
   closeForm: () => void;
@@ -28,12 +30,13 @@ const CreateProjectForm: FC<IProps> = ({ closeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const groupInfo: Group = useSelector(
+  const groupInfo: { group: Group; projects: Project[] } = useSelector(
     (state: RootState) => state.groups?.currentGroup
   );
 
   const submitHandler = handleSubmit((data: CreateNewProjectRequestBody) => {
-    dispatch(createNewProject(groupInfo?._id, data));
+    dispatch(createNewProject(groupInfo?.group._id, data));
+    dispatch(getGroupInfo(groupInfo?.group._id));
     closeForm();
   });
 

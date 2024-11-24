@@ -17,6 +17,8 @@ import GeneralSettingsPage from "./pages/GeneralSettingsPage";
 import GroupsPage from "./pages/GroupsPage";
 import GroupInfoPage from "./pages/GroupInfoPage";
 import InvitationsPage from "./pages/InvitationsPage";
+import ProjectInfoPage from "./pages/ProjectInfoPage";
+import MemberInfoPage from "./pages/MemberInfoPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -66,6 +68,22 @@ const App = () => {
           element={
             <ProtectedRoute>
               <GroupInfoPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/groups/:groupId/projects/:projectId"
+          element={
+            <ProtectedRoute>
+              <ProjectInfoPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/groups/:groupId/members/:memberId"
+          element={
+            <ProtectedRoute>
+              <MemberInfoPage />
             </ProtectedRoute>
           }
         />
