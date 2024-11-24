@@ -1,8 +1,10 @@
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Card, Grid, Typography } from "@mui/material";
 import { Group } from "../../models/Group";
 import { Project } from "../../models/Project";
 import { FC } from "react";
 import ViewButton from "../shared/ViewButton";
+import HeadTitle from "../shared/HeadTitle";
+import BoxWrapper from "../shared/BoxWrapper";
 
 interface IProps {
   groupInfo: {
@@ -12,9 +14,17 @@ interface IProps {
 }
 
 const ProjectList: FC<IProps> = ({ groupInfo }) => {
+  if (groupInfo?.projects.length === 0)
+    return (
+      <>
+        <HeadTitle title="Projects" />
+        <Typography>There is no projects added yet.</Typography>
+      </>
+    );
+
   return (
-    <Box>
-      <Typography variant="h6">Projects</Typography>
+    <BoxWrapper>
+      <HeadTitle title="Projects" />
       <Grid container spacing={1} mt={2}>
         {groupInfo?.projects.map((project) => (
           <Grid key={project._id} item xs={12} md={4}>
@@ -32,7 +42,7 @@ const ProjectList: FC<IProps> = ({ groupInfo }) => {
           </Grid>
         ))}
       </Grid>
-    </Box>
+    </BoxWrapper>
   );
 };
 

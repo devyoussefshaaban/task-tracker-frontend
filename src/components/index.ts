@@ -18,3 +18,5 @@ export { default as BackToHomeBtn } from "./shared/BackToHomeBtn";
 export { default as ViewButton } from "./shared/ViewButton";
 export { default as FlexColumn } from "./shared/FlexColumn";
 export { default as FlexBetween } from "./shared/FlexBetween";
+export { default as HeadTitle } from "./shared/HeadTitle";
+export { default as BoxWrapper } from "./shared/BoxWrapper";

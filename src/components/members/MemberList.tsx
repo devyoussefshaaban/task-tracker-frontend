@@ -8,6 +8,8 @@ import { User } from "../../models/User";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context";
 import FlexBetween from "../shared/FlexBetween";
+import HeadTitle from "../shared/HeadTitle";
+import BoxWrapper from "../shared/BoxWrapper";
 
 interface IProps {
   groupInfo: {
@@ -20,9 +22,16 @@ interface IProps {
 const MemberList: FC<IProps> = ({ groupInfo }) => {
   const user: User = useSelector((state: RootState) => state.auth.user);
 
+  if (groupInfo?.members.length === 0)
+    return (
+      <>
+        <HeadTitle title="Members" />
+        <Typography>There is no members added yet.</Typography>
+      </>
+    );
   return (
-    <Box>
-      <Typography variant="h6">Members</Typography>
+    <BoxWrapper>
+      <HeadTitle title="Members" />
       <Grid container spacing={1} mt={2}>
         {groupInfo?.members.map((member) => (
           <Grid key={member._id} item xs={12} md={4}>
@@ -58,7 +67,7 @@ const MemberList: FC<IProps> = ({ groupInfo }) => {
           </Grid>
         ))}
       </Grid>
-    </Box>
+    </BoxWrapper>
   );
 };
 
