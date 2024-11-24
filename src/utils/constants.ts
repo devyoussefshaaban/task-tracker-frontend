@@ -11,6 +11,12 @@ export const USER_ROLE = {
   OWNER: "OWNER",
 };
 
+export const TASK_STATUS = {
+  NOT_STARTED: "NOT_STARTED",
+  IN_PROGRESS: "IN_PROGRESS",
+  COMPLETED: "COMPLETED",
+};
+
 export const TASK_PRIORITY = {
   URGENT: "URGENT",
   NORMAL: "NORMAL",

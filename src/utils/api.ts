@@ -56,16 +56,21 @@ export type GetMyTasksResponse = {
 };
 
 export type CreateTaskRequestBody = {
-  name: string;
+  title: string;
   description: string;
+  projectId?: string | null;
   status?: string;
+  assignedUserId: string;
   priority: "URGENT" | "NORMAL" | "LOW";
 };
 
 export type UpdateTaskRequestBody = {
-  name?: string;
+  title?: string;
   description?: string;
+  projectId?: string | null;
   status?: string;
+  assignedUserId: string;
+  priority: "URGENT" | "NORMAL" | "LOW";
 };
 
 export type CreateTaskResponse = {

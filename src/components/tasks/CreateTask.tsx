@@ -19,16 +19,22 @@ import {
   CreateTaskFormResolver,
 } from "../../validations/taskValidation";
 import { CreateTaskRequestBody } from "../../utils/api";
-import { AppDispatch } from "../../context";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createTask,
   getMyTasks,
   updateTask,
 } from "../../context/actions/tasksActions";
-import { CREATE_TASK_FORM_TYPE, TASK_PRIORITY } from "../../utils/constants";
+import {
+  CREATE_TASK_FORM_TYPE,
+  TASK_PRIORITY,
+  TASK_STATUS,
+} from "../../utils/constants";
 import { Close } from "@mui/icons-material";
 import { Task } from "../../models/Task";
+import { User } from "../../models/User";
+import { Project } from "../../models/Project";
 
 interface IProps {
   formType: string;
@@ -43,6 +49,11 @@ const CreateTaskForm: FC<IProps> = ({
   onUpdateTask,
   onClose,
 }) => {
+  const user: User = useSelector((state: RootState) => state.auth.user);
+  const currentProject: Project | null = useSelector(
+    (state: RootState) => state.projects.currentProject
+  );
+
   const {
     register,
     handleSubmit,
@@ -50,17 +61,46 @@ const CreateTaskForm: FC<IProps> = ({
   } = useForm<CreateTaskFormValues>({ resolver: CreateTaskFormResolver });
 
   const [priority, setPriority] = useState<any>(TASK_PRIORITY.NORMAL);
+  const [status, setStatus] = useState<any>(selectedTask?.status);
+  const [assignedUser, setAssignedUser] = useState<User>(user);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChangePriority = (event: SelectChangeEvent) => {
     setPriority(event.target.value as string);
+  };
+
+  const handleChangeStatus = (event: SelectChangeEvent) => {
+    setStatus(event.target.value as string);
+  };
+
+  const handleChangeAssignedUser = (event: any) => {
+    setAssignedUser(event.target.value);
   };
 
   const dispatch: AppDispatch = useDispatch();
 
+  const isCreateFormType = formType === CREATE_TASK_FORM_TYPE.CREATE_TASK;
+
   const submitHandler = handleSubmit((data: CreateTaskRequestBody) => {
-    formType === CREATE_TASK_FORM_TYPE.CREATE_TASK
-      ? dispatch(createTask({ ...data, priority }))
-      : selectedTask && dispatch(updateTask(selectedTask._id, data));
+    isCreateFormType
+      ? dispatch(
+          createTask({
+            ...data,
+            priority,
+            status,
+            assignedUserId: assignedUser._id,
+            projectId: currentProject ? currentProject._id : null,
+          })
+        )
+      : selectedTask &&
+        dispatch(
+          updateTask(selectedTask._id, {
+            ...data,
+            priority,
+            status,
+            assignedUserId: assignedUser._id,
+            projectId: currentProject ? currentProject._id : null,
+          })
+        );
 
     onUpdateTask();
 
@@ -91,16 +131,16 @@ const CreateTaskForm: FC<IProps> = ({
       <form onSubmit={submitHandler}>
         <FormControl sx={{ mb: 2 }} fullWidth>
           <TextField
-            label="Task name"
-            id="name"
-            defaultValue={selectedTask ? selectedTask.name : ""}
-            placeholder="Enter the task name"
+            label="Task Title"
+            id="title"
+            defaultValue={selectedTask ? selectedTask.title : ""}
+            placeholder="Enter the task title"
             variant="outlined"
-            {...register("name")}
+            {...register("title")}
           />
-          {errors?.name && (
+          {errors?.title && (
             <Typography variant="caption" color="red">
-              {errors.name.message as string}
+              {errors.title.message as string}
             </Typography>
           )}
         </FormControl>
@@ -122,6 +162,46 @@ const CreateTaskForm: FC<IProps> = ({
           )}
         </FormControl>
 
+        {!isCreateFormType ? (
+          <FormControl sx={{ mb: 2 }} fullWidth>
+            <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={status}
+              label="Status"
+              defaultValue={TASK_STATUS.NOT_STARTED}
+              onChange={handleChangeStatus}
+            >
+              <MenuItem value={TASK_STATUS.NOT_STARTED}>
+                {TASK_STATUS.NOT_STARTED}
+              </MenuItem>
+              <MenuItem value={TASK_STATUS.IN_PROGRESS}>
+                {TASK_STATUS.IN_PROGRESS}
+              </MenuItem>
+              <MenuItem value={TASK_STATUS.COMPLETED}>
+                {TASK_STATUS.COMPLETED}
+              </MenuItem>
+            </Select>
+          </FormControl>
+        ) : null}
+
+        {currentProject ? (
+          <FormControl sx={{ mb: 2 }} fullWidth>
+            <InputLabel id="assignee-select-label">Assignee</InputLabel>
+            <Select
+              labelId="assignee-select-label"
+              id="assignee-select"
+              value={assignedUser?.username}
+              label="Assignee"
+              defaultValue={user?.username}
+              onChange={handleChangeAssignedUser}
+            >
+              <MenuItem value={user?.username}>{user?.username}</MenuItem>
+            </Select>
+          </FormControl>
+        ) : null}
+
         <FormControl sx={{ mb: 2 }} fullWidth>
           <InputLabel id="demo-simple-select-label">Priority</InputLabel>
           <Select
@@ -130,7 +210,7 @@ const CreateTaskForm: FC<IProps> = ({
             value={priority}
             label="Priority"
             defaultValue={TASK_PRIORITY.NORMAL}
-            onChange={handleChange}
+            onChange={handleChangePriority}
           >
             <MenuItem value={TASK_PRIORITY.URGENT}>
               {TASK_PRIORITY.URGENT}
@@ -151,7 +231,7 @@ const CreateTaskForm: FC<IProps> = ({
             margin: "auto",
           }}
         >
-          {formType === CREATE_TASK_FORM_TYPE.CREATE_TASK ? "Create" : "Save"}
+          {isCreateFormType ? "Create" : "Save"}
         </Button>
       </form>
     </Stack>

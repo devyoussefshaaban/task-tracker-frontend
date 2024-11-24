@@ -1,33 +1,36 @@
 import { Resolver } from "react-hook-form";
 
 export type CreateTaskFormValues = {
-  name: string;
+  title: string;
   description: string;
+  projectId?: string | null;
+  status?: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+  assignedUserId: string;
   priority: "URGENT" | "NORMAL" | "LOW";
 };
 
 export const CreateTaskFormResolver: Resolver<CreateTaskFormValues> = async (
   values
 ) => {
-  const { name, description } = values;
+  const { title, description } = values;
 
   return {
     values:
-      name && name.length >= 3 && description && description.length >= 10
+      title && title.length >= 3 && description && description.length >= 10
         ? values
         : {},
-    errors: !name
+    errors: !title
       ? {
-          name: {
+          title: {
             type: "required",
-            message: "Task name is required and must be valid.",
+            message: "Task title is required and must be valid.",
           },
         }
-      : name.length < 3 || name.length > 30
+      : title.length < 3 || title.length > 30
       ? {
-          name: {
+          title: {
             type: "validate",
-            message: "Task name must be in range from 3 to 30 characters.",
+            message: "Task title must be in range from 3 to 30 characters.",
           },
         }
       : !description

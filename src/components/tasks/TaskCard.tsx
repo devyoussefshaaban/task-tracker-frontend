@@ -24,16 +24,16 @@ const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
     dispatch(deleteTask(task._id));
     setTimeout(() => {
       dispatch(getMyTasks());
-    }, 500)
+    }, 500);
     onCloseConfirmModal();
   };
 
-  const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false)
+  const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
 
-  const onClickDeleteIcon = () => setOpenConfirmModal(true)
+  const onClickDeleteIcon = () => setOpenConfirmModal(true);
 
-  const onCloseConfirmModal = () => setOpenConfirmModal(false)
-  
+  const onCloseConfirmModal = () => setOpenConfirmModal(false);
+
   const onClickEditIcon = () => {
     onSelect(task);
     onOpenForm();
@@ -49,7 +49,7 @@ const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
             alignItems="center"
           >
             <Typography variant="h5" component="div">
-              {task.name}
+              {task.title}
             </Typography>
             <Box>
               <IconButton onClick={onClickDeleteIcon}>
@@ -63,13 +63,13 @@ const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
           <Typography variant="body2">{task.description}</Typography>
         </CardContent>
       </Card>
-      <ConfirmModal 
-      open={openConfirmModal} 
-      onClose={onCloseConfirmModal}
-      title={"Delete Task Confirmation"}
-      message={"Are you sure you want to delete this task permanently ?"}
-      onOk={deleteTaskHandler}
-      onCancel={onCloseConfirmModal}
+      <ConfirmModal
+        open={openConfirmModal}
+        onClose={onCloseConfirmModal}
+        title={"Delete Task Confirmation"}
+        message={"Are you sure you want to delete this task permanently ?"}
+        onOk={deleteTaskHandler}
+        onCancel={onCloseConfirmModal}
       />
     </Box>
   );
