@@ -15,14 +15,14 @@ interface IProps {
   onSelect: (task: Task) => void;
 }
 
-const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
+const TaskCard: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
   const {
     deleteTaskHandler,
     onClickDeleteIcon,
     onCloseConfirmModal,
     onClickEditIcon,
     openConfirmModal,
-  } = taskInfoService(task, () => onSelect(task), onOpenForm);
+  } = taskInfoService(task, () => onSelect(task));
 
   return (
     <Box sx={{ minWidth: 275, width: "100%", mb: 1 }}>
@@ -60,4 +60,4 @@ const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
   );
 };
 
-export default TaskItem;
+export default TaskCard;

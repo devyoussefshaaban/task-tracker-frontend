@@ -2,42 +2,14 @@ import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { FC } from "react";
-import { useForm } from "react-hook-form";
-import {
-  SignInFormValues,
-  signInFormResolver,
-} from "../../validations/authValidation";
-import { SignInRequestBody } from "../../utils/api";
-import { AppDispatch } from "../../context";
-import { useDispatch } from "react-redux";
-import { signIn } from "../../context/actions/authActions";
-import Cookies from "js-cookie";
-import { ACCESS_TOKEN } from "../../utils/constants";
-import { useNavigate } from "react-router-dom";
+import { authServices } from "../../services/authServices";
 
 interface IProps {
   switchForm: () => void;
 }
 
 const SignInForm: FC<IProps> = ({ switchForm }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInFormValues>({ resolver: signInFormResolver });
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const navigate = useNavigate();
-
-  const submitHandler = handleSubmit((data: SignInRequestBody) => {
-    dispatch(signIn(data));
-
-    setTimeout(() => {
-      if (Cookies.get(ACCESS_TOKEN) && Cookies.get(ACCESS_TOKEN) !== "")
-        navigate("/tasks");
-    }, 1000);
-  });
+  const { register, errors, submitHandler } = authServices().signInService();
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem auto 2rem">

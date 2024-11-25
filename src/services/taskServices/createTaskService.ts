@@ -20,7 +20,7 @@ import { Project } from "../../models/Project";
 import { projectInfoService } from "../projectServices/projectInfoService";
 import { Task } from "../../models/Task";
 
-export const createTaskService = (
+export const createTaskService: any = (
   selectedTask: Task | null,
   formType: string,
   onUpdateTask: () => void,
@@ -38,7 +38,7 @@ export const createTaskService = (
     formState: { errors },
   } = useForm<CreateTaskFormValues>({ resolver: CreateTaskFormResolver });
 
-  const [priority, setPriority] = useState<any>(TASK_PRIORITY.NORMAL);
+  const [priority, setPriority] = useState<any>(selectedTask?.priority);
   const [status, setStatus] = useState<any>(selectedTask?.status);
   const [assignedUser, setAssignedUser] = useState<User>(user);
 

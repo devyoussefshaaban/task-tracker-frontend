@@ -1,23 +1,9 @@
-import {
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { AppDispatch, RootState } from "../../context";
-import { useDispatch, useSelector } from "react-redux";
-import { signUp, updateMyProfile } from "../../context/actions/authActions";
-import { SignUpRequestBody } from "../../utils/api";
-import {
-  SignUpFormValues,
-  signUpFormResolver,
-} from "../../validations/authValidation";
+import { FC } from "react";
+import { authServices } from "../../services/authServices";
+import { User } from "../../models/User";
 
 export enum SIGN_UP_FORM_TYPE {
   REGISTER_USER,
@@ -30,30 +16,10 @@ interface IProps {
 }
 
 const SignUpForm: FC<IProps> = ({ formType, switchForm }) => {
-  const user = useSelector((state: RootState) => state.auth.user);
-  const isRegisterForm = formType === SIGN_UP_FORM_TYPE.REGISTER_USER;
+  const { register, errors, submitHandler, isRegisterForm } =
+    authServices().signUpService(formType, switchForm);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpFormValues>({
-    defaultValues: {
-      username: isRegisterForm ? "" : user?.username,
-    },
-    resolver: signUpFormResolver,
-  });
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const signUpHandler = (data: SignUpRequestBody) => {
-    dispatch(signUp(data));
-    switchForm();
-  };
-
-  const submitHandler = handleSubmit((data: SignUpRequestBody) => {
-    isRegisterForm ? signUpHandler(data) : dispatch(updateMyProfile(data));
-  });
+  const { user }: { user: User } = authServices();
 
   return (
     <Stack margin="2rem auto 2rem" width="30ch">

@@ -1,44 +1,15 @@
 import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { useForm } from "react-hook-form";
-import { CreateNewProjectRequestBody } from "../../utils/api";
-import { AppDispatch, RootState } from "../../context";
-import { useDispatch, useSelector } from "react-redux";
-import { Group } from "../../models/Group";
 import { FC } from "react";
-import {
-  createProjectFormResolver,
-  CreateProjectFormValues,
-} from "../../validations/createProjectValidation";
-import { createNewProject } from "../../context/actions/projectsActions";
-import { Project } from "../../models/Project";
-import { getGroupInfo } from "../../context/actions/groupingActions";
+import { createProjectService } from "../../services/projectServices/createProjectService";
 
 interface IProps {
   closeForm: () => void;
 }
 
 const CreateProjectForm: FC<IProps> = ({ closeForm }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateProjectFormValues>({
-    resolver: createProjectFormResolver,
-  });
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const groupInfo: { group: Group; projects: Project[] } = useSelector(
-    (state: RootState) => state.groups?.currentGroup
-  );
-
-  const submitHandler = handleSubmit((data: CreateNewProjectRequestBody) => {
-    dispatch(createNewProject(groupInfo?.group._id, data));
-    dispatch(getGroupInfo(groupInfo?.group._id));
-    closeForm();
-  });
+  const { register, errors, submitHandler } = createProjectService(closeForm);
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem auto 2rem">

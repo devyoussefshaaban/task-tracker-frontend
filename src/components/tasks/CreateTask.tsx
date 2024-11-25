@@ -98,7 +98,7 @@ const CreateTaskForm: FC<IProps> = ({
 
         {!isCreateFormType ? (
           <FormControl sx={{ mb: 2 }} fullWidth>
-            <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -137,10 +137,10 @@ const CreateTaskForm: FC<IProps> = ({
         ) : null}
 
         <FormControl sx={{ mb: 2 }} fullWidth>
-          <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+          <InputLabel id="task-priority-select-label">Priority</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="task-priority-select-label"
+            id="task-priority-select"
             value={priority}
             label="Priority"
             defaultValue={TASK_PRIORITY.NORMAL}

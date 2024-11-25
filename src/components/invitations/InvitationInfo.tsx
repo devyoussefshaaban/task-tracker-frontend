@@ -1,12 +1,3 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  acceptInvitation,
-  getInvitationInfo,
-  getMyInvitations,
-  rejectInvitation,
-} from "../../context/actions/invitationsActions";
-import { AppDispatch, RootState } from "../../context";
 import {
   Box,
   Card,
@@ -17,44 +8,25 @@ import {
   Typography,
 } from "@mui/material";
 import BasicButton from "../shared/BasicButton";
-import { User } from "../../models/User";
 import { Invitation } from "../../models/Invitation";
 import FlexBetween from "../shared/FlexBetween";
-import { useNavigate } from "react-router-dom";
+import { invitationInfoService } from "../../services/invitationServices/invitationInfoService";
+import { User } from "../../models/User";
+import { authServices } from "../../services/authServices";
 
 const InvitationInfo = (props: { invitation: Invitation }) => {
   const { invitation } = props;
 
-  const user: User = useSelector((state: RootState) => state.auth.user);
+  const {
+    isViewDetails,
+    openViewDetails,
+    closeViewDetails,
+    acceptThisInvitation,
+    rejectThisInvitation,
+    isInvitationReciever,
+  } = invitationInfoService(invitation);
 
-  const [isViewDetails, setIsViewDetails] = useState<boolean>(false);
-
-  const closeViewDetails = () => {
-    setIsViewDetails(false);
-  };
-
-  const openViewDetails = () => {
-    setIsViewDetails(true);
-  };
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const navigate = useNavigate();
-
-  const acceptThisInvitation = () => {
-    dispatch(acceptInvitation(invitation?.groupId, invitation?._id));
-    dispatch(getMyInvitations());
-    closeViewDetails();
-    navigate(`/groups/${invitation?.groupId}`);
-  };
-
-  const rejectThisInvitation = () => {
-    dispatch(rejectInvitation(invitation?.groupId, invitation?._id));
-    dispatch(getMyInvitations());
-    closeViewDetails();
-  };
-
-  const isInvitationReciever = invitation?.reciever.email === user?.email;
+  const { user }: { user: User } = authServices();
 
   return (
     <Grid key={invitation._id} item xs={12} md={4}>

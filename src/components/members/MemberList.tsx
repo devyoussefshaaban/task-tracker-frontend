@@ -5,11 +5,10 @@ import { FC } from "react";
 import ViewButton from "../shared/ViewButton";
 import { Project } from "../../models/Project";
 import { User } from "../../models/User";
-import { useSelector } from "react-redux";
-import { RootState } from "../../context";
 import FlexBetween from "../shared/FlexBetween";
 import HeadTitle from "../shared/HeadTitle";
 import BoxWrapper from "../shared/BoxWrapper";
+import { authServices } from "../../services/authServices";
 
 interface IProps {
   groupInfo: {
@@ -20,7 +19,7 @@ interface IProps {
 }
 
 const MemberList: FC<IProps> = ({ groupInfo }) => {
-  const user: User = useSelector((state: RootState) => state.auth.user);
+  const { user }: { user: User } = authServices();
 
   if (groupInfo?.members.length === 0)
     return (
