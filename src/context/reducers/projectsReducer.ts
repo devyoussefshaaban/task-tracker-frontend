@@ -15,6 +15,8 @@ export const projectsReducer = (state = initialState, action: any) => {
     case actionTypes.CREATE_NEW_PROJECT:
       toast.success(action.payload.message);
       return { ...state };
+    case actionTypes.GET_PROJECT_INFO:
+      return { ...state, currentProjectInfo: action.payload.data };
     default:
       return { ...state };
   }

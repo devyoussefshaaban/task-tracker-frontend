@@ -191,6 +191,11 @@ export const invitationsApi = {
 export const projectsApi = {
   createNewProject: (groupId: string, body: CreateNewProjectRequestBody) =>
     axios.post(`${baseUrlV1}/manage/groups/${groupId}/projects`, body, headers),
+  getProjectInfo: (groupId: string, projectId: string) =>
+    axios.get(
+      `${baseUrlV1}/manage/groups/${groupId}/projects/${projectId}`,
+      headers
+    ),
 };
 
 export const adminApi = {

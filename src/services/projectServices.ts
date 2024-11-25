@@ -7,15 +7,29 @@ import {
   CreateProjectFormValues,
 } from "../validations/createProjectValidation";
 import { CreateNewProjectRequestBody } from "../utils/api";
-import { createNewProject } from "../context/actions/projectsActions";
+import {
+  createNewProject,
+  getProjectInfo,
+} from "../context/actions/projectsActions";
 import { getGroupInfo } from "../context/actions/groupingActions";
 import { Group } from "../models/Group";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export const projectServices = () => {
   const projectInfoService = () => {
     const currentProjectInfo: Project_Info | null = useSelector(
       (state: RootState) => state.projects.currentProjectInfo
     );
+
+    const params = useParams();
+    const { groupId, projectId } = params;
+
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+      groupId && projectId && dispatch(getProjectInfo(groupId, projectId));
+    }, []);
 
     return {
       currentProjectInfo,

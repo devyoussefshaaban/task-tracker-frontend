@@ -17,3 +17,19 @@ export const createNewProject =
       });
     }
   };
+
+export const getProjectInfo =
+  (groupId: string, projectId: string) => async (dispatch: any) => {
+    try {
+      const response = await projectsApi.getProjectInfo(groupId, projectId);
+      dispatch({
+        type: actionTypes.GET_PROJECT_INFO,
+        payload: response.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.PROJECTS_ERROR,
+        payload: error.response.data.message,
+      });
+    }
+  };
