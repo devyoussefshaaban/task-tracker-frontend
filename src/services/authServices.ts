@@ -19,7 +19,7 @@ import { ACCESS_TOKEN } from "../utils/constants";
 import Cookies from "js-cookie";
 import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
 
-export const authServices = (formType?: "SIGN_IN" | "SIGN_UP") => {
+export const authServices = () => {
   const user: User = useSelector((state: RootState) => state.auth.user);
 
   const signInService = () => {
@@ -81,6 +81,7 @@ export const authServices = (formType?: "SIGN_IN" | "SIGN_UP") => {
     });
 
     return {
+      user,
       register,
       errors,
       submitHandler,

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Project } from "../models/Project";
+import { Project, Project_Info } from "../models/Project";
 import { AppDispatch, RootState } from "../context";
 import { useForm } from "react-hook-form";
 import {
@@ -13,12 +13,12 @@ import { Group } from "../models/Group";
 
 export const projectServices = () => {
   const projectInfoService = () => {
-    const currentProject: Project | null = useSelector(
-      (state: RootState) => state.projects.currentProject
+    const currentProjectInfo: Project_Info | null = useSelector(
+      (state: RootState) => state.projects.currentProjectInfo
     );
 
     return {
-      currentProject,
+      currentProjectInfo,
     };
   };
 

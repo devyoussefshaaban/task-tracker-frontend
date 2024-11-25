@@ -1,14 +1,11 @@
-import { Button, Card, Grid, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../context";
-import { Link } from "react-router-dom";
+import { Card, Grid, Typography } from "@mui/material";
 import { Group_Member } from "../../models/Group_Member";
 import ViewButton from "../shared/ViewButton";
+import { groupServices } from "../../services/groupServices";
 
 const GroupList = () => {
-  const groups: Group_Member[] = useSelector(
-    (state: RootState) => state.groups?.groupList
-  );
+  const { groups }: { groups: Group_Member[] } =
+    groupServices().groupInfoService();
 
   return (
     <Grid container spacing={2}>

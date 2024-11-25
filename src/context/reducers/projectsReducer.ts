@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
-import { Project } from "../../models/Project";
+import { Project, Project_Info } from "../../models/Project";
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState: {
   projectList: Project[];
-  currentProject: Project | null;
+  currentProjectInfo: Project_Info | null;
 } = {
   projectList: [],
-  currentProject: null,
+  currentProjectInfo: null,
 };
 
 export const projectsReducer = (state = initialState, action: any) => {

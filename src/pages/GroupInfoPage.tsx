@@ -1,9 +1,4 @@
-import { Box, Card, Container, Dialog, Grid, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../context";
-import { useEffect, useState } from "react";
-import { getGroupInfo } from "../context/actions/groupingActions";
-import { useParams } from "react-router-dom";
+import { Dialog, Grid, Typography } from "@mui/material";
 import {
   BackToHomeBtn,
   BasicButton,
@@ -11,43 +6,28 @@ import {
   FlexBetween,
   MemberList,
   ProjectList,
+  WrapContainer,
 } from "../components";
 import InviteGroupMemberForm from "../components/grouping/InviteGroupMemberForm";
 import { User } from "../models/User";
-import { Group } from "../models/Group";
-import { Project } from "../models/Project";
-import { Group_Member } from "../models/Group_Member";
+import { groupServices } from "../services/groupServices";
+import { authServices } from "../services/authServices";
 
 const GroupInfoPage = () => {
-  const [isOpenInvitationForm, setIsOpenInvitationForm] =
-    useState<boolean>(false);
-  const [isOpenCreateProjectForm, setIsOpenCreateProjectForm] =
-    useState<boolean>(false);
+  const {
+    isOpenInvitationForm,
+    isOpenCreateProjectForm,
+    openInvitationForm,
+    closeInvitationForm,
+    openCreateProjectForm,
+    closeCreateProjectForm,
+    groupInfo,
+  } = groupServices().groupInfoService();
 
-  const user: User = useSelector((state: RootState) => state.auth.user);
-
-  const openInvitationForm = () => setIsOpenInvitationForm(true);
-  const closeInvitationForm = () => setIsOpenInvitationForm(false);
-
-  const openCreateProjectForm = () => setIsOpenCreateProjectForm(true);
-  const closeCreateProjectForm = () => setIsOpenCreateProjectForm(false);
-
-  const groupInfo: {
-    group: Group;
-    projects: Project[];
-    members: Group_Member[];
-  } = useSelector((state: RootState) => state.groups?.currentGroupInfo);
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const params = useParams();
-
-  useEffect(() => {
-    dispatch(getGroupInfo(params.groupId as string));
-  }, []);
+  const { user }: { user: User } = authServices();
 
   return (
-    <Container sx={{ py: 3 }}>
+    <WrapContainer>
       <BackToHomeBtn path="/groups" text="View My Groups" />
       <FlexBetween>
         <Typography variant="h6" fontWeight={600} mb={3}>
@@ -86,7 +66,7 @@ const GroupInfoPage = () => {
       <Dialog open={isOpenCreateProjectForm} onClose={closeCreateProjectForm}>
         <CreateProjectForm closeForm={closeCreateProjectForm} />
       </Dialog>
-    </Container>
+    </WrapContainer>
   );
 };
 

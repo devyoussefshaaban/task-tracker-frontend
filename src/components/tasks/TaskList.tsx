@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import TaskItem from "./TaskCard";
+import TaskCard from "./TaskCard";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context";
 import { Task } from "../../models/Task";
@@ -58,7 +58,7 @@ const TaskList = () => {
         </Box>
       ) : (
         tasks.map((task: Task) => (
-          <TaskItem
+          <TaskCard
             key={task._id}
             task={task}
             onSelect={onSelectTask}

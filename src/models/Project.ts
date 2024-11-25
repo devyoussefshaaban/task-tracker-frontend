@@ -1,3 +1,6 @@
+import { Group_Member } from "./Group_Member";
+import { Task } from "./Task";
+
 export interface Project {
   _id: string;
   projectName: string;
@@ -6,4 +9,10 @@ export interface Project {
     leaderId: string;
     members: [memberId: string];
   };
+}
+
+export interface Project_Info {
+  project: Project;
+  members: Group_Member[];
+  tasks: Task[];
 }
