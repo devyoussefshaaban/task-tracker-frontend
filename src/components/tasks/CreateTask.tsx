@@ -7,34 +7,15 @@ import {
   Typography,
   MenuItem,
   Select,
-  SelectChangeEvent,
   InputLabel,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  CreateTaskFormValues,
-  CreateTaskFormResolver,
-} from "../../validations/taskValidation";
-import { CreateTaskRequestBody } from "../../utils/api";
-import { AppDispatch, RootState } from "../../context";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  createTask,
-  getMyTasks,
-  updateTask,
-} from "../../context/actions/tasksActions";
-import {
-  CREATE_TASK_FORM_TYPE,
-  TASK_PRIORITY,
-  TASK_STATUS,
-} from "../../utils/constants";
+import { FC } from "react";
+import { TASK_PRIORITY, TASK_STATUS } from "../../utils/constants";
 import { Close } from "@mui/icons-material";
 import { Task } from "../../models/Task";
-import { User } from "../../models/User";
-import { Project } from "../../models/Project";
+import { createTaskService } from "../../services/taskServices/createTaskService";
 
 interface IProps {
   formType: string;
@@ -49,67 +30,20 @@ const CreateTaskForm: FC<IProps> = ({
   onUpdateTask,
   onClose,
 }) => {
-  const user: User = useSelector((state: RootState) => state.auth.user);
-  const currentProject: Project | null = useSelector(
-    (state: RootState) => state.projects.currentProject
-  );
-
   const {
+    submitHandler,
     register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateTaskFormValues>({ resolver: CreateTaskFormResolver });
-
-  const [priority, setPriority] = useState<any>(TASK_PRIORITY.NORMAL);
-  const [status, setStatus] = useState<any>(selectedTask?.status);
-  const [assignedUser, setAssignedUser] = useState<User>(user);
-
-  const handleChangePriority = (event: SelectChangeEvent) => {
-    setPriority(event.target.value as string);
-  };
-
-  const handleChangeStatus = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
-  };
-
-  const handleChangeAssignedUser = (event: any) => {
-    setAssignedUser(event.target.value);
-  };
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const isCreateFormType = formType === CREATE_TASK_FORM_TYPE.CREATE_TASK;
-
-  const submitHandler = handleSubmit((data: CreateTaskRequestBody) => {
-    isCreateFormType
-      ? dispatch(
-          createTask({
-            ...data,
-            priority,
-            status,
-            assignedUserId: assignedUser._id,
-            projectId: currentProject ? currentProject._id : null,
-          })
-        )
-      : selectedTask &&
-        dispatch(
-          updateTask(selectedTask._id, {
-            ...data,
-            priority,
-            status,
-            assignedUserId: assignedUser._id,
-            projectId: currentProject ? currentProject._id : null,
-          })
-        );
-
-    onUpdateTask();
-
-    setTimeout(() => {
-      dispatch(getMyTasks());
-    }, 500);
-
-    onClose();
-  });
+    errors,
+    isCreateFormType,
+    currentProject,
+    assignedUser,
+    handleChangeAssignedUser,
+    user,
+    priority,
+    handleChangePriority,
+    status,
+    handleChangeStatus,
+  } = createTaskService(selectedTask, formType, onUpdateTask, onClose);
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem 1rem 2rem">

@@ -3,13 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Task } from "../../models/Task";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Delete, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { AppDispatch } from "../../context";
-import { useDispatch } from "react-redux";
-import { deleteTask, getMyTasks } from "../../context/actions/tasksActions";
 import ConfirmModal from "../shared/ConfirmModal";
+import { taskInfoService } from "../../services/taskServices/taskInfoService";
 
 interface IProps {
   task: Task;
@@ -18,26 +16,13 @@ interface IProps {
 }
 
 const TaskItem: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
-  const dispatch: AppDispatch = useDispatch();
-
-  const deleteTaskHandler = () => {
-    dispatch(deleteTask(task._id));
-    setTimeout(() => {
-      dispatch(getMyTasks());
-    }, 500);
-    onCloseConfirmModal();
-  };
-
-  const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
-
-  const onClickDeleteIcon = () => setOpenConfirmModal(true);
-
-  const onCloseConfirmModal = () => setOpenConfirmModal(false);
-
-  const onClickEditIcon = () => {
-    onSelect(task);
-    onOpenForm();
-  };
+  const {
+    deleteTaskHandler,
+    onClickDeleteIcon,
+    onCloseConfirmModal,
+    onClickEditIcon,
+    openConfirmModal,
+  } = taskInfoService(task, () => onSelect(task), onOpenForm);
 
   return (
     <Box sx={{ minWidth: 275, width: "100%", mb: 1 }}>
