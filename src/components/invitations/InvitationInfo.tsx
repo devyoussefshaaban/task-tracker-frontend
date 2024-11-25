@@ -10,7 +10,7 @@ import {
 import BasicButton from "../shared/BasicButton";
 import { Invitation } from "../../models/Invitation";
 import FlexBetween from "../shared/FlexBetween";
-import { invitationInfoService } from "../../services/invitationServices/invitationInfoService";
+import { invitationInfoService } from "../../services/invitationServices";
 import { User } from "../../models/User";
 import { authServices } from "../../services/authServices";
 

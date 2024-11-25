@@ -2,14 +2,15 @@ import { Box, Button, Divider, FormControl, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { FC } from "react";
-import { createProjectService } from "../../services/projectServices/createProjectService";
+import { projectServices } from "../../services/projectServices";
 
 interface IProps {
   closeForm: () => void;
 }
 
 const CreateProjectForm: FC<IProps> = ({ closeForm }) => {
-  const { register, errors, submitHandler } = createProjectService(closeForm);
+  const { register, errors, submitHandler } =
+    projectServices().createProjectService(closeForm);
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem auto 2rem">

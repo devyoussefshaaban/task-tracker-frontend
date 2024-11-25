@@ -7,7 +7,7 @@ import { FC } from "react";
 import { Delete, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import ConfirmModal from "../shared/ConfirmModal";
-import { taskInfoService } from "../../services/taskServices/taskInfoService";
+import { taskServices } from "../../services/taskServices";
 
 interface IProps {
   task: Task;
@@ -15,14 +15,14 @@ interface IProps {
   onSelect: (task: Task) => void;
 }
 
-const TaskCard: FC<IProps> = ({ task, onSelect, onOpenForm }) => {
+const TaskCard: FC<IProps> = ({ task, onSelect }) => {
   const {
     deleteTaskHandler,
     onClickDeleteIcon,
     onCloseConfirmModal,
     onClickEditIcon,
     openConfirmModal,
-  } = taskInfoService(task, () => onSelect(task));
+  } = taskServices().taskInfoService(task, () => onSelect(task));
 
   return (
     <Box sx={{ minWidth: 275, width: "100%", mb: 1 }}>

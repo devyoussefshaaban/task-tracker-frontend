@@ -15,7 +15,7 @@ import { FC } from "react";
 import { TASK_PRIORITY, TASK_STATUS } from "../../utils/constants";
 import { Close } from "@mui/icons-material";
 import { Task } from "../../models/Task";
-import { createTaskService } from "../../services/taskServices/createTaskService";
+import { taskServices } from "../../services/taskServices";
 
 interface IProps {
   formType: string;
@@ -43,7 +43,12 @@ const CreateTaskForm: FC<IProps> = ({
     handleChangePriority,
     status,
     handleChangeStatus,
-  } = createTaskService(selectedTask, formType, onUpdateTask, onClose);
+  } = taskServices().createTaskService(
+    selectedTask,
+    formType,
+    onUpdateTask,
+    onClose
+  );
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem 1rem 2rem">

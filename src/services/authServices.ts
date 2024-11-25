@@ -1,23 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { User } from "../../models/User";
-import { AppDispatch, RootState } from "../../context";
+import { User } from "../models/User";
+import { AppDispatch, RootState } from "../context";
 import {
   signInFormResolver,
   SignInFormValues,
   signUpFormResolver,
   SignUpFormValues,
-} from "../../validations/authValidation";
+} from "../validations/authValidation";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { SignInRequestBody, SignUpRequestBody } from "../../utils/api";
+import { SignInRequestBody, SignUpRequestBody } from "../utils/api";
 import {
   signIn,
   signUp,
   updateMyProfile,
-} from "../../context/actions/authActions";
-import { ACCESS_TOKEN } from "../../utils/constants";
+} from "../context/actions/authActions";
+import { ACCESS_TOKEN } from "../utils/constants";
 import Cookies from "js-cookie";
-import { SIGN_UP_FORM_TYPE } from "../../components/auth/SignUpForm";
+import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
 
 export const authServices = (formType?: "SIGN_IN" | "SIGN_UP") => {
   const user: User = useSelector((state: RootState) => state.auth.user);

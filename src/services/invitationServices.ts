@@ -1,15 +1,15 @@
 import { useDispatch } from "react-redux";
-import { Invitation } from "../../models/Invitation";
-import { AppDispatch } from "../../context";
-import { User } from "../../models/User";
-import { authServices } from "../authServices";
+import { Invitation } from "../models/Invitation";
+import { AppDispatch } from "../context";
+import { User } from "../models/User";
+import { authServices } from "./authServices";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   acceptInvitation,
   getMyInvitations,
   rejectInvitation,
-} from "../../context/actions/invitationsActions";
+} from "../context/actions/invitationsActions";
 
 export const invitationInfoService = (invitation: Invitation) => {
   const { user }: { user: User } = authServices();
