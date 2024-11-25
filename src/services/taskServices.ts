@@ -15,15 +15,11 @@ import { CreateTaskRequestBody } from "../utils/api";
 import { SelectChangeEvent } from "@mui/material";
 import { createTask, updateTask } from "../context/actions/tasksActions";
 import { authServices } from "./authServices";
-import { Project } from "../models/Project";
 import { projectServices } from "./projectServices";
+import { Project_Info } from "../models/Project";
 
 export const taskServices = () => {
-  const taskInfoService = (
-    task: Task,
-    onSelect: (task: Task) => void
-    // onOpenForm: () => void
-  ) => {
+  const taskInfoService = (task?: Task, onSelect?: (task: Task) => void) => {
     const dispatch: AppDispatch = useDispatch();
 
     const tasks = useSelector((state: RootState) => state.tasks?.tasks);
@@ -38,7 +34,7 @@ export const taskServices = () => {
     const onCloseForm = () => setOpenForm(false);
 
     const deleteTaskHandler = () => {
-      dispatch(deleteTask(task._id));
+      task && dispatch(deleteTask(task._id));
       setTimeout(() => {
         dispatch(getMyTasks());
       }, 500);
@@ -52,7 +48,7 @@ export const taskServices = () => {
     const onCloseConfirmModal = () => setOpenConfirmModal(false);
 
     const onClickEditIcon = () => {
-      onSelect(task);
+      onSelect && task && onSelect(task);
       onOpenForm();
     };
 
@@ -62,6 +58,7 @@ export const taskServices = () => {
       onSelectTask,
       onUpdateTask,
       openForm,
+      onOpenForm,
       onCloseForm,
       onCloseConfirmModal,
       deleteTaskHandler,
@@ -71,16 +68,22 @@ export const taskServices = () => {
     };
   };
 
-  const createTaskService = (
-    selectedTask: Task | null,
-    formType: string,
-    onUpdateTask: () => void,
-    onCloseForm: () => void
-  ) => {
+  const createTaskService = (formType?: string) => {
+    const tasks = useSelector((state: RootState) => state.tasks?.tasks);
+    const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+    const onSelectTask = (task: Task) => setSelectedTask(task);
+    const onUpdateTask = () => setSelectedTask(null);
+
+    const [openForm, setOpenForm] = useState<boolean>(false);
+
+    const onOpenForm = () => setOpenForm(true);
+    const onCloseForm = () => setOpenForm(false);
+
     const dispatch: AppDispatch = useDispatch();
 
     const { user }: { user: User } = authServices();
-    const { currentProject }: { currentProject: Project | null } =
+    const { currentProjectInfo }: { currentProjectInfo: Project_Info | null } =
       projectServices().projectInfoService();
 
     const {
@@ -115,7 +118,9 @@ export const taskServices = () => {
               priority,
               status,
               assignedUserId: assignedUser._id,
-              projectId: currentProject ? currentProject._id : null,
+              projectId: currentProjectInfo
+                ? currentProjectInfo.project._id
+                : null,
             })
           )
         : selectedTask &&
@@ -125,7 +130,9 @@ export const taskServices = () => {
               priority,
               status,
               assignedUserId: assignedUser._id,
-              projectId: currentProject ? currentProject._id : null,
+              projectId: currentProjectInfo
+                ? currentProjectInfo.project._id
+                : null,
             })
           );
 
@@ -139,11 +146,18 @@ export const taskServices = () => {
     });
 
     return {
+      selectedTask,
+      onUpdateTask,
+      tasks,
+      onSelectTask,
+      openForm,
+      onOpenForm,
+      onCloseForm,
       submitHandler,
       register,
       errors,
       isCreateFormType,
-      currentProject,
+      currentProjectInfo,
       assignedUser,
       handleChangeAssignedUser,
       user,

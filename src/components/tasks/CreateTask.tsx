@@ -24,18 +24,13 @@ interface IProps {
   onClose: () => void;
 }
 
-const CreateTaskForm: FC<IProps> = ({
-  formType,
-  selectedTask,
-  onUpdateTask,
-  onClose,
-}) => {
+const CreateTaskForm: FC<IProps> = ({ formType, selectedTask, onClose }) => {
   const {
     submitHandler,
     register,
     errors,
     isCreateFormType,
-    currentProject,
+    currentProjectInfo,
     assignedUser,
     handleChangeAssignedUser,
     user,
@@ -43,12 +38,7 @@ const CreateTaskForm: FC<IProps> = ({
     handleChangePriority,
     status,
     handleChangeStatus,
-  } = taskServices().createTaskService(
-    selectedTask,
-    formType,
-    onUpdateTask,
-    onClose
-  );
+  } = taskServices().createTaskService(formType);
 
   return (
     <Stack spacing={2} width="30ch" margin="2rem 1rem 2rem">
@@ -125,7 +115,7 @@ const CreateTaskForm: FC<IProps> = ({
           </FormControl>
         ) : null}
 
-        {currentProject ? (
+        {currentProjectInfo ? (
           <FormControl sx={{ mb: 2 }} fullWidth>
             <InputLabel id="assignee-select-label">Assignee</InputLabel>
             <Select

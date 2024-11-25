@@ -8,25 +8,22 @@ import {
   Typography,
 } from "@mui/material";
 import TaskCard from "./TaskCard";
-import { useSelector } from "react-redux";
-import { RootState } from "../../context";
 import { Task } from "../../models/Task";
 import { CreateTask } from "..";
 import { CREATE_TASK_FORM_TYPE } from "../../utils/constants";
-import { useState } from "react";
 import { Add } from "@mui/icons-material";
+import { taskServices } from "../../services/taskServices";
 
 const TaskList = () => {
-  const tasks = useSelector((state: RootState) => state.tasks?.tasks);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-
-  const onSelectTask = (task: Task) => setSelectedTask(task);
-  const onUpdateTask = () => setSelectedTask(null);
-
-  const [openForm, setOpenForm] = useState<boolean>(false);
-
-  const onOpenForm = () => setOpenForm(true);
-  const onCloseForm = () => setOpenForm(false);
+  const {
+    tasks,
+    selectedTask,
+    onSelectTask,
+    onUpdateTask,
+    openForm,
+    onOpenForm,
+    onCloseForm,
+  } = taskServices().taskInfoService();
 
   return (
     <Stack margin="auto" width="40vw">
