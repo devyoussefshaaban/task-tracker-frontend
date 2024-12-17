@@ -1,3 +1,4 @@
+import { Task } from "../../models/Task";
 import * as actionTypes from "./actionTypes";
 
 export const toggleSidebar = () => {
@@ -11,6 +12,24 @@ export const setIsLoading = (bool: boolean) => {
     type: actionTypes.SET_IS_LOADING,
     payload: {
       isLoading: bool,
+    },
+  };
+};
+
+export const toggleCreateTaskForm = (bool: boolean) => {
+  return {
+    type: actionTypes.TOGGLE_CREATE_TASK_FORM,
+    payload: {
+      isCreateTaskFormOpen: bool,
+    },
+  };
+};
+
+export const setSelectedTask = (task: Task | null) => {
+  return {
+    type: actionTypes.SET_SELECTED_TASK,
+    payload: {
+      task,
     },
   };
 };

@@ -21,3 +21,4 @@ export { default as FlexBetween } from "./shared/FlexBetween";
 export { default as HeadTitle } from "./shared/HeadTitle";
 export { default as BoxWrapper } from "./shared/BoxWrapper";
 export { default as WrapContainer } from "./shared/WrapContainer";
+export { default as ProjectTaskList } from "./projects/ProjectTaskList";

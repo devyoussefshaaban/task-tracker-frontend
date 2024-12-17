@@ -20,11 +20,12 @@ const TaskList = () => {
     selectedTask,
     onSelectTask,
     onUpdateTask,
-    openForm,
+    isCreateTaskFormOpen,
     onOpenForm,
     onCloseForm,
   } = taskServices().taskInfoService();
 
+  console.log({ isCreateTaskFormOpen });
   return (
     <Stack margin="auto" width="40vw">
       {tasks.length > 0 ? (
@@ -64,7 +65,7 @@ const TaskList = () => {
         ))
       )}
 
-      <Dialog open={openForm}>
+      <Dialog open={isCreateTaskFormOpen}>
         <CreateTask
           formType={
             selectedTask

@@ -45,7 +45,9 @@ const TaskCard: FC<IProps> = ({ task, onSelect }) => {
               </IconButton>
             </Box>
           </Box>
-          <Typography variant="body2">{task.description}</Typography>
+          <Typography variant="body2">
+            {task.description.substring(0, 30)}...
+          </Typography>
         </CardContent>
       </Card>
       <ConfirmModal

@@ -17,6 +17,7 @@ import { createTask, updateTask } from "../context/actions/tasksActions";
 import { authServices } from "./authServices";
 import { projectServices } from "./projectServices";
 import { Project_Info } from "../models/Project";
+import { toggleCreateTaskForm } from "../context/actions/generalActions";
 
 export const taskServices = () => {
   const taskInfoService = (task?: Task, onSelect?: (task: Task) => void) => {
@@ -25,13 +26,17 @@ export const taskServices = () => {
     const tasks = useSelector((state: RootState) => state.tasks?.tasks);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-    const onSelectTask = (task: Task) => setSelectedTask(task);
-    const onUpdateTask = () => setSelectedTask(null);
+    // TODO: fix the selection task issue / causes conflict on edit task
+    const onSelectTask = (task: Task) => dispatch(setSelectedTask(task));
+    const onUpdateTask = () => dispatch(setSelectedTask(null));
 
-    const [openForm, setOpenForm] = useState<boolean>(false);
+    const isCreateTaskFormOpen = useSelector(
+      (state: RootState) => state.general.isCreateTaskFormOpen
+    );
+    console.log({ isCreateTaskFormOpen });
 
-    const onOpenForm = () => setOpenForm(true);
-    const onCloseForm = () => setOpenForm(false);
+    const onOpenForm = () => dispatch(toggleCreateTaskForm(true));
+    const onCloseForm = () => dispatch(toggleCreateTaskForm(false));
 
     const deleteTaskHandler = () => {
       task && dispatch(deleteTask(task._id));
@@ -57,7 +62,7 @@ export const taskServices = () => {
       selectedTask,
       onSelectTask,
       onUpdateTask,
-      openForm,
+      isCreateTaskFormOpen,
       onOpenForm,
       onCloseForm,
       onCloseConfirmModal,
@@ -75,10 +80,12 @@ export const taskServices = () => {
     const onSelectTask = (task: Task) => setSelectedTask(task);
     const onUpdateTask = () => setSelectedTask(null);
 
-    const [openForm, setOpenForm] = useState<boolean>(false);
+    const isCreateTaskFormOpen = useSelector(
+      (state: RootState) => state.general.isCreateTaskFormOpen
+    );
 
-    const onOpenForm = () => setOpenForm(true);
-    const onCloseForm = () => setOpenForm(false);
+    const onOpenForm = () => dispatch(toggleCreateTaskForm(true));
+    const onCloseForm = () => dispatch(toggleCreateTaskForm(false));
 
     const dispatch: AppDispatch = useDispatch();
 
@@ -136,12 +143,11 @@ export const taskServices = () => {
             })
           );
 
-      onUpdateTask();
-
       setTimeout(() => {
         dispatch(getMyTasks());
       }, 500);
 
+      onUpdateTask();
       onCloseForm();
     });
 
@@ -150,7 +156,7 @@ export const taskServices = () => {
       onUpdateTask,
       tasks,
       onSelectTask,
-      openForm,
+      isCreateTaskFormOpen,
       onOpenForm,
       onCloseForm,
       submitHandler,

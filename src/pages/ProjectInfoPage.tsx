@@ -4,6 +4,7 @@ import {
   BasicButton,
   CreateTask,
   FlexBetween,
+  ProjectTaskList,
   WrapContainer,
 } from "../components";
 import { Group_Info } from "../models/Group";
@@ -14,6 +15,11 @@ import { projectServices } from "../services/projectServices";
 import { Project_Info } from "../models/Project";
 import { taskServices } from "../services/taskServices";
 import { CREATE_TASK_FORM_TYPE } from "../utils/constants";
+import { useEffect } from "react";
+import { AppDispatch } from "../context";
+import { useDispatch } from "react-redux";
+import { getProjectInfo } from "../context/actions/projectsActions";
+import { useParams } from "react-router-dom";
 
 const ProjectInfoPage = () => {
   const { currentGroupInfo }: { currentGroupInfo: Group_Info | null } =
@@ -26,6 +32,18 @@ const ProjectInfoPage = () => {
     taskServices().createTaskService();
 
   const { user }: { user: User } = authServices();
+
+  const params = useParams();
+
+  console.log({ currentProjectInfo });
+
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getProjectInfo(params.groupId as string, params.projectId as string)
+    );
+  }, []);
 
   return (
     <WrapContainer>
@@ -57,6 +75,9 @@ const ProjectInfoPage = () => {
           </Grid>
         ) : null}
       </FlexBetween>
+
+      <ProjectTaskList projectInfo={currentProjectInfo} />
+
       <Dialog open={openForm}>
         <CreateTask
           formType={
