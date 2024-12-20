@@ -49,7 +49,7 @@ const authReducer = (
       };
     case actionTypes.LOGOUT:
       Cookies.remove(ACCESS_TOKEN);
-      window.location.pathname = "/login";
+      window.location.pathname = "/auth/login";
       toast.info("You are logged out.");
       return {
         ...state,

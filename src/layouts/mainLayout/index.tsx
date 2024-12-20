@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
-import MainHeader from "./mainHeader";
 import AdminSidebar from "./AdminSidebar";
 import { User } from "../../models/User";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context";
 import { USER_ROLE } from "../../utils/constants";
+import MainSidebar from "./MainSidebar";
 
 const MainLayout = (props: { children: ReactNode }) => {
   const user: User = useSelector((state: RootState) => state.auth.user);
@@ -15,8 +15,10 @@ const MainLayout = (props: { children: ReactNode }) => {
   return (
     <>
       {isAdminUser ? <AdminSidebar /> : null}
-      {!window.location.pathname.includes("/verify") ? <MainHeader /> : null}
-      <main style={{ marginTop: "5rem" }}>{props.children}</main>
+      <main style={{ display: "flex" }}>
+        {window.location.pathname.includes("auth") ? null : <MainSidebar />}
+        <div style={{ flex: 1 }}>{props.children}</div>
+      </main>
     </>
   );
 };

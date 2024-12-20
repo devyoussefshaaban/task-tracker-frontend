@@ -37,10 +37,10 @@ const EmailVerification = () => {
           <Typography variant="h3" my={5}>
             Your email is verified successfully!
           </Typography>
-          <Link to="/login">
+          <Link to="/auth/login">
             <Button
               variant="contained"
-              onClick={() => (window.location.pathname = "/login")}
+              onClick={() => (window.location.pathname = "/auth/login")}
               sx={{ textTransform: "capitalize" }}
             >
               Login

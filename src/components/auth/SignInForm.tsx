@@ -12,7 +12,14 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
   const { register, errors, submitHandler } = authServices().signInService();
 
   return (
-    <Stack spacing={2} width="30ch" margin="2rem auto 2rem">
+    <Stack
+      spacing={2}
+      width="30ch"
+      margin="2rem auto 2rem"
+      padding={"4px 10px"}
+      borderRadius="10px"
+      boxShadow={"0 2px 2px rgba(0,0,0,.5)"}
+    >
       <Box>
         <Typography variant="h6" textAlign="center">
           Sign In

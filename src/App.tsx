@@ -19,6 +19,7 @@ import GroupInfoPage from "./pages/GroupInfoPage";
 import InvitationsPage from "./pages/InvitationsPage";
 import ProjectInfoPage from "./pages/ProjectInfoPage";
 import MemberInfoPage from "./pages/MemberInfoPage";
+import { Typography } from "@mui/material";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -31,7 +32,7 @@ const App = () => {
     if (
       !user &&
       window.location.pathname !== "/" &&
-      window.location.pathname !== "/login" &&
+      window.location.pathname !== "/auth/login" &&
       !window.location.pathname.includes("/verify") &&
       isAccessTokenSet
     )
@@ -42,7 +43,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<AuthPage />} />
+        <Route path="/auth/login" element={<AuthPage />} />
         <Route
           path="/auth/users/:userId/verify/:token"
           element={<EmailVerificationPage />}
@@ -51,7 +52,10 @@ const App = () => {
           path="/tasks"
           element={
             <ProtectedRoute>
-              <TasksPage />
+              {/* <TasksPage /> */}
+              <Typography variant="h1" textAlign={"center"}>
+                TaskList ...
+              </Typography>
             </ProtectedRoute>
           }
         />
