@@ -1,5 +1,5 @@
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import { Loading, TaskList, TasksHeader } from "../components";
+import { Box, Container, Grid } from "@mui/material";
+import { Loading, MeetingList, TaskList, TasksHeader } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,8 +41,8 @@ const TasksPage = () => {
             <TaskList />
           </Grid>
           <Grid item xs={12} md={5}>
-            <Box pl={10}>
-              <Typography variant="h6">Meeting Schedule ...</Typography>
+            <Box pl={5}>
+              <MeetingList />
             </Box>
           </Grid>
         </Grid>

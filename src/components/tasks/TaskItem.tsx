@@ -41,6 +41,7 @@ const TaskItem: FC<IProps> = ({ task, onSelect }) => {
         </Box>
         <Box>
           <Chip
+            size="small"
             label={
               <Typography fontSize=".75rem" textTransform="capitalize">
                 {task.status.toLocaleLowerCase()}

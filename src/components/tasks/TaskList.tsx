@@ -1,6 +1,6 @@
 import { Box, Button, Dialog, Stack, Typography } from "@mui/material";
 import TaskItem from "./TaskItem";
-import { ITask, Task } from "../../models/Task";
+import { ITask } from "../../models/Task";
 import { CreateTask } from "..";
 import {
   CREATE_TASK_FORM_TYPE,
