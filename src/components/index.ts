@@ -1,3 +1,4 @@
+export { default as TasksHeader } from "./tasks/TasksHeader";
 export { default as TaskItem } from "./tasks/TaskCard";
 export { default as TaskList } from "./tasks/TaskList";
 export { default as CreateTask } from "./tasks/CreateTask";

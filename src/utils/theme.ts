@@ -14,7 +14,9 @@ const muiTheme = () =>
         main: "rgba(116, 125, 140,.8)",
       },
       success: {
-        main: "rgba(46, 213, 115,1.0)",
+        main: "rgba(33, 140, 116,1.0)",
+        dark: "rgba(46, 213, 115,1.0)",
+        light: "rgba(80, 200, 180,1.0)",
       },
       error: {
         main: "rgba(255, 99, 72,1.0)",

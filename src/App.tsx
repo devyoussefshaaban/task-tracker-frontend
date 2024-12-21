@@ -19,6 +19,7 @@ import InvitationsPage from "./pages/InvitationsPage";
 import ProjectInfoPage from "./pages/ProjectInfoPage";
 import MemberInfoPage from "./pages/MemberInfoPage";
 import { Typography } from "@mui/material";
+import TasksPage from "./pages/TasksPage";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -50,12 +51,9 @@ const App = () => {
         <Route
           path="/tasks"
           element={
-            <ProtectedRoute>
-              {/* <TasksPage /> */}
-              <Typography variant="h1" textAlign={"center"}>
-                TaskList ...
-              </Typography>
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <TasksPage />
+            // </ProtectedRoute>
           }
         />
         <Route

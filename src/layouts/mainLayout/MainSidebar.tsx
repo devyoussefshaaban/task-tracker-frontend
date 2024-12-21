@@ -194,7 +194,7 @@ const BottomSection = () => {
           height: 40,
           borderRadius: "0 10px 10px",
           background: theme.palette.primary.main,
-          boxShadow: "0 2px 20px rgba(83, 82, 237,1.0)",
+          boxShadow: `0 2px 20px ${theme.palette.primary.main}`,
           color: "#fff",
           cursor: "pointer",
           textAlign: "center",

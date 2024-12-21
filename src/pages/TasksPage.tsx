@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { Loading, TaskList } from "../components";
+import { Loading, TaskList, TasksHeader } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,8 +33,9 @@ const TasksPage = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <Container sx={{ py: 3 }}>
-      <TaskList />
+    <Container sx={{ py: 3, pt: 4 }}>
+      <TasksHeader />
+      {/* <TaskList /> */}
     </Container>
   );
 };
