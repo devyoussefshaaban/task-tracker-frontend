@@ -22,3 +22,10 @@ export const TASK_PRIORITY = {
   NORMAL: "NORMAL",
   LOW: "LOW",
 };
+
+export const TASK_LIST_FILTER = {
+  ALL: "ALL",
+  UPCOMMING: "UPCOMMING",
+  NOTES: "NOTES",
+  LINKS: "LINKS ",
+};

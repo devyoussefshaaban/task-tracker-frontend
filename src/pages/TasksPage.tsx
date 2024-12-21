@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { Loading, TaskList, TasksHeader } from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
@@ -35,7 +35,16 @@ const TasksPage = () => {
   return (
     <Container sx={{ py: 3, pt: 4 }}>
       <TasksHeader />
-      {/* <TaskList /> */}
+      <Grid container spacing={2} mt={2}>
+        <Grid item xs={12} md={7}>
+          <TaskList />
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <Box pl={10}>
+            <Typography variant="h6">Meeting Schedule ...</Typography>
+          </Box>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
