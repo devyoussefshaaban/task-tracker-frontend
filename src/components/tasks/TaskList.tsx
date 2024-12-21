@@ -1,20 +1,12 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  Divider,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, Stack, Typography } from "@mui/material";
 import TaskCard from "./TaskCard";
 import { Task } from "../../models/Task";
-import { CreateTask, FlexBetween } from "..";
+import { CreateTask } from "..";
 import { CREATE_TASK_FORM_TYPE, TASK_LIST_FILTER } from "../../utils/constants";
-import { Add } from "@mui/icons-material";
 import { taskServices } from "../../services/taskServices";
 import TaskListFilter from "./TaskListFilter";
 import { useState } from "react";
+import muiTheme from "../../utils/theme";
 
 const TaskList = () => {
   const {
@@ -31,28 +23,37 @@ const TaskList = () => {
     TASK_LIST_FILTER.ALL
   );
 
+  const theme = muiTheme();
+
   return (
     <>
       <TaskListFilter
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
       />
-      <Stack margin="auto" width="40vw" mt={20}>
-        {tasks.length > 0 ? (
-          <Box width="40vw">
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h5">Your Tasks</Typography>
-              <IconButton onClick={onOpenForm}>
-                <Add />
-              </IconButton>
-            </Box>
-            <Divider sx={{ margin: ".5rem auto 1rem" }} />
-          </Box>
-        ) : null}
+      <Stack
+        margin="auto"
+        width="40vw"
+        pr={2}
+        mt={5}
+        sx={{
+          height: "70vh",
+          overflowY: "auto",
+          "::-webkit-scrollbar": {
+            width: "3px",
+            borderRadius: "10px",
+          },
+          "::-webkit-scrollbar-track": {
+            background: theme.palette.secondary.light,
+          },
+          "::-webkit-scrollbar-thumb": {
+            background: "#888",
+          },
+          "::-webkit-scrollbar-thumb:hover": {
+            background: theme.palette.primary.main,
+          },
+        }}
+      >
         {tasks.length === 0 ? (
           <Box textAlign="center" margin="auto">
             <Typography variant="h6">You have no added tasks yet.</Typography>

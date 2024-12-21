@@ -1,13 +1,13 @@
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Task } from "../../models/Task";
 import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { Checkbox, Chip } from "@mui/material";
 import ConfirmModal from "../shared/ConfirmModal";
 import { taskServices } from "../../services/taskServices";
+import FlexBetween from "../shared/FlexBetween";
+import muiTheme from "../../utils/theme";
+import { CheckBox } from "@mui/icons-material";
 
 interface IProps {
   task: Task;
@@ -16,40 +16,46 @@ interface IProps {
 }
 
 const TaskCard: FC<IProps> = ({ task, onSelect }) => {
-  const {
-    deleteTaskHandler,
-    onClickDeleteIcon,
-    onCloseConfirmModal,
-    onClickEditIcon,
-    openConfirmModal,
-  } = taskServices().taskInfoService(task, () => onSelect(task));
+  const { deleteTaskHandler, onCloseConfirmModal, openConfirmModal } =
+    taskServices().taskInfoService(task, () => onSelect(task));
+
+  const theme = muiTheme();
+
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
-    <Box sx={{ minWidth: 275, width: "100%", mb: 1 }}>
-      <Card variant="outlined">
-        <CardContent>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+    <Box sx={{ minWidth: 275, width: "100%", mb: 2 }}>
+      <FlexBetween>
+        <Box display="flex" alignItems="center">
+          <Checkbox {...label} defaultChecked={task.status === "COMPLETED"} />
+          <Typography
+            variant="body1"
+            className="roboto-bold"
+            color={theme.palette.common.black}
           >
-            <Typography variant="h5" component="div">
-              {task.title}
-            </Typography>
-            <Box>
-              <IconButton onClick={onClickDeleteIcon}>
-                <Delete />
-              </IconButton>
-              <IconButton onClick={onClickEditIcon}>
-                <Edit />
-              </IconButton>
-            </Box>
-          </Box>
-          <Typography variant="body2">
-            {task.description.substring(0, 30)}...
+            {task.title}
           </Typography>
-        </CardContent>
-      </Card>
+        </Box>
+        <Box>
+          <Chip
+            label={
+              <Typography variant="caption" textTransform="capitalize">
+                {task.status.toLocaleLowerCase()}
+              </Typography>
+            }
+            variant="filled"
+            sx={{
+              background:
+                task?.status === "IN_PROGRESS"
+                  ? theme.palette.warning.light
+                  : task?.status === "COMPLETED"
+                  ? theme.palette.success.light
+                  : theme.palette.primary.light,
+              color: theme.palette.common.white,
+            }}
+          />
+        </Box>
+      </FlexBetween>
       <ConfirmModal
         open={openConfirmModal}
         onClose={onCloseConfirmModal}
