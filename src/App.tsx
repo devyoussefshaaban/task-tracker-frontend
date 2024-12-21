@@ -8,7 +8,6 @@ import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import UsersPage from "./pages/UsersPage";
-import TasksPage from "./pages/TasksPage";
 import ProfilePage from "./pages/ProfilePage";
 import { ACCESS_TOKEN } from "./utils/constants";
 import Cookies from "js-cookie";

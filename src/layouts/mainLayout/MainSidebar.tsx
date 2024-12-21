@@ -1,7 +1,6 @@
 import {
   Add,
   CalendarMonthOutlined,
-  CalendarViewDayOutlined,
   CircleOutlined,
   DeleteOutlineTwoTone,
   Inbox,
