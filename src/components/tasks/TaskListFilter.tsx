@@ -28,7 +28,10 @@ const FilterItem = ({
         color: theme.palette.secondary.main,
         opacity: isActive ? 1 : 0.5,
         paddingBottom: 3,
-        borderBottom: isActive ? `2px solid ${theme.palette.primary.main}` : "",
+        borderBottom: `2px solid ${
+          isActive ? theme.palette.primary.main : theme.palette.common.white
+        }`,
+        transition: "all .5s ease",
       }}
       onClick={onClick}
     >
@@ -53,7 +56,6 @@ const FilterItem = ({
       <Typography
         variant="body2"
         color={theme.palette.common.black}
-        fontWeight={600}
         textAlign="center"
       >
         {name}
