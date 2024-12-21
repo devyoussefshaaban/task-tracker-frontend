@@ -8,11 +8,12 @@ import {
   StarOutline,
   UpcomingOutlined,
 } from "@mui/icons-material";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, PaletteColor, Stack, Typography } from "@mui/material";
 import { FlexBetween } from "../../components";
 import { Link } from "react-router-dom";
+import muiTheme from "../../utils/theme";
 
-const MacDot = ({ color }: { color: string }) => {
+const MacDot = ({ color }: { color: string | PaletteColor }) => {
   return (
     <span
       style={{
@@ -20,7 +21,7 @@ const MacDot = ({ color }: { color: string }) => {
         width: "8px",
         height: "8px",
         borderRadius: "50%",
-        background: color,
+        background: color as string,
         marginRight: "4px",
         cursor: "pointer",
       }}
@@ -29,6 +30,8 @@ const MacDot = ({ color }: { color: string }) => {
 };
 
 const TopSection = () => {
+  const theme = muiTheme();
+
   return (
     <FlexBetween>
       <Box
@@ -37,14 +40,15 @@ const TopSection = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <MacDot color="rgba(255, 99, 72,1.0)" />
-        <MacDot color="rgba(255, 165, 2,1.0)" />
-        <MacDot color="rgba(46, 213, 115,1.0)" />
+        <MacDot color={theme.palette.error.main} />
+        <MacDot color={theme.palette.warning.main} />
+        <MacDot color={theme.palette.success.main} />
       </Box>
       <MoreHoriz
         sx={{
           fontSize: "1.4rem",
-          color: "rgba(206, 214, 224,1.0)",
+          color: theme.palette.secondary.main,
+          opacity: 0.5,
           marginLeft: "auto",
           display: "block",
           cursor: "pointer",
@@ -63,11 +67,13 @@ const MidSectionLink = ({
   name: string;
   href: string;
 }) => {
+  const theme = muiTheme();
+
   return (
     <Link
       to={href}
       style={{
-        color: "rgba(47, 53, 66,1.0)",
+        color: theme.palette.common.black,
         textDecoration: "none",
         marginBottom: "1rem",
       }}
@@ -120,11 +126,13 @@ const MidSection = () => {
 };
 
 const GeneralSectionLink = ({ name, href }: { name: string; href: string }) => {
+  const theme = muiTheme();
+
   return (
     <Link
       to={href}
       style={{
-        color: "rgba(116, 125, 140,.8)",
+        color: theme.palette.secondary.main,
         textDecoration: "none",
         marginBottom: "1rem",
       }}
@@ -149,7 +157,7 @@ const GeneralSection = ({
   generalLinkSet,
 }: {
   title: string;
-  titleColor: string;
+  titleColor: string | PaletteColor;
   generalLinkSet: { name: string; href: string }[];
 }) => {
   return (
@@ -161,7 +169,7 @@ const GeneralSection = ({
         marginRight="auto"
         mb={2}
         fontSize=".7rem"
-        color={titleColor}
+        color={titleColor as string}
       >
         <CircleOutlined fontSize="inherit" />
         <Typography variant="h6" fontSize="inherit" ml={1} fontWeight={600}>
@@ -176,6 +184,8 @@ const GeneralSection = ({
 };
 
 const BottomSection = () => {
+  const theme = muiTheme();
+
   return (
     <Box mt={4} pl={2}>
       <Box
@@ -183,7 +193,7 @@ const BottomSection = () => {
           width: 40,
           height: 40,
           borderRadius: "0 10px 10px",
-          background: "rgba(55, 66, 250,1.0)",
+          background: theme.palette.primary.main,
           boxShadow: "0 2px 20px rgba(83, 82, 237,1.0)",
           color: "#fff",
           cursor: "pointer",
@@ -198,6 +208,8 @@ const BottomSection = () => {
 };
 
 const MainSidebar = () => {
+  const theme = muiTheme();
+
   return (
     <Stack
       sx={{
@@ -212,7 +224,7 @@ const MainSidebar = () => {
       <MidSection />
       <GeneralSection
         title="Family"
-        titleColor="rgba(255, 99, 72,1.0)"
+        titleColor={theme.palette.error.main}
         generalLinkSet={[
           { name: "Vacation Planning", href: "/family/vacation-planning" },
           { name: "Buy A New Car", href: "/family/buy-a-new-car" },
@@ -221,7 +233,7 @@ const MainSidebar = () => {
       />
       <GeneralSection
         title="Work"
-        titleColor="rgba(46, 213, 115,1.0)"
+        titleColor={theme.palette.success.main}
         generalLinkSet={[
           { name: "Onboarding Plan", href: "/work/onboarding-plan" },
           { name: "Invoice-Review", href: "/work/invoice-review" },
