@@ -7,7 +7,6 @@ import ConfirmModal from "../shared/ConfirmModal";
 import { taskServices } from "../../services/taskServices";
 import FlexBetween from "../shared/FlexBetween";
 import muiTheme from "../../utils/theme";
-import { CheckBox } from "@mui/icons-material";
 
 interface IProps {
   task: Task;
@@ -15,7 +14,7 @@ interface IProps {
   onSelect: (task: Task) => void;
 }
 
-const TaskCard: FC<IProps> = ({ task, onSelect }) => {
+const TaskItem: FC<IProps> = ({ task, onSelect }) => {
   const { deleteTaskHandler, onCloseConfirmModal, openConfirmModal } =
     taskServices().taskInfoService(task, () => onSelect(task));
 
@@ -24,13 +23,18 @@ const TaskCard: FC<IProps> = ({ task, onSelect }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
-    <Box sx={{ minWidth: 275, width: "100%", mb: 2 }}>
+    <Box sx={{ minWidth: 275, width: "100%", mb: 1, cursor: "pointer" }}>
       <FlexBetween>
         <Box display="flex" alignItems="center">
-          <Checkbox {...label} defaultChecked={task.status === "COMPLETED"} />
+          <Checkbox
+            {...label}
+            sx={{ opacity: 0.8 }}
+            defaultChecked={task.status === "COMPLETED"}
+          />
           <Typography
-            variant="body1"
-            className="roboto-bold"
+            variant="body2"
+            fontSize=".75rem"
+            fontWeight={600}
             color={theme.palette.common.black}
           >
             {task.title}
@@ -39,12 +43,13 @@ const TaskCard: FC<IProps> = ({ task, onSelect }) => {
         <Box>
           <Chip
             label={
-              <Typography variant="caption" textTransform="capitalize">
+              <Typography fontSize=".75rem" textTransform="capitalize">
                 {task.status.toLocaleLowerCase()}
               </Typography>
             }
             variant="filled"
             sx={{
+              opacity: 0.75,
               background:
                 task?.status === "IN_PROGRESS"
                   ? theme.palette.warning.light
@@ -68,4 +73,4 @@ const TaskCard: FC<IProps> = ({ task, onSelect }) => {
   );
 };
 
-export default TaskCard;
+export default TaskItem;

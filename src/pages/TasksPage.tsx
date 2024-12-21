@@ -33,18 +33,20 @@ const TasksPage = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <Container sx={{ py: 3, pt: 4 }}>
-      <TasksHeader />
-      <Grid container spacing={2} mt={2}>
-        <Grid item xs={12} md={7}>
-          <TaskList />
+    <Container sx={{ pt: 5 }}>
+      <Container>
+        <TasksHeader />
+        <Grid container spacing={2} mt={2}>
+          <Grid item xs={12} md={7}>
+            <TaskList />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Box pl={10}>
+              <Typography variant="h6">Meeting Schedule ...</Typography>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={5}>
-          <Box pl={10}>
-            <Typography variant="h6">Meeting Schedule ...</Typography>
-          </Box>
-        </Grid>
-      </Grid>
+      </Container>
     </Container>
   );
 };

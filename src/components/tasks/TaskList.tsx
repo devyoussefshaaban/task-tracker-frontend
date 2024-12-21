@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, Stack, Typography } from "@mui/material";
-import TaskCard from "./TaskCard";
+import TaskCard from "./TaskItem";
 import { Task } from "../../models/Task";
 import { CreateTask } from "..";
 import { CREATE_TASK_FORM_TYPE, TASK_LIST_FILTER } from "../../utils/constants";

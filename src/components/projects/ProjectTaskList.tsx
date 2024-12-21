@@ -1,5 +1,5 @@
 import { Dialog, Grid, Typography } from "@mui/material";
-import TaskCard from "../tasks/TaskCard";
+import TaskCard from "../tasks/TaskItem";
 import { Project_Info } from "../../models/Project";
 import { FC } from "react";
 import { taskServices } from "../../services/taskServices";

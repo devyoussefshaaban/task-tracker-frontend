@@ -217,6 +217,7 @@ const MainSidebar = () => {
         px: 1.6,
         flex: 0.2,
         background: "rgba(241, 242, 246,.5)",
+        boxShadow: `0 4px 2px ${theme.palette.secondary.main}`,
         borderRight: "1px solid rgba(223, 228, 234,1.0)",
       }}
     >
