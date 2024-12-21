@@ -43,25 +43,26 @@ const MeetingList = () => {
           time="9:00 AM - 9:30 AM"
         />
         <MeetingItem
-          membersNumber={4}
+          membersNumber={3}
+          isJoinedUser={true}
           bg={"rgba(52, 172, 224,.4)"}
           color={"rgba(34, 112, 147,1.0)"}
-          title="Meeting outboarding friends"
-          time="9:00 AM - 9:30 AM"
+          title="Product Development Team"
+          time="12:30 PM - 2:30 PM"
         />
         <MeetingItem
-          membersNumber={4}
+          membersNumber={5}
           bg={"rgba(255, 82, 82,.4)"}
           color={"rgba(179, 57, 57,1.0)"}
-          title="Meeting outboarding friends"
-          time="9:00 AM - 9:30 AM"
+          title="Product Planning"
+          time="10:00 AM - 12:30 PM"
         />
         <MeetingItem
-          membersNumber={4}
+          membersNumber={15}
           bg={"rgba(51, 217, 178,.4)"}
           color={"rgba(33, 140, 116,1.0)"}
-          title="Meeting outboarding friends"
-          time="9:00 AM - 9:30 AM"
+          title="Social Product Review"
+          time="4:10 PM - 5:30 PM"
         />
       </Stack>
     </Stack>

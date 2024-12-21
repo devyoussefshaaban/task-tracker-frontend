@@ -1,16 +1,26 @@
 import { MoreVert } from "@mui/icons-material";
-import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Chip,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import FlexBetween from "../shared/FlexBetween";
 import { useEffect, useState } from "react";
+import muiTheme from "../../utils/theme";
 
 const MeetingItem = ({
   membersNumber,
+  isJoinedUser,
   bg,
   color,
   title,
   time,
 }: {
   membersNumber: number;
+  isJoinedUser?: boolean;
   bg: string;
   color: string;
   title: string;
@@ -36,6 +46,8 @@ const MeetingItem = ({
   useEffect(() => {
     membersAvatars();
   }, []);
+
+  const theme = muiTheme();
 
   return (
     <Stack
@@ -67,9 +79,37 @@ const MeetingItem = ({
           {title}
         </Typography>
       </Box>
-      <Box display="flex" alignItems="center" mt={3}>
-        {memberList.map((MemberAvatar) => MemberAvatar)}
-      </Box>
+      <FlexBetween>
+        <Box display="flex" alignItems="center" mt={3}>
+          {isJoinedUser || membersNumber > 13
+            ? memberList.map((MemberAvatar, idx) => idx < 3 && MemberAvatar)
+            : memberList.map((MemberAvatar) => MemberAvatar)}
+        </Box>
+        {isJoinedUser ? (
+          <Chip
+            label="You Joined"
+            variant="filled"
+            sx={{
+              fontStyle: "italic",
+              mt: 4,
+              ml: 2,
+              color: theme.palette.common.white,
+            }}
+          />
+        ) : null}
+        {membersNumber > 13 ? (
+          <Chip
+            label="+13 Members"
+            variant="filled"
+            sx={{
+              fontStyle: "italic",
+              mt: 4,
+              ml: 2,
+              color: theme.palette.common.white,
+            }}
+          />
+        ) : null}
+      </FlexBetween>
     </Stack>
   );
 };

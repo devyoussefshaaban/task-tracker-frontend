@@ -18,7 +18,6 @@ import GroupInfoPage from "./pages/GroupInfoPage";
 import InvitationsPage from "./pages/InvitationsPage";
 import ProjectInfoPage from "./pages/ProjectInfoPage";
 import MemberInfoPage from "./pages/MemberInfoPage";
-import { Typography } from "@mui/material";
 import TasksPage from "./pages/TasksPage";
 
 const App = () => {
