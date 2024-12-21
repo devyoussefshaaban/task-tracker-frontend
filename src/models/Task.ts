@@ -1,3 +1,10 @@
+export interface ITask {
+  _id: string;
+  title: string;
+  description: string;
+  status: string;
+}
+
 export interface Task {
   _id: string;
   creator: {

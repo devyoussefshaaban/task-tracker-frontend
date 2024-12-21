@@ -1,22 +1,21 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Task } from "../../models/Task";
+import { ITask, Task } from "../../models/Task";
 import { FC } from "react";
 import { Checkbox, Chip } from "@mui/material";
-import ConfirmModal from "../shared/ConfirmModal";
-import { taskServices } from "../../services/taskServices";
 import FlexBetween from "../shared/FlexBetween";
 import muiTheme from "../../utils/theme";
+import { TASK_STATUS } from "../../utils/constants";
 
 interface IProps {
-  task: Task;
+  task: ITask;
   onOpenForm: () => void;
   onSelect: (task: Task) => void;
 }
 
 const TaskItem: FC<IProps> = ({ task, onSelect }) => {
-  const { deleteTaskHandler, onCloseConfirmModal, openConfirmModal } =
-    taskServices().taskInfoService(task, () => onSelect(task));
+  // const { deleteTaskHandler, onCloseConfirmModal, openConfirmModal } =
+  //   taskServices().taskInfoService(task, () => onSelect(task));
 
   const theme = muiTheme();
 
@@ -51,24 +50,28 @@ const TaskItem: FC<IProps> = ({ task, onSelect }) => {
             sx={{
               opacity: 0.75,
               background:
-                task?.status === "IN_PROGRESS"
+                task?.status === TASK_STATUS.APPROVED
                   ? theme.palette.warning.light
-                  : task?.status === "COMPLETED"
+                  : task?.status === TASK_STATUS.COMPLETED
                   ? theme.palette.success.light
-                  : theme.palette.primary.light,
+                  : task?.status === TASK_STATUS.WAITING
+                  ? theme.palette.grey[300]
+                  : task?.status === TASK_STATUS.IN_REVIEW
+                  ? theme.palette.primary.light
+                  : theme.palette.secondary.light,
               color: theme.palette.common.white,
             }}
           />
         </Box>
       </FlexBetween>
-      <ConfirmModal
+      {/* <ConfirmModal
         open={openConfirmModal}
         onClose={onCloseConfirmModal}
         title={"Delete Task Confirmation"}
         message={"Are you sure you want to delete this task permanently ?"}
         onOk={deleteTaskHandler}
         onCancel={onCloseConfirmModal}
-      />
+      /> */}
     </Box>
   );
 };

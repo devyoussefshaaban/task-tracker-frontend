@@ -12,9 +12,12 @@ export const USER_ROLE = {
 };
 
 export const TASK_STATUS = {
-  NOT_STARTED: "NOT_STARTED",
-  IN_PROGRESS: "IN_PROGRESS",
-  COMPLETED: "COMPLETED",
+  UPCOMMING: "Upcomming",
+  WAITING: "Waiting",
+  IN_PROGRESS: "In Progress",
+  COMPLETED: "Completed",
+  IN_REVIEW: "In Review",
+  APPROVED: "Approved",
 };
 
 export const TASK_PRIORITY = {

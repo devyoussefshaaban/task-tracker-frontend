@@ -8,7 +8,9 @@ const TasksHeader = () => {
 
   return (
     <FlexBetween>
-      <Typography variant="h6">Today Task</Typography>
+      <Typography variant="h5" fontWeight={600}>
+        Today Task
+      </Typography>
       <Stack
         display="flex"
         alignItems="center"
