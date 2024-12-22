@@ -3,6 +3,18 @@ export interface ITask {
   title: string;
   description: string;
   status: string;
+  priority: string;
+  dateTime: string;
+  assignee: {
+    _id: string;
+    username: string;
+    email: string;
+  };
+  category: {
+    _id: string;
+    categoryName: string;
+    categoryDescription: string;
+  };
 }
 
 export interface Task {

@@ -7,7 +7,7 @@ const HomePage = () => {
     <Container>
       <FlexColumn>
         <Typography variant="h6">Welcome</Typography>
-        <Link to="/tasks">
+        <Link to="/home">
           <Button
             variant="contained"
             sx={{ textTransform: "capitalize", mt: 4 }}

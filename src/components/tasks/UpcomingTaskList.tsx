@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   Chip,
   Grid,
@@ -7,11 +8,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { taskList } from "../../utils/constants";
+import { TASK_PRIORITY, taskList } from "../../utils/constants";
 import muiTheme from "../../utils/theme";
 import MainContainer from "../shared/MainContainer";
 import FlexBetween from "../shared/FlexBetween";
-import { MoreVert } from "@mui/icons-material";
+import { Add, MoreVert } from "@mui/icons-material";
 
 const UpcomingTaskList = () => {
   const theme = muiTheme();
@@ -19,9 +20,24 @@ const UpcomingTaskList = () => {
   return (
     <MainContainer>
       <Stack>
-        <Typography variant="h5" fontWeight={600} mb={4}>
-          Upcoming Tasks
-        </Typography>
+        <Box mb={4}>
+          <FlexBetween>
+            <Typography variant="h5" fontWeight={600}>
+              Upcoming Tasks
+            </Typography>
+            <Button
+              variant="contained"
+              size="small"
+              sx={{
+                textTransform: "capitalize",
+                background: theme.palette.primary.light,
+              }}
+              startIcon={<Add />}
+            >
+              Add Task
+            </Button>
+          </FlexBetween>
+        </Box>
         <Grid container spacing={2}>
           {taskList.upcommingTasks.map((task) => (
             <Grid item xs={12} md={4}>
@@ -46,12 +62,35 @@ const UpcomingTaskList = () => {
                     {task.description}
                   </Typography>
                 </Stack>
-                <Box mt={3}>
+                <Box mt={3} textTransform="capitalize">
                   <Chip
                     variant="filled"
                     label={task.status}
                     size="small"
-                    color="info"
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: ".7rem",
+                      background: theme.palette.grey[900],
+                      color: theme.palette.common.white,
+                    }}
+                  />
+                  <Chip
+                    variant="filled"
+                    label={task.priority.toLocaleLowerCase()}
+                    size="small"
+                    sx={{
+                      ml: 1,
+                      fontWeight: 600,
+                      fontSize: ".7rem",
+                      color: theme.palette.common.white,
+                      background: `${
+                        task.priority === TASK_PRIORITY.URGENT
+                          ? theme.palette.warning.light
+                          : task.priority === TASK_PRIORITY.LOW
+                          ? theme.palette.success.dark
+                          : theme.palette.secondary.dark
+                      }`,
+                    }}
                   />
                 </Box>
               </Card>
