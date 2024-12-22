@@ -8,10 +8,13 @@ import {
   StarOutline,
   UpcomingOutlined,
 } from "@mui/icons-material";
-import { Box, PaletteColor, Stack, Typography } from "@mui/material";
+import { Box, Button, PaletteColor, Stack, Typography } from "@mui/material";
 import { FlexBetween } from "../../components";
 import { Link } from "react-router-dom";
 import muiTheme from "../../utils/theme";
+import { AppDispatch, RootState } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectMainSection } from "../../context/actions/generalActions";
 
 const MacDot = ({ color }: { color: string | PaletteColor }) => {
   return (
@@ -61,22 +64,41 @@ const TopSection = () => {
 const MidSectionLink = ({
   Icon,
   name,
-  href,
 }: {
   Icon: JSX.Element;
   name: string;
-  href: string;
 }) => {
   const theme = muiTheme();
 
+  const dispatch: AppDispatch = useDispatch();
+
+  const selectMainSection = (sectionName: string) => {
+    dispatch(setSelectMainSection(sectionName));
+  };
+
+  const currentSelectedMainSection: string | null = useSelector(
+    (state: RootState) => state.general.selectedMainSection
+  );
+
+  const isSelectedSection = name === currentSelectedMainSection;
+
   return (
-    <Link
-      to={href}
+    <Button
+      startIcon={Icon}
       style={{
-        color: theme.palette.common.black,
+        color: isSelectedSection
+          ? theme.palette.common.white
+          : theme.palette.common.black,
         textDecoration: "none",
-        marginBottom: "1rem",
+        marginBottom: "0.7rem",
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        textTransform: "capitalize",
+        background: isSelectedSection ? theme.palette.primary.light : "",
       }}
+      variant={`${isSelectedSection ? "contained" : "text"}`}
+      onClick={() => selectMainSection(name)}
     >
       <Box
         display="flex"
@@ -84,42 +106,30 @@ const MidSectionLink = ({
         alignItems="center"
         fontSize=".7rem"
       >
-        {Icon}
-        <Typography variant="h6" ml={1} fontSize="inherit" fontWeight={600}>
+        <Typography variant="h6" fontSize="inherit" fontWeight={600}>
           {name}
         </Typography>
       </Box>
-    </Link>
+    </Button>
   );
 };
 
 const MidSection = () => {
   return (
     <Stack mt={2} pl={2}>
+      <MidSectionLink Icon={<Inbox fontSize="inherit" />} name="Inbox" />
+      <MidSectionLink Icon={<StarOutline fontSize="inherit" />} name="Today" />
       <MidSectionLink
-        Icon={<Inbox fontSize="inherit" />}
-        name="Inbox"
-        href="/inbox"
-      />
-      <MidSectionLink
-        Icon={<StarOutline fontSize="inherit" />}
-        name="Today"
-        href="/today"
-      />
-      <MidSectionLink
-        Icon={<UpcomingOutlined fontSize="inherit" />}
+        Icon={<UpcomingOutlined fontSize="small" />}
         name="Upcoming"
-        href="/upcoming"
       />
       <MidSectionLink
-        Icon={<CalendarMonthOutlined fontSize="inherit" />}
+        Icon={<CalendarMonthOutlined fontSize="small" />}
         name="Anytime"
-        href="/anytime"
       />
       <MidSectionLink
-        Icon={<DeleteOutlineTwoTone fontSize="inherit" />}
+        Icon={<DeleteOutlineTwoTone fontSize="small" />}
         name="Trash"
-        href="/trash"
       />
     </Stack>
   );
@@ -216,6 +226,7 @@ const MainSidebar = () => {
         py: 1,
         px: 1.6,
         flex: 0.2,
+        height: "100vh",
         background: "rgba(241, 242, 246,.5)",
         boxShadow: `0 4px 2px ${theme.palette.secondary.main}`,
         borderRight: "1px solid rgba(223, 228, 234,1.0)",
@@ -229,7 +240,6 @@ const MainSidebar = () => {
         generalLinkSet={[
           { name: "Vacation Planning", href: "/family/vacation-planning" },
           { name: "Buy A New Car", href: "/family/buy-a-new-car" },
-          { name: "Festival Ideas", href: "/family/festival-ideas" },
         ]}
       />
       <GeneralSection
@@ -237,7 +247,6 @@ const MainSidebar = () => {
         titleColor={theme.palette.success.main}
         generalLinkSet={[
           { name: "Onboarding Plan", href: "/work/onboarding-plan" },
-          { name: "Invoice-Review", href: "/work/invoice-review" },
           { name: "Presentation Work", href: "/work/presentation-work" },
         ]}
       />

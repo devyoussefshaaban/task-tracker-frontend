@@ -5,7 +5,7 @@ import { CreateTask } from "..";
 import {
   CREATE_TASK_FORM_TYPE,
   TASK_LIST_FILTER,
-  TASK_STATUS,
+  taskList,
 } from "../../utils/constants";
 import { taskServices } from "../../services/taskServices";
 import TaskListFilter from "./TaskListFilter";
@@ -21,73 +21,6 @@ const TaskList = () => {
     onOpenForm,
     onCloseForm,
   } = taskServices().taskInfoService();
-
-  const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
-    currentTasks: [
-      {
-        _id: "1",
-        title: "Take the breakfast.",
-        description: "Some task description....",
-        status: TASK_STATUS.APPROVED,
-      },
-      {
-        _id: "2",
-        title: "Go to the GYM.",
-        description: "Some task description....",
-        status: TASK_STATUS.IN_PROGRESS,
-      },
-      {
-        _id: "3",
-        title: "Meet your friends.",
-        description: "Some task description....",
-        status: TASK_STATUS.IN_PROGRESS,
-      },
-      {
-        _id: "4",
-        title: "Go to the Work.",
-        description: "Some task description....",
-        status: TASK_STATUS.IN_REVIEW,
-      },
-      {
-        _id: "5",
-        title: "Building your side project.",
-        description: "Some task description....",
-        status: TASK_STATUS.WAITING,
-      },
-    ],
-    upcommingTasks: [
-      {
-        _id: "6",
-        title: "Meet your friends.",
-        description: "Some task description....",
-        status: TASK_STATUS.UPCOMMING,
-      },
-      {
-        _id: "7",
-        title: "Go to the Work.",
-        description: "Some task description....",
-        status: TASK_STATUS.UPCOMMING,
-      },
-      {
-        _id: "8",
-        title: "Building your side project.",
-        description: "Some task description....",
-        status: TASK_STATUS.UPCOMMING,
-      },
-      {
-        _id: "9",
-        title: "Go to the Work.",
-        description: "Some task description....",
-        status: TASK_STATUS.UPCOMMING,
-      },
-      {
-        _id: "10",
-        title: "Building your side project.",
-        description: "Some task description....",
-        status: TASK_STATUS.UPCOMMING,
-      },
-    ],
-  };
 
   const [activeFilter, setActiveFilter] = useState<string>(
     TASK_LIST_FILTER.ALL

@@ -1,6 +1,7 @@
 import { Task } from "../../models/Task";
 import {
   SET_IS_LOADING,
+  SET_SELECTED_MAIN_SECTION,
   SET_SELECTED_TASK,
   TOGGLE_CREATE_TASK_FORM,
   TOGGLE_SIDEBAR,
@@ -11,11 +12,13 @@ const initialState: {
   isExtendedSidebar: boolean;
   isCreateTaskFormOpen: boolean;
   selectedTask: Task | null;
+  selectedMainSection: string | null;
 } = {
   isLoading: false,
   isExtendedSidebar: false,
   isCreateTaskFormOpen: false,
   selectedTask: null,
+  selectedMainSection: "Today",
 };
 
 export const generalReducer = (state = initialState, action: any) => {
@@ -31,6 +34,8 @@ export const generalReducer = (state = initialState, action: any) => {
       };
     case SET_SELECTED_TASK:
       return { ...state, selectedTask: action.payload.task };
+    case SET_SELECTED_MAIN_SECTION:
+      return { ...state, selectedMainSection: action.payload.sectionName };
     default:
       return { ...state };
   }

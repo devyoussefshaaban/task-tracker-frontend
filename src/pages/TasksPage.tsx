@@ -1,5 +1,11 @@
 import { Box, Container, Grid } from "@mui/material";
-import { Loading, MeetingList, TaskList, TasksHeader } from "../components";
+import {
+  Loading,
+  MainContainer,
+  MeetingList,
+  TaskList,
+  TasksHeader,
+} from "../components";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../context";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,21 +39,19 @@ const TasksPage = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <Container sx={{ pt: 5 }}>
-      <Container>
-        <TasksHeader />
-        <Grid container spacing={2} mt={2}>
-          <Grid item xs={12} md={7}>
-            <TaskList />
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <Box pl={5}>
-              <MeetingList />
-            </Box>
-          </Grid>
+    <MainContainer>
+      <TasksHeader />
+      <Grid container spacing={2} mt={2}>
+        <Grid item xs={12} md={7}>
+          <TaskList />
         </Grid>
-      </Container>
-    </Container>
+        <Grid item xs={12} md={5}>
+          <Box pl={5}>
+            <MeetingList />
+          </Box>
+        </Grid>
+      </Grid>
+    </MainContainer>
   );
 };
 

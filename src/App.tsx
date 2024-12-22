@@ -19,6 +19,8 @@ import InvitationsPage from "./pages/InvitationsPage";
 import ProjectInfoPage from "./pages/ProjectInfoPage";
 import MemberInfoPage from "./pages/MemberInfoPage";
 import TasksPage from "./pages/TasksPage";
+import { Typography } from "@mui/material";
+import { UpcomingTaskList } from "./components";
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -38,6 +40,9 @@ const App = () => {
       dispatch(getMe());
   }, []);
 
+  const currentSelectedMainSection: string | null = useSelector(
+    (state: RootState) => state.general.selectedMainSection
+  );
   return (
     <>
       <Routes>
@@ -48,11 +53,17 @@ const App = () => {
           element={<EmailVerificationPage />}
         />
         <Route
-          path="/tasks"
+          path="/home"
           element={
-            // <ProtectedRoute>
-            <TasksPage />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              {currentSelectedMainSection === "Today" ? (
+                <TasksPage />
+              ) : currentSelectedMainSection === "Upcoming" ? (
+                <UpcomingTaskList />
+              ) : (
+                <Typography variant="h5">Comming Soon ...</Typography>
+              )}
+            </ProtectedRoute>
           }
         />
         <Route

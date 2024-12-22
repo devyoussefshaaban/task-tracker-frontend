@@ -33,3 +33,12 @@ export const setSelectedTask = (task: Task | null) => {
     },
   };
 };
+
+export const setSelectMainSection = (sectionName: string) => {
+  return {
+    type: actionTypes.SET_SELECTED_MAIN_SECTION,
+    payload: {
+      sectionName,
+    },
+  };
+};

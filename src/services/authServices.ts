@@ -38,7 +38,7 @@ export const authServices = () => {
 
       setTimeout(() => {
         if (Cookies.get(ACCESS_TOKEN) && Cookies.get(ACCESS_TOKEN) !== "")
-          navigate("/tasks");
+          navigate("/home");
       }, 1000);
     });
 
