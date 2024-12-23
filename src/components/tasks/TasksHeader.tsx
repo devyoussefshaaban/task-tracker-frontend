@@ -2,6 +2,7 @@ import { PeopleAltOutlined } from "@mui/icons-material";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import muiTheme from "../../utils/theme";
 import FlexBetween from "../shared/FlexBetween";
+import UserOptions from "../general/UserOptions";
 
 const TasksHeader = () => {
   const theme = muiTheme();
@@ -32,12 +33,14 @@ const TasksHeader = () => {
             fontSize: "1.2rem",
             fontWeight: 600,
             ml: 4,
+            mr: 4,
             borderRadius: 3,
             boxShadow: `0 1px 4px ${theme.palette.success.main}`,
           }}
         >
           5
         </Box>
+        <UserOptions />
       </Stack>
     </FlexBetween>
   );

@@ -15,19 +15,18 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
     <Stack
       spacing={2}
       width="30ch"
-      margin="2rem auto 2rem"
-      padding={"4px 10px"}
+      padding="1rem 2rem"
       borderRadius="10px"
-      boxShadow={"0 2px 2px rgba(0,0,0,.5)"}
+      boxShadow={"0 2px 10px rgba(0,0,0,.5)"}
     >
-      <Box>
+      <Box mb={2}>
         <Typography variant="h6" textAlign="center">
           Sign In
         </Typography>
-        <Divider sx={{ mb: 1, mt: 1 }} />
+        <Divider sx={{ mb: 2, mt: 2 }} />
       </Box>
       <form onSubmit={submitHandler}>
-        <FormControl sx={{ mb: 2 }}>
+        <FormControl sx={{ mb: 2 }} fullWidth>
           <TextField
             label="Email"
             id="email"
@@ -42,7 +41,7 @@ const SignInForm: FC<IProps> = ({ switchForm }) => {
           )}
         </FormControl>
 
-        <FormControl sx={{ mb: 2 }}>
+        <FormControl sx={{ mb: 2 }} fullWidth>
           <TextField
             label="Password"
             type="password"

@@ -25,7 +25,7 @@ const authReducer = (
       };
     case actionTypes.SIGN_IN:
       Cookies.set(ACCESS_TOKEN, action.payload.data.token);
-      window.location.pathname = "/tasks";
+      window.location.pathname = "/home";
       toast.success(action.payload.message);
       return {
         ...state,

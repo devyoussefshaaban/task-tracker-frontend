@@ -25,4 +25,5 @@ export { default as HeadTitle } from "./shared/HeadTitle";
 export { default as BoxWrapper } from "./shared/BoxWrapper";
 export { default as MainContainer } from "./shared/MainContainer";
 export { default as WrapContainer } from "./shared/WrapContainer";
+export { default as UserOptions } from "./general/UserOptions";
 export { default as ProjectTaskList } from "./projects/ProjectTaskList";

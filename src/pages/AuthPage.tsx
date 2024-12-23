@@ -3,6 +3,7 @@ import { Loading, SignInForm, SignUpForm } from "../components";
 import { SIGN_UP_FORM_TYPE } from "../components/auth/SignUpForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../context";
+import { Container } from "@mui/material";
 
 const AuthPage = () => {
   const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
@@ -15,13 +16,22 @@ const AuthPage = () => {
 
   if (isLoading) return <Loading />;
 
-  if (isLoginForm) return <SignInForm switchForm={switchForm} />;
+  if (isLoginForm)
+    return (
+      <Container
+        sx={{ display: "grid", placeItems: "center", height: "100vh" }}
+      >
+        <SignInForm switchForm={switchForm} />
+      </Container>
+    );
 
   return (
-    <SignUpForm
-      switchForm={switchForm}
-      formType={SIGN_UP_FORM_TYPE.REGISTER_USER}
-    />
+    <Container sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
+      <SignUpForm
+        switchForm={switchForm}
+        formType={SIGN_UP_FORM_TYPE.REGISTER_USER}
+      />
+    </Container>
   );
 };
 
