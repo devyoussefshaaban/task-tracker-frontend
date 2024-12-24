@@ -14,6 +14,7 @@ export const USER_ROLE = {
 };
 
 export const TASK_STATUS = {
+  NOT_STARTED: "Not Started",
   UPCOMING: "Upcoming",
   WAITING_REVIEW: "Waiting Review",
   IN_PROGRESS: "In Progress",
@@ -30,7 +31,7 @@ export const TASK_PRIORITY = {
 
 export const TASK_LIST_FILTER = {
   ALL: "ALL",
-  UPCOMMING: "UPCOMMING",
+  UPCOMING: "UPCOMING",
   NOTES: "NOTES",
   LINKS: "LINKS ",
 };
@@ -157,7 +158,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "5",
       title: "Building your side project.",
       description: "Some task description....",
-      status: TASK_STATUS.WAITING,
+      status: TASK_STATUS.WAITING_REVIEW,
       priority: TASK_PRIORITY.NORMAL,
       startDateTime: new Date(),
       assignee: {
@@ -188,7 +189,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "6",
       title: "Meet your friends.",
       description: "Some task description....",
-      status: TASK_STATUS.UPCOMMING,
+      status: TASK_STATUS.UPCOMING,
       priority: TASK_PRIORITY.URGENT,
       startDateTime: new Date(),
       assignee: {
@@ -217,7 +218,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "7",
       title: "Go to the Work.",
       description: "Some task description....",
-      status: TASK_STATUS.UPCOMMING,
+      status: TASK_STATUS.UPCOMING,
       priority: TASK_PRIORITY.LOW,
       startDateTime: new Date(),
       assignee: {
@@ -246,7 +247,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "8",
       title: "Building your side project.",
       description: "Some task description....",
-      status: TASK_STATUS.UPCOMMING,
+      status: TASK_STATUS.UPCOMING,
       priority: TASK_PRIORITY.URGENT,
       startDateTime: new Date(),
       assignee: {
@@ -275,7 +276,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "9",
       title: "Go to the Work.",
       description: "Some task description....",
-      status: TASK_STATUS.UPCOMMING,
+      status: TASK_STATUS.UPCOMING,
       priority: TASK_PRIORITY.NORMAL,
       startDateTime: new Date(),
       assignee: {
@@ -304,7 +305,7 @@ export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
       _id: "10",
       title: "Building your side project.",
       description: "Some task description....",
-      status: TASK_STATUS.UPCOMMING,
+      status: TASK_STATUS.UPCOMING,
       priority: TASK_PRIORITY.NORMAL,
       startDateTime: new Date(),
       assignee: {

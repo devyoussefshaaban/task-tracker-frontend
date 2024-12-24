@@ -104,7 +104,7 @@ const TaskList = () => {
         tasks={taskList?.upcomingTasks}
       />
 
-      <Dialog open={isCreateTaskFormOpen}>
+      <Dialog open={isCreateTaskFormOpen} fullWidth>
         <CreateTask
           formType={
             selectedTask
