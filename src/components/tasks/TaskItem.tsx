@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { ITask, Task } from "../../models/Task";
+import { Task } from "../../models/Task";
 import { FC } from "react";
 import { Checkbox, Chip } from "@mui/material";
 import FlexBetween from "../shared/FlexBetween";
@@ -8,7 +8,7 @@ import muiTheme from "../../utils/theme";
 import { TASK_STATUS } from "../../utils/constants";
 
 interface IProps {
-  task: ITask;
+  task: Task;
   onOpenForm: () => void;
   onSelect: (task: Task) => void;
 }
@@ -51,13 +51,17 @@ const TaskItem: FC<IProps> = ({ task, onSelect }) => {
             sx={{
               opacity: 0.75,
               background:
-                task?.status === TASK_STATUS.APPROVED
+                task?.status.toLocaleLowerCase() ===
+                TASK_STATUS.APPROVED.toLowerCase()
                   ? theme.palette.warning.light
-                  : task?.status === TASK_STATUS.COMPLETED
+                  : task?.status.toLocaleLowerCase() ===
+                    TASK_STATUS.COMPLETED.toLowerCase()
                   ? theme.palette.success.light
-                  : task?.status === TASK_STATUS.WAITING
+                  : task?.status.toLocaleLowerCase() ===
+                    TASK_STATUS.WAITING_REVIEW.toLowerCase()
                   ? theme.palette.grey[300]
-                  : task?.status === TASK_STATUS.IN_REVIEW
+                  : task?.status.toLocaleLowerCase() ===
+                    TASK_STATUS.IN_REVIEW.toLowerCase()
                   ? theme.palette.primary.light
                   : theme.palette.secondary.light,
               color: theme.palette.common.white,

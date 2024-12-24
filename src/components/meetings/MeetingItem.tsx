@@ -33,6 +33,7 @@ const MeetingItem = ({
     for (var i = 0; i < membersNumber; i++) {
       list.push(
         <Avatar
+          key={i}
           sx={{ width: 25, height: 25, ml: 1 }}
           src={`https://avatar.iran.liara.run/public/${Math.floor(
             Math.random() * 100

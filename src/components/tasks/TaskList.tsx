@@ -1,16 +1,14 @@
 import { Box, Button, Dialog, Stack, Typography } from "@mui/material";
 import TaskItem from "./TaskItem";
-import { ITask } from "../../models/Task";
+import { Task } from "../../models/Task";
 import { CreateTask } from "..";
-import {
-  CREATE_TASK_FORM_TYPE,
-  TASK_LIST_FILTER,
-  taskList,
-} from "../../utils/constants";
+import { CREATE_TASK_FORM_TYPE, TASK_LIST_FILTER } from "../../utils/constants";
 import { taskServices } from "../../services/taskServices";
 import TaskListFilter from "./TaskListFilter";
 import { useState } from "react";
 import muiTheme from "../../utils/theme";
+import { useSelector } from "react-redux";
+import { RootState } from "../../context";
 
 const TaskList = () => {
   const {
@@ -33,8 +31,9 @@ const TaskList = () => {
     tasks,
   }: {
     headTitle?: string;
-    tasks: ITask[];
+    tasks: Task[];
   }) => {
+    console.log({ tasks });
     return (
       <>
         {headTitle ? (
@@ -47,7 +46,7 @@ const TaskList = () => {
           pr={2}
           mt={headTitle ? 0 : 5}
           sx={{
-            height: "30vh",
+            height: "25vh",
             overflowY: "auto",
             "::-webkit-scrollbar": {
               width: "3px",
@@ -64,7 +63,7 @@ const TaskList = () => {
             },
           }}
         >
-          {tasks.length === 0 ? (
+          {tasks?.length === 0 ? (
             <Box textAlign="center" margin="auto">
               <Typography variant="h6">You have no added tasks yet.</Typography>
               <Button
@@ -76,7 +75,7 @@ const TaskList = () => {
               </Button>
             </Box>
           ) : (
-            tasks.map((task: ITask) => (
+            tasks?.map((task: Task) => (
               <TaskItem
                 key={task._id}
                 task={task}
@@ -90,6 +89,8 @@ const TaskList = () => {
     );
   };
 
+  const taskList = useSelector((state: RootState) => state.tasks?.tasks);
+
   return (
     <>
       <TaskListFilter
@@ -97,10 +98,10 @@ const TaskList = () => {
         setActiveFilter={setActiveFilter}
       />
 
-      <TaskListStack tasks={taskList.currentTasks} />
+      <TaskListStack tasks={taskList?.currentTasks} />
       <TaskListStack
         headTitle="Upcomming Tasks"
-        tasks={taskList.upcommingTasks}
+        tasks={taskList?.upcomingTasks}
       />
 
       <Dialog open={isCreateTaskFormOpen}>

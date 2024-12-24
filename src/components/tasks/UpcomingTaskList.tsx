@@ -8,13 +8,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { TASK_PRIORITY, taskList } from "../../utils/constants";
+import { TASK_PRIORITY } from "../../utils/constants";
 import muiTheme from "../../utils/theme";
 import MainContainer from "../shared/MainContainer";
 import FlexBetween from "../shared/FlexBetween";
 import { Add, MoreVert } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../context";
+import { Task } from "../../models/Task";
 
 const UpcomingTaskList = () => {
+  const taskList = useSelector((state: RootState) => state.tasks?.tasks);
+
   const theme = muiTheme();
 
   return (
@@ -39,7 +44,7 @@ const UpcomingTaskList = () => {
           </FlexBetween>
         </Box>
         <Grid container spacing={2}>
-          {taskList.upcommingTasks.map((task) => (
+          {taskList.upcomingTasks?.map((task: Task) => (
             <Grid item xs={12} md={4}>
               <Card
                 sx={{

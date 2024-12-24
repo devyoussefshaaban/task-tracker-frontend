@@ -3,9 +3,15 @@ import { Task } from "../../models/Task";
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState: {
-  tasks: Task[];
+  tasks: {
+    currentTasks: Task[];
+    upcomingTasks: Task[];
+  };
 } = {
-  tasks: [],
+  tasks: {
+    currentTasks: [],
+    upcomingTasks: [],
+  },
 };
 
 const tasksReducer = (state = initialState, action: any) => {

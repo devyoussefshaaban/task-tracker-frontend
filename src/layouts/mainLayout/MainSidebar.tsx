@@ -8,13 +8,22 @@ import {
   StarOutline,
   UpcomingOutlined,
 } from "@mui/icons-material";
-import { Box, Button, PaletteColor, Stack, Typography } from "@mui/material";
-import { FlexBetween } from "../../components";
+import {
+  Box,
+  Button,
+  Dialog,
+  PaletteColor,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { CreateTask, FlexBetween } from "../../components";
 import { Link } from "react-router-dom";
 import muiTheme from "../../utils/theme";
 import { AppDispatch, RootState } from "../../context";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectMainSection } from "../../context/actions/generalActions";
+import { CREATE_TASK_FORM_TYPE } from "../../utils/constants";
+import { taskServices } from "../../services/taskServices";
 
 const MacDot = ({ color }: { color: string | PaletteColor }) => {
   return (
@@ -187,13 +196,15 @@ const GeneralSection = ({
         </Typography>
       </Box>
       {generalLinkSet.map(({ name, href }: { name: string; href: string }) => (
-        <GeneralSectionLink name={name} href={href} />
+        <GeneralSectionLink key={name} name={name} href={href} />
       ))}
     </Stack>
   );
 };
 
 const BottomSection = () => {
+  const { onOpenForm } = taskServices().taskInfoService();
+
   const theme = muiTheme();
 
   return (
@@ -210,6 +221,7 @@ const BottomSection = () => {
           textAlign: "center",
           lineHeight: "50px",
         }}
+        onClick={onOpenForm}
       >
         <Add fontSize="small" color="inherit" />
       </Box>
@@ -218,40 +230,59 @@ const BottomSection = () => {
 };
 
 const MainSidebar = () => {
+  const { selectedTask, onCloseForm, onUpdateTask } =
+    taskServices().createTaskService();
+
+  const { isCreateTaskFormOpen } = taskServices().taskInfoService();
+
   const theme = muiTheme();
 
   return (
-    <Stack
-      sx={{
-        py: 1,
-        px: 1.6,
-        flex: 0.2,
-        height: "100vh",
-        background: "rgba(241, 242, 246,.5)",
-        boxShadow: `0 4px 2px ${theme.palette.secondary.main}`,
-        borderRight: "1px solid rgba(223, 228, 234,1.0)",
-      }}
-    >
-      <TopSection />
-      <MidSection />
-      <GeneralSection
-        title="Family"
-        titleColor={theme.palette.error.main}
-        generalLinkSet={[
-          { name: "Vacation Planning", href: "/family/vacation-planning" },
-          { name: "Buy A New Car", href: "/family/buy-a-new-car" },
-        ]}
-      />
-      <GeneralSection
-        title="Work"
-        titleColor={theme.palette.success.main}
-        generalLinkSet={[
-          { name: "Onboarding Plan", href: "/work/onboarding-plan" },
-          { name: "Presentation Work", href: "/work/presentation-work" },
-        ]}
-      />
-      <BottomSection />
-    </Stack>
+    <>
+      <Stack
+        sx={{
+          py: 1,
+          px: 1.6,
+          flex: 0.2,
+          height: "100vh",
+          background: "rgba(241, 242, 246,.5)",
+          boxShadow: `0 4px 2px ${theme.palette.secondary.main}`,
+          borderRight: "1px solid rgba(223, 228, 234,1.0)",
+        }}
+      >
+        <TopSection />
+        <MidSection />
+        <GeneralSection
+          title="Family"
+          titleColor={theme.palette.error.main}
+          generalLinkSet={[
+            { name: "Vacation Planning", href: "/family/vacation-planning" },
+            { name: "Buy A New Car", href: "/family/buy-a-new-car" },
+          ]}
+        />
+        <GeneralSection
+          title="Work"
+          titleColor={theme.palette.success.main}
+          generalLinkSet={[
+            { name: "Onboarding Plan", href: "/work/onboarding-plan" },
+            { name: "Presentation Work", href: "/work/presentation-work" },
+          ]}
+        />
+        <BottomSection />
+      </Stack>
+      <Dialog open={isCreateTaskFormOpen}>
+        <CreateTask
+          formType={
+            selectedTask
+              ? CREATE_TASK_FORM_TYPE.UPDATE_TASK
+              : CREATE_TASK_FORM_TYPE.CREATE_TASK
+          }
+          selectedTask={selectedTask ? selectedTask : null}
+          onUpdateTask={onUpdateTask}
+          onClose={onCloseForm}
+        />
+      </Dialog>
+    </>
   );
 };
 

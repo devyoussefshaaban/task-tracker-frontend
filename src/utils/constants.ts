@@ -1,4 +1,4 @@
-import { ITask } from "../models/Task";
+import { Task } from "../models/Task";
 
 export const ACCESS_TOKEN = "accessToken";
 
@@ -14,8 +14,8 @@ export const USER_ROLE = {
 };
 
 export const TASK_STATUS = {
-  UPCOMMING: "Upcomming",
-  WAITING: "Waiting",
+  UPCOMING: "Upcoming",
+  WAITING_REVIEW: "Waiting Review",
   IN_PROGRESS: "In Progress",
   COMPLETED: "Completed",
   IN_REVIEW: "In Review",
@@ -35,7 +35,7 @@ export const TASK_LIST_FILTER = {
   LINKS: "LINKS ",
 };
 
-export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
+export const taskList: { currentTasks: Task[]; upcommingTasks: Task[] } = {
   currentTasks: [
     {
       _id: "1",
@@ -43,7 +43,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.APPROVED,
       priority: TASK_PRIORITY.URGENT,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -52,7 +52,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -61,7 +72,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.IN_PROGRESS,
       priority: TASK_PRIORITY.URGENT,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -70,7 +81,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -79,7 +101,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.IN_PROGRESS,
       priority: TASK_PRIORITY.URGENT,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -88,7 +110,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -97,7 +130,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.IN_REVIEW,
       priority: TASK_PRIORITY.LOW,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -106,7 +139,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -115,7 +159,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.WAITING,
       priority: TASK_PRIORITY.NORMAL,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -124,7 +168,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
   ],
@@ -135,7 +190,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.UPCOMMING,
       priority: TASK_PRIORITY.URGENT,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -144,7 +199,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -153,7 +219,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.UPCOMMING,
       priority: TASK_PRIORITY.LOW,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -162,7 +228,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -171,7 +248,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.UPCOMMING,
       priority: TASK_PRIORITY.URGENT,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -180,7 +257,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -189,7 +277,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.UPCOMMING,
       priority: TASK_PRIORITY.NORMAL,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -198,7 +286,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
     {
@@ -207,7 +306,7 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       description: "Some task description....",
       status: TASK_STATUS.UPCOMMING,
       priority: TASK_PRIORITY.NORMAL,
-      dateTime: "Tue, 22 Dec - 9:30 AM - 11:00 AM",
+      startDateTime: new Date(),
       assignee: {
         _id: "1",
         username: "Nabil",
@@ -216,7 +315,18 @@ export const taskList: { currentTasks: ITask[]; upcommingTasks: ITask[] } = {
       category: {
         _id: "1",
         categoryName: "Work",
-        categoryDescription: "Some category work description...",
+        description: "Some category work description...",
+      },
+      endDateTime: new Date(),
+      project: {
+        _id: "",
+        projectName: "",
+        description: "",
+      },
+      creator: {
+        _id: "",
+        username: "",
+        email: "",
       },
     },
   ],
